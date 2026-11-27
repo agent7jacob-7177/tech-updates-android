@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Updates - Code 7</title>
+<meta name="description" content="Latest technology news, refreshed live from Hacker News.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234f46e5'/><path d='M9 11h14M9 16h14M9 21h9' stroke='white' stroke-width='2.5' stroke-linecap='round'/></svg>">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --surface: #ffffff;
+    --surface-2: #eef0f4;
+    --border: #e2e5eb;
+    --text: #14171f;
+    --muted: #5b6372;
+    --accent: #4f46e5;
+    --accent-soft: #eef0ff;
+    --hot: #c2410c;
+    --ok: #15803d;
+    --shadow: 0 1px 2px rgba(16,24,40,.05), 0 1px 3px rgba(16,24,40,.06);
+    --shadow-hover: 0 4px 12px rgba(16,24,40,.10);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1117;
+      --surface: #161b24;
+      --surface-2: #1e2430;
+      --border: #2a3140;
+      --text: #e7eaf0;
+      --muted: #9099aa;
+      --accent: #8b85ff;
+      --accent-soft: #23234a;
+      --hot: #fb923c;
+      --ok: #4ade80;
+      --shadow: none;
+      --shadow-hover: 0 4px 16px rgba(0,0,0,.4);
+      color-scheme: dark;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  [hidden] { display: none !important; }
+
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem; }
+  .logo {
+    width: 30px; height: 30px; border-radius: 8px; background: var(--accent);
+    display: grid; place-items: center; flex: none;
+  }
+  .brand small { font-weight: 500; color: var(--muted); font-size: .85rem; }
+  .spacer { flex: 1; }
+
+  .search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0 10px; height: 38px;
+    width: min(280px, 100%);
+  }
+  .search:focus-within { border-color: var(--accent); }
+  .search input {
+    border: 0; outline: 0; background: transparent; color: var(--text);
+    font: inherit; font-size: .9rem; width: 100%;
+  }
+  .search svg { color: var(--muted); flex: none; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    height: 38px; padding: 0 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    font: inherit; font-size: .9rem; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--accent); }
+  .btn.spin svg { animation: spin .8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .controls {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    padding: 0 0 14px;
+  }
+  .tabs { display: flex; background: var(--surface-2); border-radius: 10px; padding: 3px; }
+  .tab {
+    border: 0; background: transparent; color: var(--muted);
+    font: inherit; font-size: .875rem; font-weight: 600;
+    padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+  .chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    border: 1px solid var(--border); background: transparent; color: var(--muted);
+    font: inherit; font-size: .8rem; font-weight: 500;
+    padding: 5px 11px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+  }
+  .chip:hover { color: var(--text); }
+  .chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+
+  main.wrap { padding-top: 20px; padding-bottom: 48px; }
+  .status { color: var(--muted); font-size: .85rem; margin-bottom: 16px; min-height: 1.3em; }
+
+  .grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  .card {
+    display: flex; flex-direction: column; gap: 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px;
+    box-shadow: var(--shadow);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    min-width: 0;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+  .card.featured { grid-column: span 2; }
+  .card.featured h2 { font-size: 1.3rem; }
+
+  .meta-top { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: var(--muted); min-width: 0; }
+  .favicon { width: 16px; height: 16px; border-radius: 4px; flex: none; background: var(--surface-2); }
+  .domain { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tag {
+    margin-left: auto; flex: none;
+    font-size: .7rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 2px 8px; border-radius: 999px;
+  }
+
+  .card h2 { font-size: 1.02rem; line-height: 1.35; font-weight: 650; }
+  .card h2 a { color: inherit; text-decoration: none; }
+  .card h2 a:hover { color: var(--accent); }
+  .card h2 a::after { content: ""; }
+  .excerpt { color: var(--muted); font-size: .88rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  .meta {
+    margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border);
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-size: .8rem; color: var(--muted);
+  }
+  .meta span, .meta a { display: inline-flex; align-items: center; gap: 4px; }
+  .meta a { color: var(--muted); text-decoration: none; }
+  .meta a:hover { color: var(--accent); }
+  .meta .hot { color: var(--hot); font-weight: 600; }
+  .meta .discuss { margin-left: auto; }
+
+  .skeleton .line { height: 12px; border-radius: 6px; background: var(--surface-2); animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .5; } }
+
+  .empty {
+    grid-column: 1 / -1; text-align: center; padding: 56px 16px;
+    background: var(--surface); border: 1px dashed var(--border); border-radius: 14px; color: var(--muted);
+  }
+  .empty strong { display: block; color: var(--text); font-size: 1.05rem; margin-bottom: 6px; }
+  .empty .btn { margin-top: 14px; }
+
+  .more { display: flex; justify-content: center; margin-top: 24px; }
+
+  footer { border-top: 1px solid var(--border); padding: 20px 0 32px; color: var(--muted); font-size: .8rem; }
+  footer a { color: inherit; }
+
+  @media (max-width: 700px) {
+    header { position: static; }
+    .bar { flex-wrap: wrap; }
+    .search { order: 3; width: 100%; }
+    .card.featured { grid-column: auto; }
+    .card.featured h2 { font-size: 1.1rem; }
+    .grid { grid-template-columns: 1fr; }
+    .btn .label { display: none; }
+  }
+  .card { cursor: pointer; }
+
+  /* ---- Library + recommendations */
+  .controls .tabs { overflow-x: auto; scrollbar-width: none; max-width: 100%; }
+  .controls .tabs::-webkit-scrollbar { display: none; }
+  .tab { white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+  .count {
+    font-size: .7rem; font-weight: 700; min-width: 18px; padding: 0 6px; line-height: 18px; text-align: center;
+    border-radius: 999px; background: var(--border); color: var(--muted);
+  }
+  .count:empty { display: none; }
+  .tab[aria-selected="true"] .count { background: var(--accent-soft); color: var(--accent); }
+
+  .bookmark {
+    flex: none; display: grid; place-items: center; width: 30px; height: 30px; margin: -6px -8px -6px auto;
+    border: 0; background: transparent; color: var(--muted); border-radius: 8px; cursor: pointer;
+  }
+  .meta-top .tag + .bookmark { margin-left: 2px; }
+  .bookmark:hover { background: var(--surface-2); color: var(--text); }
+  .bookmark[aria-pressed="true"], .btn[aria-pressed="true"] { color: var(--accent); }
+  .bookmark[aria-pressed="true"] svg, #r-save[aria-pressed="true"] svg { fill: currentColor; }
+  .bookmark:focus-visible { outline: 2px solid var(--accent); }
+
+  .why { display: flex; align-items: flex-start; gap: 6px; font-size: .8rem; color: var(--accent); }
+  .why svg { flex: none; margin-top: 2px; }
+  .meta .done { color: var(--ok); }
+
+  .status-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; min-height: 1.3em; }
+  .status-row .status { margin: 0; }
+  .linkish.danger { color: var(--muted); }
+
+  .insights {
+    display: grid; gap: 10px; margin-bottom: 18px; padding: 16px 18px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  }
+  .insights .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+  .insights .head strong { font-size: 1rem; }
+  .insights .sub { color: var(--muted); font-size: .85rem; }
+  .insights .head .linkish { margin-left: auto; padding: 0; }
+  .interests { display: flex; flex-wrap: wrap; gap: 6px; }
+  .interest { font-size: .8rem; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+  .meter { height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; max-width: 320px; }
+  .meter i { display: block; height: 100%; background: var(--accent); }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60;
+    display: flex; align-items: center; gap: 14px; max-width: calc(100% - 32px);
+    background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 10px;
+    font-size: .9rem; box-shadow: var(--shadow-hover);
+  }
+  .toast button { background: none; border: 0; color: inherit; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+  .card:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .card h2 a:focus { outline: none; }
+
+  /* ---- Reader view */
+  body.reading { overflow: hidden; }
+  .reader:focus { outline: none; }
+  .reader {
+    position: fixed; inset: 0; z-index: 50;
+    background: var(--bg); overflow-y: auto; overscroll-behavior: contain;
+  }
+  .reader-bar {
+    position: sticky; top: 0; z-index: 2;
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .reader-bar .inner { max-width: 760px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+  .reader-bar .domain { color: var(--muted); font-size: .85rem; flex: 1; min-width: 0; text-align: center; }
+  .progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--accent); }
+  .btn.ghost { border-color: transparent; background: transparent; }
+  .btn.ghost:hover { background: var(--surface-2); border-color: transparent; }
+  a.btn { text-decoration: none; }
+
+  .reader-body { max-width: 760px; margin: 0 auto; padding: 28px 16px 64px; }
+  .reader h1.title { font-size: clamp(1.5rem, 4vw, 2.1rem); line-height: 1.2; letter-spacing: -.01em; margin: 10px 0 14px; }
+  .reader .byline { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--muted); font-size: .85rem; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .reader .byline span { display: inline-flex; align-items: center; gap: 4px; }
+  .reader .note {
+    margin: 20px 0; padding: 14px 16px; border-radius: 12px;
+    background: var(--surface-2); color: var(--muted); font-size: .9rem;
+  }
+
+  .prose { font-size: 1.06rem; line-height: 1.75; margin-top: 24px; overflow-wrap: break-word; }
+  .prose > * + * { margin-top: 1.05em; }
+  .prose h1, .prose h2, .prose h3, .prose h4 { line-height: 1.3; margin-top: 1.7em; }
+  .prose h1 { font-size: 1.5rem; } .prose h2 { font-size: 1.3rem; } .prose h3 { font-size: 1.12rem; } .prose h4 { font-size: 1rem; }
+  .prose a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  .prose img, .prose video { max-width: 100%; height: auto; border-radius: 10px; display: block; margin: 1.3em auto; }
+  .prose ul, .prose ol { padding-left: 1.4em; }
+  .prose li + li { margin-top: .35em; }
+  .prose blockquote { border-left: 3px solid var(--accent); padding: 2px 0 2px 16px; color: var(--muted); }
+  .prose code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .88em; background: var(--surface-2); padding: .12em .35em; border-radius: 5px; }
+  .prose pre { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; overflow-x: auto; font-size: .88rem; line-height: 1.55; }
+  .prose pre code { background: none; padding: 0; font-size: inherit; }
+  .prose table { display: block; overflow-x: auto; border-collapse: collapse; font-size: .92rem; }
+  .prose th, .prose td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; }
+  .prose hr { border: 0; border-top: 1px solid var(--border); margin: 2em 0; }
+
+  .skel-lines { margin-top: 28px; display: grid; gap: 12px; }
+  .skel-lines .line { height: 14px; border-radius: 7px; background: var(--surface-2); animation: pulse 1.2s ease-in-out infinite; }
+
+  .continue {
+    margin-top: 36px; padding: 20px; border-radius: 14px;
+    background: var(--surface); border: 1px solid var(--border);
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+  }
+  .continue p { flex: 1 1 220px; color: var(--muted); font-size: .9rem; }
+  .continue .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+
+  .discussion { margin-top: 40px; }
+  .discussion h2 { font-size: 1.15rem; margin-bottom: 4px; }
+  .discussion .sub { color: var(--muted); font-size: .85rem; margin-bottom: 14px; }
+  .comment { padding: 12px 0 0; }
+  .comment + .comment { border-top: 1px solid var(--border); margin-top: 12px; }
+  .comment .who { font-size: .8rem; color: var(--muted); margin-bottom: 4px; }
+  .comment .who b { color: var(--text); font-weight: 600; }
+  .comment .text { font-size: .95rem; line-height: 1.6; overflow-wrap: anywhere; }
+  .comment .text p + p { margin-top: .6em; }
+  .comment .text a { color: var(--accent); }
+  .comment .text pre { white-space: pre-wrap; font-size: .85rem; background: var(--surface-2); padding: 8px 10px; border-radius: 8px; margin-top: .6em; }
+  .replies { margin: 10px 0 0 4px; padding-left: 14px; border-left: 2px solid var(--border); }
+  .replies .comment + .comment { border-top: 0; margin-top: 4px; }
+  .linkish { background: none; border: 0; color: var(--accent); font: inherit; font-size: .85rem; cursor: pointer; padding: 6px 0 0; }
+
+  @media (max-width: 700px) {
+    .prose { font-size: 1.02rem; }
+    .reader-bar .domain { visibility: hidden; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 32 32"><path d="M9 11h14M9 16h14M9 21h9" stroke="white" stroke-width="3" stroke-linecap="round"/></svg>
+        </div>
+        <div>Tech Updates <small>· Code 7</small></div>
+      </div>
+      <div class="spacer"></div>
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search tech news…" aria-label="Search tech news" autocomplete="off">
+      </label>
+      <button class="btn" id="refresh" type="button" title="Refresh">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 4v5h-5"/></svg>
+        <span class="label">Refresh</span>
+      </button>
+    </div>
+    <div class="controls">
+      <div class="tabs" role="tablist" aria-label="Feed">
+        <button class="tab" role="tab" data-feed="top" aria-selected="true">Top</button>
+        <button class="tab" role="tab" data-feed="new" aria-selected="false">Latest</button>
+        <button class="tab" role="tab" data-feed="week" aria-selected="false">This week</button>
+        <button class="tab" role="tab" data-feed="foryou" aria-selected="false">✦ For you</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Your library">
+        <button class="tab" role="tab" data-feed="later" aria-selected="false">Read later <span class="count" id="c-later"></span></button>
+        <button class="tab" role="tab" data-feed="read" aria-selected="false">Read <span class="count" id="c-read"></span></button>
+      </div>
+      <div class="chips" id="chips" aria-label="Topics"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="insights" id="insights" hidden></section>
+  <div class="status-row">
+    <p class="status" id="status" aria-live="polite"></p>
+    <button class="linkish danger" id="status-action" type="button" hidden></button>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="more"><button class="btn" id="more" type="button" hidden>Load more</button></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    Headlines from <a href="https://news.ycombinator.com/" rel="noopener">Hacker News</a> via the
+    <a href="https://hn.algolia.com/api" rel="noopener">Algolia HN API</a>, fetched live in your browser.
+    Article text is extracted with <a href="https://jina.ai/reader/" rel="noopener">Jina Reader</a>.
+    Your reading list, history and the “For you” model are stored only in this browser.
+  </div>
+</footer>
+
+<div class="reader" id="reader" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="r-title" hidden>
+  <div class="reader-bar">
+    <div class="inner">
+      <button class="btn ghost" id="r-back" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Back</span>
+      </button>
+      <div class="domain" id="r-domain"></div>
+      <button class="btn ghost" id="r-save" type="button" aria-pressed="false" aria-label="Read later" title="Read later">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+        <span class="label">Read later</span>
+      </button>
+      <button class="btn ghost" id="r-read" type="button" aria-pressed="false" aria-label="Mark as read" title="Mark as read">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        <span class="label">Mark read</span>
+      </button>
+      <a class="btn" id="r-open" target="_blank" rel="noopener noreferrer" aria-label="Open original article">
+        <span class="label">Original</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+    </div>
+    <div class="progress" id="r-progress"></div>
+  </div>
+  <article class="reader-body" id="r-body"></article>
+</div>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script>
+(() => {
+  const API = "https://hn.algolia.com/api/v1/";
+  const PAGE_SIZE = 30;
+  const TOPICS = [
+    { id: "", label: "All" },
+    { id: "AI", label: "AI", q: "AI", match: /\b(ai|llms?|gpt|chatgpt|openai|anthropic|claude|gemini|agi|chatbot|copilot)\b/i },
+    { id: "ML", label: "Machine Learning", tag: "ML", q: "machine learning",
+      match: /\b(machine learning|ml|deep learning|neural (net|network)s?|pytorch|tensorflow|jax|transformers?|diffusion|reinforcement learning|rlhf|fine-?tun\w*|embeddings?|inference|training run|datasets?|kaggle|scikit-learn|xgboost|open weights|model weights)\b/i },
+    { id: "Security", label: "Security", q: "security", match: /\b(security|vulnerab|breach|hack|exploit|cve|malware|ransomware|privacy)\b/i },
+    { id: "Programming", label: "Programming", q: "programming", match: /\b(rust|python|javascript|typescript|golang|go |compiler|programming|code|developer|api|framework)\b/i },
+    { id: "Hardware", label: "Hardware", q: "chip", match: /\b(chip|cpu|gpu|nvidia|amd|intel|arm|apple silicon|semiconductor|hardware)\b/i },
+    { id: "Space", label: "Space", q: "space", match: /\b(nasa|spacex|rocket|satellite|orbit|space|mars|moon)\b/i },
+    { id: "Startups", label: "Startups", q: "startup", match: /\b(startup|funding|raises|vc|acquire|acquisition|ipo|series [a-d])\b/i },
+  ];
+
+  const $ = (id) => document.getElementById(id);
+  const grid = $("grid"), status = $("status"), moreBtn = $("more"), refreshBtn = $("refresh"), qInput = $("q");
+
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  };
+
+  const state = { feed: store.get("tu.feed") || "top", topic: "", query: "", page: 0, nbPages: 1, items: [], loading: false, reqId: 0, hidden: 0 };
+  const FEEDS = ["top", "new", "week"];          // live Hacker News feeds
+  const isLibrary = (f) => f === "later" || f === "read";
+  if (!["top", "new", "week", "foryou", "later", "read"].includes(state.feed)) state.feed = "top";
+
+  // =====================================================================
+  // Library: "Read later" and "Read" lists (this browser only)
+  // =====================================================================
+  const slim = (h) => ({
+    objectID: String(h.objectID), title: h.title, url: h.url || null, author: h.author,
+    points: h.points || 0, num_comments: h.num_comments || 0, created_at_i: h.created_at_i,
+    story_text: h.story_text ? String(h.story_text).slice(0, 4000) : null,
+  });
+  const lib = {
+    data: Object.assign({ read: {}, later: {} }, store.get("tu.lib") || {}),
+    isRead(id) { return !!this.data.read[id]; },
+    isLater(id) { return !!this.data.later[id]; },
+    list(kind) { return Object.values(this.data[kind]).sort((a, b) => b.at - a.at); },
+    markRead(h) {
+      const id = String(h.objectID);
+      this.data.read[id] = { h: slim(h), at: Date.now() };
+      delete this.data.later[id];                       // finished: leaves the reading list
+      const all = this.list("read");
+      all.slice(500).forEach(e => delete this.data.read[e.h.objectID]);
+      this.persist();
+    },
+    unread(id) { delete this.data.read[id]; this.persist(); },
+    setLater(h, on) {
+      const id = String(h.objectID);
+      if (on) this.data.later[id] = { h: slim(h), at: Date.now() }; else delete this.data.later[id];
+      this.persist();
+    },
+    clearRead() { this.data.read = {}; this.persist(); },
+    persist() { store.set("tu.lib", this.data); syncCounts(); },
+  };
+  function syncCounts() {
+    const n = (k) => Object.keys(lib.data[k]).length;
+    $("c-later").textContent = n("later") || "";
+    $("c-read").textContent = n("read") || "";
+  }
+
+  // =====================================================================
+  // "For you" model: logistic regression over title words, phrases,
+  // site and topic, trained in the browser on what you open, save and
+  // read (positives) vs. what you scroll past repeatedly (negatives).
+  // =====================================================================
+  const STOP = new Set(("a an the and or of to in on for with by from at as is are was were be been being it its this that these those " +
+    "how why what when where who which your you we our i my me vs via into about over after before new show ask hn not no can could will " +
+    "would should just using use used make made get got than then there their they them his her do does did done one two first more most " +
+    "all any some out up down off only also like way ways years year day days").split(" "));
+
+  function featuresOf(h) {
+    const title = h.title || "";
+    const words = title.toLowerCase().replace(/[^a-z0-9+#.\-\s]/g, " ").split(/\s+/)
+      .map(w => w.replace(/^[.\-]+|[.\-]+$/g, ""))
+      .filter(w => w.length > 1 && !STOP.has(w) && !/^\d+$/.test(w));
+    const f = new Set(words.map(w => "w:" + w));
+    for (let i = 0; i + 1 < words.length; i++) f.add(`b:${words[i]} ${words[i + 1]}`);
+    const d = domainOf(h.url); if (d) f.add("d:" + d);
+    const t = topicOf(title); if (t) f.add("t:" + t);
+    if (/^show hn/i.test(title)) f.add("k:Show HN");
+    if (/^ask hn/i.test(title)) f.add("k:Ask HN");
+    return [...f];
+  }
+
+  const featureLabel = (f) => {
+    const [kind, v] = [f.slice(0, 1), f.slice(2)];
+    return kind === "t" ? (TOPICS.find(t => (t.tag || t.label) === v) || { label: v }).label : v;
+  };
+
+  const SIGNALS = { open: 0.4, save: 0.8, read: 1 };
+
+  const Learner = {
+    events: store.get("tu.events") || [],   // { k: open|save|read, h, at }
+    imp: store.get("tu.imp") || {},         // id -> { n, h, at }  (times seen without opening)
+    model: null,
+    seen: new Set(),
+
+    record(kind, h) {
+      const id = String(h.objectID);
+      this.events = this.events.filter(e => !(e.k === kind && e.h.objectID === id));
+      this.events.push({ k: kind, h: slim(h), at: Date.now() });
+      if (this.events.length > 600) this.events = this.events.slice(-600);
+      this.model = null;
+      store.set("tu.events", this.events);
+    },
+    forget(kind, id) {
+      this.events = this.events.filter(e => !(e.k === kind && e.h.objectID === String(id)));
+      this.model = null;
+      store.set("tu.events", this.events);
+    },
+    impression(h) {
+      const id = String(h.objectID);
+      if (this.seen.has(id)) return;          // once per page load
+      this.seen.add(id);
+      const cur = this.imp[id] || { n: 0 };
+      this.imp[id] = { n: cur.n + 1, h: slim(h), at: Date.now() };
+      const keys = Object.keys(this.imp);
+      if (keys.length > 400) keys.sort((a, b) => this.imp[a].at - this.imp[b].at).slice(0, keys.length - 400).forEach(k => delete this.imp[k]);
+      this.model = null;
+      clearTimeout(this._t);
+      this._t = setTimeout(() => store.set("tu.imp", this.imp), 500);
+    },
+    positiveIds() { return new Set(this.events.map(e => e.h.objectID)); },
+    positives() { return this.positiveIds().size; },
+    reset() { this.events = []; this.imp = {}; this.model = null; store.set("tu.events", []); store.set("tu.imp", {}); },
+
+    examples() {
+      const pos = new Map();   // one example per story, strongest signal wins
+      for (const e of this.events) {
+        const w = SIGNALS[e.k] || 0.4, cur = pos.get(e.h.objectID);
+        if (!cur || cur.s < w) pos.set(e.h.objectID, { h: e.h, y: 1, s: w });
+      }
+      const data = [...pos.values()];
+      for (const [id, v] of Object.entries(this.imp)) {
+        if (!pos.has(id) && v.n >= 1) data.push({ h: v.h, y: 0, s: Math.min(0.45, 0.15 * v.n) });
+      }
+      return data.map(d => ({ x: featuresOf(d.h), y: d.y, s: d.s }));
+    },
+
+    train() {
+      const data = this.examples();
+      const w = new Map(); let b = 0;
+      const lr = 0.5, l2 = 0.002, epochs = 14;
+      let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+      for (let ep = 0; ep < epochs; ep++) {
+        for (let i = data.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [data[i], data[j]] = [data[j], data[i]]; }
+        for (const d of data) {
+          if (!d.x.length) continue;
+          const xv = 1 / Math.sqrt(d.x.length);
+          let z = b; for (const f of d.x) z += (w.get(f) || 0) * xv;
+          const g = (d.y - 1 / (1 + Math.exp(-z))) * d.s;
+          b += lr * 0.1 * g;
+          for (const f of d.x) { const wf = w.get(f) || 0; w.set(f, wf + lr * (g * xv - l2 * wf)); }
+        }
+      }
+      // How many stories you engaged with share each feature: only recurring ones are shown as interests/reasons
+      const support = new Map();
+      data.filter(d => d.y === 1).forEach(d => d.x.forEach(f => support.set(f, (support.get(f) || 0) + 1)));
+      this.model = { w, b, n: data.length, support };
+      return this.model;
+    },
+
+    // Returns the learned affinity for a story (independent of the bias) and the top reasons
+    score(h) {
+      const m = this.model || this.train();
+      const x = featuresOf(h);
+      if (!x.length) return { affinity: 0, why: [] };
+      const xv = 1 / Math.sqrt(x.length);
+      const parts = x.map(f => [f, (m.w.get(f) || 0) * xv]);
+      const affinity = parts.reduce((s, [, c]) => s + c, 0);
+      const why = parts.filter(([f, c]) => c > 0.04 && (m.support.get(f) || 0) >= 2).sort((a, b) => b[1] - a[1])
+        .map(([f]) => featureLabel(f)).filter((v, i, a) => a.indexOf(v) === i).slice(0, 2);
+      return { affinity, why };
+    },
+
+    interests(n = 10) {
+      const m = this.model || this.train();
+      const out = [];
+      for (const [f, wt] of [...m.w.entries()].sort((a, b) => b[1] - a[1])) {
+        if (wt < 0.05 || out.length >= n) break;
+        if ((m.support.get(f) || 0) < 2) continue;
+        const label = featureLabel(f);
+        if (!out.some(o => o === label || o.includes(label))) out.push(label);
+      }
+      return out;
+    },
+  };
+
+  // ---- UI setup
+  const chips = $("chips");
+  TOPICS.forEach(t => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = t.label; b.dataset.topic = t.id;
+    b.setAttribute("aria-pressed", String(t.id === state.topic));
+    b.onclick = () => { state.topic = t.id; syncChips(); load(); };
+    chips.appendChild(b);
+  });
+  const syncChips = () => chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.topic === state.topic)));
+  const syncTabs = () => document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", String(t.dataset.feed === state.feed)));
+  document.querySelectorAll(".tab").forEach(t => t.onclick = () => { state.feed = t.dataset.feed; store.set("tu.feed", state.feed); syncTabs(); load(); });
+  syncTabs();
+  syncCounts();
+
+  const statusAction = $("status-action");
+  function setStatus(text, action) {
+    status.textContent = text;
+    statusAction.hidden = !action;
+    if (action) { statusAction.textContent = action.label; statusAction.onclick = action.run; }
+  }
+  const hiddenNote = () => state.hidden ? ` · ${state.hidden} already read hidden` : "";
+  const clock = () => new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+
+  const toastEl = $("toast");
+  let toastTimer;
+  function toast(msg, undo) {
+    toastEl.replaceChildren(el("span", { text: msg }));
+    if (undo) {
+      const b = el("button", { type: "button", text: "Undo" });
+      b.onclick = () => { toastEl.hidden = true; undo(); };
+      toastEl.append(b);
+    }
+    toastEl.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toastEl.hidden = true; }, 4000);
+  }
+
+  let debounce;
+  qInput.addEventListener("input", () => { clearTimeout(debounce); debounce = setTimeout(() => { state.query = qInput.value.trim(); load(); }, 350); });
+  refreshBtn.onclick = () => load();
+  moreBtn.onclick = () => load(true);
+
+  // ---- Data
+  function buildUrl(page) {
+    const topic = TOPICS.find(t => t.id === state.topic);
+    const query = [state.query, topic && topic.q].filter(Boolean).join(" ");
+    const p = new URLSearchParams({ hitsPerPage: PAGE_SIZE, page });
+    const week = Math.floor(Date.now() / 1000) - 7 * 86400;
+    let endpoint = "search";
+    if (state.feed === "top" && !query) {
+      p.set("tags", "front_page");
+    } else if (state.feed === "new") {
+      endpoint = "search_by_date";
+      p.set("tags", "story");
+      p.set("numericFilters", "points>5");
+    } else {
+      // "This week", or Top with a search/topic: popular stories from the last 7 days
+      p.set("tags", "story");
+      p.set("numericFilters", `created_at_i>${week},points>${query ? 10 : 50}`);
+    }
+    if (query) p.set("query", query);
+    return `${API}${endpoint}?${p}`;
+  }
+
+  async function load(append = false) {
+    if (isLibrary(state.feed)) return loadLibrary();
+    if (state.feed === "foryou") return loadForYou();
+    $("insights").hidden = true;
+    const reqId = ++state.reqId;
+    const page = append ? state.page + 1 : 0;
+    state.loading = true;
+    refreshBtn.classList.add("spin");
+    if (!append) { renderSkeletons(); setStatus("Loading latest updates…"); }
+    moreBtn.disabled = true;
+
+    try {
+      const res = await fetch(buildUrl(page));
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (reqId !== state.reqId) return;
+      let hits = (data.hits || []).filter(h => h.title);
+      if (state.feed === "week" || (state.feed === "top" && (state.query || state.topic))) {
+        hits.sort((a, b) => (b.points || 0) - (a.points || 0));
+      }
+      state.items = append ? dedupe(state.items.concat(hits)) : hits;
+      state.page = data.page || 0;
+      state.nbPages = data.nbPages || 1;
+      if (!append && !state.query && !state.topic) store.set(`tu.cache.${state.feed}`, { at: Date.now(), items: hits });
+      render();
+      state.updatedAt = clock();
+      setStatus(`${state.items.length - state.hidden} stories · updated ${state.updatedAt}${hiddenNote()}`);
+    } catch (err) {
+      if (reqId !== state.reqId) return;
+      const cached = !append && !state.query && !state.topic && store.get(`tu.cache.${state.feed}`);
+      if (cached && cached.items && cached.items.length) {
+        state.items = cached.items; state.nbPages = 1;
+        render();
+        setStatus(`Offline: showing saved stories from ${timeAgo(cached.at / 1000)}.`);
+      } else if (!append) {
+        renderError();
+        setStatus("");
+      } else {
+        setStatus("Couldn't load more stories. Try again.");
+      }
+    } finally {
+      if (reqId === state.reqId) {
+        state.loading = false;
+        refreshBtn.classList.remove("spin");
+        moreBtn.disabled = false;
+      }
+    }
+  }
+
+  // ---- Library views (Read later / Read): local, filtered by search + topic
+  function loadLibrary() {
+    ++state.reqId;
+    $("insights").hidden = true;
+    refreshBtn.classList.remove("spin");
+    const kind = state.feed;
+    const topic = TOPICS.find(t => t.id === state.topic);
+    const q = state.query.toLowerCase();
+    state.items = lib.list(kind).map(e => Object.assign({}, e.h, { _at: e.at }))
+      .filter(h => !q || (h.title || "").toLowerCase().includes(q))
+      .filter(h => !topic || !topic.match || topic.match.test(h.title || ""));
+    state.page = 0; state.nbPages = 1;
+    render();
+    const total = Object.keys(lib.data[kind]).length;
+    const shown = state.items.length < total ? `${state.items.length} of ${total}` : `${total}`;
+    if (kind === "later") setStatus(total ? `${shown} saved to read later` : "");
+    else setStatus(total ? `${shown} read` : "", total ? {
+      label: "Clear history",
+      run: () => {
+        const backup = lib.data.read;
+        lib.clearRead(); load();
+        toast("Reading history cleared", () => { lib.data.read = backup; lib.persist(); load(); });
+      },
+    } : null);
+  }
+
+  // ---- "For you": candidates from several feeds, ranked by the model
+  const MIN_SIGNALS = 3;
+  async function fetchHits(params, endpoint = "search") {
+    const res = await fetch(`${API}${endpoint}?${new URLSearchParams(params)}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return ((await res.json()).hits || []).filter(h => h.title);
+  }
+
+  async function loadForYou() {
+    const reqId = ++state.reqId;
+    refreshBtn.classList.add("spin");
+    renderSkeletons();
+    setStatus("Finding stories for you…");
+    const ready = Learner.positives() >= MIN_SIGNALS;
+    const week = Math.floor(Date.now() / 1000) - 7 * 86400;
+    const interests = ready ? Learner.interests(4) : [];
+    const sources = [
+      fetchHits({ tags: "front_page", hitsPerPage: 60 }),
+      fetchHits({ tags: "story", numericFilters: "points>20", hitsPerPage: 60 }, "search_by_date"),
+      fetchHits({ tags: "story", numericFilters: `created_at_i>${week},points>40`, hitsPerPage: 60 }),
+      ...interests.map(q => fetchHits({ tags: "story", query: q, numericFilters: `created_at_i>${week},points>5`, hitsPerPage: 25 })),
+    ];
+    const results = await Promise.allSettled(sources);
+    if (reqId !== state.reqId) return;
+    refreshBtn.classList.remove("spin");
+    let pool = dedupe(results.flatMap(r => r.status === "fulfilled" ? r.value : []));
+    if (!pool.length) { renderError(); setStatus(""); renderInsights(ready); return; }
+
+    const topic = TOPICS.find(t => t.id === state.topic);
+    const q = state.query.toLowerCase();
+    pool = pool.filter(h => !lib.isRead(String(h.objectID)))
+      .filter(h => !q || h.title.toLowerCase().includes(q))
+      .filter(h => !topic || !topic.match || topic.match.test(h.title));
+
+    const pop = (h) => Math.min(1, Math.log10((h.points || 0) + 1) / 3);
+    if (ready) {
+      Learner.train();
+      pool.forEach(h => { const s = Learner.score(h); h._score = 0.8 * s.affinity + 0.6 * pop(h); h._why = s.affinity > 0.05 ? s.why : []; });
+    } else {
+      pool.forEach(h => { h._score = pop(h); h._why = []; });
+    }
+    pool.sort((a, b) => b._score - a._score);
+    state.items = pool.slice(0, 40);
+    state.page = 0; state.nbPages = 1;
+    renderInsights(ready);
+    render();
+    state.updatedAt = clock();
+    setStatus(ready
+      ? `${state.items.length} picks ranked for you · updated ${state.updatedAt}`
+      : `Showing popular stories until the model has learned your taste`);
+  }
+
+  function renderInsights(ready) {
+    const box = $("insights");
+    const n = Learner.positives();
+    box.hidden = false;
+    if (!ready) {
+      box.replaceChildren(
+        el("div", { class: "head" }, el("strong", { text: "✦ Teach this feed what you like" }),
+          el("span", { class: "sub", text: `${Math.min(n, MIN_SIGNALS)} of ${MIN_SIGNALS} stories` })),
+        el("div", { class: "meter" }, el("i", { style: `width:${(Math.min(n, MIN_SIGNALS) / MIN_SIGNALS) * 100}%` })),
+        el("span", { class: "sub", text: "Open, read or save a few stories. A small model in your browser learns the topics, words and sites you care about and ranks new stories for you. Nothing leaves this device." }));
+      return;
+    }
+    const reset = el("button", { class: "linkish danger", type: "button", text: "Reset" });
+    reset.onclick = () => {
+      if (!confirm("Forget what the model has learned? Your Read later and Read lists are kept.")) return;
+      Learner.reset(); load();
+    };
+    const tags = Learner.interests(10);
+    box.replaceChildren(
+      el("div", { class: "head" }, el("strong", { text: "✦ Your interests" }),
+        el("span", { class: "sub", text: `learned from ${n} stories you opened, saved or read` }), reset),
+      tags.length ? el("div", { class: "interests" }, tags.map(t => el("span", { class: "interest", text: t })))
+                  : el("span", { class: "sub", text: "Still learning: keep reading." }));
+  }
+
+  // Re-draw the current view after something moved between lists
+  function refreshView() {
+    if (isLibrary(state.feed)) return loadLibrary();
+    render();
+    const shown = state.items.length - state.hidden;
+    if (state.feed === "foryou") { if (Learner.positives() >= MIN_SIGNALS) setStatus(`${shown} picks ranked for you · updated ${state.updatedAt}`); }
+    else if (state.updatedAt) setStatus(`${shown} stories · updated ${state.updatedAt}${hiddenNote()}`);
+  }
+
+  const dedupe = (arr) => { const seen = new Set(); return arr.filter(h => !seen.has(h.objectID) && seen.add(h.objectID)); };
+
+  // ---- Rendering
+  function el(tag, attrs = {}, ...kids) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === "class") n.className = v; else if (k === "text") n.textContent = v; else n.setAttribute(k, v);
+    }
+    kids.flat().forEach(k => k && n.append(k));
+    return n;
+  }
+
+  function domainOf(url) { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } }
+  function safeUrl(url) { try { const u = new URL(url); return /^https?:$/.test(u.protocol) ? u.href : null; } catch { return null; } }
+
+  function timeAgo(sec) {
+    const s = Math.max(1, Math.floor(Date.now() / 1000 - sec));
+    const units = [["y", 31536000], ["mo", 2592000], ["d", 86400], ["h", 3600], ["m", 60]];
+    for (const [u, n] of units) if (s >= n) return `${Math.floor(s / n)}${u} ago`;
+    return "just now";
+  }
+
+  function topicOf(title) {
+    const t = TOPICS.find(t => t.match && t.match.test(title));
+    return t ? (t.tag || t.label) : "";
+  }
+
+  function stripHtml(html) {
+    const d = new DOMParser().parseFromString(html || "", "text/html");
+    return (d.body.textContent || "").trim();
+  }
+
+  const icon = (path) => {
+    const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    s.setAttribute("width", "14"); s.setAttribute("height", "14"); s.setAttribute("viewBox", "0 0 24 24");
+    s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "2");
+    s.setAttribute("aria-hidden", "true"); s.innerHTML = path; return s;
+  };
+  const ICONS = {
+    up: '<path d="m18 15-6-6-6 6"/>',
+    chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    bookmark: '<path d="M6 3h12v18l-6-4-6 4z"/>',
+    check: '<path d="M20 6 9 17l-5-5"/>',
+    spark: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/>',
+  };
+
+  function toggleLater(h, on = !lib.isLater(String(h.objectID))) {
+    lib.setLater(h, on);
+    if (on) Learner.record("save", h); else Learner.forget("save", h.objectID);
+    return on;
+  }
+
+  function bookmarkBtn(h) {
+    const id = String(h.objectID);
+    const b = el("button", { class: "bookmark", type: "button" }, icon(ICONS.bookmark));
+    const sync = () => {
+      const on = lib.isLater(id);
+      b.setAttribute("aria-pressed", String(on));
+      b.setAttribute("aria-label", on ? "Remove from Read later" : "Read later");
+      b.title = on ? "Remove from Read later" : "Read later";
+    };
+    sync();
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const on = toggleLater(h);
+      sync();
+      if (state.feed === "later") load();
+      toast(on ? "Saved to Read later" : "Removed from Read later", () => { toggleLater(h, !on); state.feed === "later" ? load() : sync(); });
+    });
+    return b;
+  }
+
+  // Cards seen for ~1s count as impressions: scrolled past repeatedly = mild "not interested"
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const n = e.target;
+      if (e.isIntersecting) n._t = setTimeout(() => { Learner.impression(n._h); io.unobserve(n); }, 1200);
+      else clearTimeout(n._t);
+    }
+  }, { threshold: 0.6 }) : null;
+
+  function card(h, featured) {
+    byId.set(String(h.objectID), h);
+    const domain = domainOf(h.url) || "news.ycombinator.com";
+    const topic = topicOf(h.title);
+    const excerpt = stripHtml(h.story_text);
+    const points = h.points || 0;
+
+    const fav = el("img", { class: "favicon", alt: "", loading: "lazy", src: `https://icons.duckduckgo.com/ip3/${domain}.ico` });
+    fav.onerror = () => fav.remove();
+
+    const node = el("article", { class: "card" + (featured ? " featured" : "") },
+      el("div", { class: "meta-top" }, fav, el("span", { class: "domain", text: domain }), topic && el("span", { class: "tag", text: topic }), bookmarkBtn(h)),
+      el("h2", {}, el("a", { href: `#story/${encodeURIComponent(h.objectID)}`, text: h.title })),
+      h._why && h._why.length && el("p", { class: "why" }, icon(ICONS.spark), `Because you read about ${h._why.join(" and ")}`),
+      excerpt && el("p", { class: "excerpt", text: excerpt }),
+      el("div", { class: "meta" },
+        el("span", { class: points >= 300 ? "hot" : "", title: "Points" }, icon(ICONS.up), String(points)),
+        state.feed === "read" && h._at
+          ? el("span", { class: "done", title: new Date(h._at).toLocaleString() }, icon(ICONS.check), `Read ${timeAgo(h._at / 1000)}`)
+          : state.feed === "later" && h._at
+            ? el("span", { title: new Date(h._at).toLocaleString() }, icon(ICONS.bookmark), `Saved ${timeAgo(h._at / 1000)}`)
+            : el("span", { title: new Date(h.created_at_i * 1000).toLocaleString() }, icon(ICONS.clock), timeAgo(h.created_at_i)),
+        el("span", { class: "discuss", title: "Comments" }, icon(ICONS.chat), `${h.num_comments || 0} comments`)
+      )
+    );
+    if (io && !isLibrary(state.feed) && !lib.isLater(String(h.objectID))) { node._h = h; io.observe(node); }
+    const titleLink = node.querySelector("h2 a");
+    titleLink.addEventListener("click", (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;  // allow open-in-new-tab
+      e.preventDefault();
+      openStory(h.objectID);
+    });
+    // Whole card opens the reader (the title link handles keyboard + middle-click)
+    node.addEventListener("click", (e) => {
+      if (e.target.closest("a")) return;
+      if (window.getSelection && String(window.getSelection())) return; // let people select text
+      openStory(h.objectID);
+    });
+    return node;
+  }
+
+  function render() {
+    grid.replaceChildren();
+    if (io) io.disconnect();
+    // Stories you've read move to the Read tab and are hidden from the feeds
+    const items = state.feed === "read" ? state.items : state.items.filter(h => !lib.isRead(String(h.objectID)));
+    state.hidden = state.items.length - items.length;
+    moreBtn.hidden = isLibrary(state.feed) || state.feed === "foryou" || state.page + 1 >= state.nbPages;
+    if (!items.length) {
+      const empty = {
+        later: ["Nothing saved yet", "Tap the bookmark on any story to keep it here for later."],
+        read: ["No reading history yet", "Stories you read to the end, or mark as read, show up here."],
+      }[state.feed] || (state.hidden
+        ? ["You've read everything here", "Try Load more, another feed, or check back later."]
+        : ["No stories found", "Try a different search or topic."]);
+      if (isLibrary(state.feed) && (state.query || state.topic)) empty[1] = "Nothing here matches that search or topic.";
+      grid.append(el("div", { class: "empty" }, el("strong", { text: empty[0] }), el("span", { text: empty[1] })));
+      return;
+    }
+    const showFeatured = FEEDS.includes(state.feed) && !state.query && window.matchMedia("(min-width: 701px)").matches;
+    items.forEach((h, i) => grid.append(card(h, showFeatured && i === 0)));
+  }
+
+  function renderSkeletons() {
+    grid.replaceChildren();
+    moreBtn.hidden = true;
+    for (let i = 0; i < 9; i++) {
+      grid.append(el("div", { class: "card skeleton", "aria-hidden": "true" },
+        el("div", { class: "line", style: "width:40%" }),
+        el("div", { class: "line", style: "width:95%;height:16px" }),
+        el("div", { class: "line", style: "width:70%;height:16px" }),
+        el("div", { class: "line", style: "width:55%;margin-top:18px" })));
+    }
+  }
+
+  function renderError() {
+    const retry = el("button", { class: "btn", type: "button", text: "Try again" });
+    retry.onclick = () => load();
+    grid.replaceChildren(el("div", { class: "empty" },
+      el("strong", { text: "Couldn't load the news" }),
+      el("span", { text: "The news service didn't respond. Check your connection and try again." }),
+      el("br"), retry));
+    moreBtn.hidden = true;
+  }
+
+  // =====================================================================
+  // Reader view: article text (via Jina Reader) + Hacker News discussion
+  // =====================================================================
+  const READER = "https://r.jina.ai/";
+  const byId = new Map();          // objectID -> hit, filled as cards render
+  const articleCache = new Map();  // url -> { md }
+  const reader = $("reader"), rBody = $("r-body"), rOpen = $("r-open"), rDomain = $("r-domain"), rProgress = $("r-progress");
+  let readerReq = 0, openedFromList = false, lastFocus = null;
+  let current = null, openedAt = 0, libChanged = false;
+  const rSave = $("r-save"), rRead = $("r-read");
+
+  function syncReaderButtons() {
+    if (!current) { rSave.hidden = rRead.hidden = true; return; }
+    const id = String(current.objectID), later = lib.isLater(id), read = lib.isRead(id);
+    rSave.hidden = rRead.hidden = false;
+    rSave.setAttribute("aria-pressed", String(later));
+    rSave.setAttribute("aria-label", later ? "Remove from Read later" : "Read later");
+    rSave.querySelector(".label").textContent = later ? "Saved" : "Read later";
+    rRead.setAttribute("aria-pressed", String(read));
+    rRead.setAttribute("aria-label", read ? "Mark as unread" : "Mark as read");
+    rRead.querySelector(".label").textContent = read ? "Read" : "Mark read";
+  }
+
+  function markRead(h, how) {
+    const id = String(h.objectID);
+    if (lib.isRead(id)) return;
+    const wasLater = lib.isLater(id);
+    lib.markRead(h);
+    Learner.record("read", h);
+    libChanged = true;
+    syncReaderButtons();
+    toast(how === "auto" ? "Finished. Moved to Read" : "Marked as read", () => {
+      lib.unread(id); Learner.forget("read", id);
+      if (wasLater) lib.setLater(h, true);
+      libChanged = true; syncReaderButtons();
+      if (reader.hidden) refreshView();
+    });
+  }
+
+  rSave.onclick = () => {
+    if (!current) return;
+    const on = toggleLater(current);
+    libChanged = true;
+    syncReaderButtons();
+    toast(on ? "Saved to Read later" : "Removed from Read later");
+  };
+  rRead.onclick = () => {
+    if (!current) return;
+    const id = String(current.objectID);
+    if (lib.isRead(id)) {
+      lib.unread(id); Learner.forget("read", id); libChanged = true; syncReaderButtons();
+      toast("Marked as unread");
+    } else markRead(current, "manual");
+  };
+
+  function openStory(id) { openedFromList = true; location.hash = `story/${id}`; }
+
+  function closeReader() {
+    if (openedFromList) { history.back(); return; }   // pops our hash entry -> route() hides
+    history.replaceState(null, "", location.pathname + location.search);
+    route();
+  }
+
+  function route() {
+    const m = location.hash.match(/^#story\/(\d+)$/);
+    if (m) showReader(m[1]); else hideReader();
+  }
+
+  function hideReader() {
+    openedFromList = false;
+    if (reader.hidden) return;
+    readerReq++;
+    current = null;
+    if (libChanged) { libChanged = false; refreshView(); }
+    reader.hidden = true;
+    document.body.classList.remove("reading");
+    rBody.replaceChildren();
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
+  }
+
+  const hnLink = (id) => `https://news.ycombinator.com/item?id=${encodeURIComponent(id)}`;
+  const countDesc = (c) => (c.children || []).reduce((n, k) => n + (k.text ? 1 : 0) + countDesc(k), 0);
+  const itemToHit = (it) => ({
+    objectID: String(it.id), title: it.title || "(untitled)", url: it.url, author: it.author,
+    points: it.points, created_at_i: it.created_at_i, story_text: it.text, num_comments: countDesc(it),
+  });
+
+  async function showReader(id) {
+    const req = ++readerReq;
+    if (reader.hidden) lastFocus = document.activeElement;
+    reader.hidden = false;
+    document.body.classList.add("reading");
+    reader.scrollTop = 0;
+    rProgress.style.width = "0";
+
+    const itemP = fetch(`${API}items/${encodeURIComponent(id)}`)
+      .then(r => r.ok ? r.json() : null).catch(() => null);
+
+    current = null;
+    syncReaderButtons();
+    let story = byId.get(id) || (lib.data.read[id] || lib.data.later[id] || {}).h;
+    if (!story) {
+      renderShell({ objectID: id, title: "Loading…" });
+      reader.focus({ preventScroll: true });
+      const item = await itemP;
+      if (req !== readerReq) return;
+      if (!item) { renderReaderError(id); return; }
+      story = itemToHit(item);
+    }
+    renderShell(story);
+    reader.focus({ preventScroll: true });
+    current = story;
+    openedAt = Date.now();
+    Learner.record("open", story);
+    syncReaderButtons();
+
+    itemP.then(item => { if (req === readerReq) renderComments(story, item); });
+
+    const content = $("r-content");
+    const url = safeUrl(story.url);
+    const parts = [];
+
+    // Self posts (Ask HN / Show HN text) come with their own text
+    if (story.story_text) {
+      const box = el("div", { class: "prose" });
+      fillHtml(box, story.story_text, null);
+      parts.push(box);
+    }
+
+    if (!url) { content.replaceChildren(...parts); updateReadingTime(); return; }
+
+    try {
+      const art = await getArticle(url);
+      if (req !== readerReq) return;
+      const box = el("div", { class: "prose" });
+      const html = mdToHtml(art.md);
+      if (html != null) fillHtml(box, html, url); else fillPlain(box, art.md);
+      tidyArticle(box, story.title);
+      const words = box.textContent.trim().split(/\s+/).length;
+      if (words < 80) {
+        parts.push(el("p", { class: "note", text: "Only a short preview could be extracted from this page. It may be paywalled, need JavaScript, or be mostly images/video. Use the button below to read it on the original site." }));
+      }
+      parts.push(box);
+    } catch (err) {
+      if (req !== readerReq) return;
+      parts.push(el("p", { class: "note", text: "Couldn't fetch the article text right now (the site may block readers, or the reader service is busy). You can still read it on the original site below." }));
+    }
+    content.replaceChildren(...parts);
+    updateReadingTime();
+  }
+
+  function renderShell(h) {
+    const url = safeUrl(h.url);
+    const domain = domainOf(h.url) || "news.ycombinator.com";
+    const topic = h.title ? topicOf(h.title) : "";
+    rDomain.textContent = domain;
+    rOpen.href = url || hnLink(h.objectID);
+
+    const byline = el("div", { class: "byline" });
+    if (h.points != null) byline.append(el("span", {}, icon(ICONS.up), `${h.points} points`));
+    if (h.author) byline.append(el("span", { text: `by ${h.author}` }));
+    if (h.created_at_i) byline.append(el("span", { title: new Date(h.created_at_i * 1000).toLocaleString() }, icon(ICONS.clock), timeAgo(h.created_at_i)));
+    byline.append(el("span", { id: "r-rt" }));
+    if (h.num_comments != null) byline.append(el("span", {}, icon(ICONS.chat), `${h.num_comments} comments`));
+
+    const skel = el("div", { class: "skel-lines", id: "r-content", "aria-busy": "true" },
+      ...[96, 100, 88, 100, 72, 0, 100, 94, 100, 60].map(w => w ? el("div", { class: "line", style: `width:${w}%` }) : el("div", { style: "height:8px" })));
+
+    const cont = el("div", { class: "continue" },
+      el("p", { text: url
+        ? `This is a reader copy of the article. Images, embeds, or paywalled parts may be missing.`
+        : `This post lives on Hacker News.` }),
+      url && el("a", { class: "btn primary", id: "r-continue", href: url, target: "_blank", rel: "noopener noreferrer" }, `Continue on ${domain} ↗`),
+      el("a", { class: "btn", href: hnLink(h.objectID), target: "_blank", rel: "noopener noreferrer" }, "Discuss on Hacker News ↗"));
+
+    rBody.replaceChildren(
+      el("div", { class: "meta-top" }, el("span", { class: "domain", text: domain }), topic && el("span", { class: "tag", text: topic })),
+      el("h1", { class: "title", id: "r-title", text: h.title || "" }),
+      byline,
+      skel,
+      cont,
+      el("section", { class: "discussion", id: "r-comments" },
+        el("h2", { text: "Discussion" }), el("p", { class: "sub", text: "Loading comments…" })));
+  }
+
+  function renderReaderError(id) {
+    rDomain.textContent = "";
+    rOpen.href = hnLink(id);
+    rBody.replaceChildren(
+      el("h1", { class: "title", id: "r-title", text: "Couldn't load this story" }),
+      el("p", { class: "note", text: "The news service didn't respond. Check your connection and try again." }),
+      el("div", { class: "continue" },
+        el("a", { class: "btn", href: hnLink(id), target: "_blank", rel: "noopener noreferrer" }, "Open on Hacker News ↗")));
+  }
+
+  function updateReadingTime() {
+    const c = $("r-content"), rt = $("r-rt");
+    if (!c || !rt) return;
+    c.removeAttribute("aria-busy"); c.className = "";
+    const words = c.textContent.trim().split(/\s+/).filter(Boolean).length;
+    rt.textContent = words > 60 ? `${Math.max(1, Math.round(words / 230))} min read` : "";
+  }
+
+  async function getArticle(url) {
+    if (articleCache.has(url)) return articleCache.get(url);
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 30000);
+    try {
+      const res = await fetch(READER + url, { signal: ctrl.signal });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const text = await res.text();
+      const marker = "Markdown Content:";
+      const i = text.indexOf(marker);
+      const md = (i >= 0 ? text.slice(i + marker.length) : text).trim();
+      if (!md) throw new Error("empty");
+      const art = { md };
+      articleCache.set(url, art);
+      return art;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  const PURIFY = { FORBID_TAGS: ["style", "form", "input", "button", "textarea", "select", "iframe", "object", "embed"], FORBID_ATTR: ["style", "class", "id"] };
+
+  function mdToHtml(md) {
+    if (!window.marked || !window.DOMPurify) return null;
+    try { return marked.parse(md, { gfm: true }); } catch { return null; }
+  }
+
+  // Sanitize + insert HTML, then make links/images safe for the reader
+  function fillHtml(box, html, baseUrl) {
+    if (!window.DOMPurify) { fillPlain(box, stripHtml(html)); return; }
+    box.innerHTML = DOMPurify.sanitize(html, PURIFY);
+    box.querySelectorAll("a").forEach(a => {
+      const raw = a.getAttribute("href") || "";
+      let abs = null;
+      if (raw && !raw.startsWith("#")) { try { abs = safeUrl(new URL(raw, baseUrl || location.href).href); } catch {} }
+      if (!abs) { a.replaceWith(...a.childNodes); return; }   // in-page anchors would hijack our hash router
+      a.href = abs; a.target = "_blank"; a.rel = "noopener noreferrer";
+    });
+    box.querySelectorAll("img").forEach(img => {
+      const raw = img.getAttribute("src") || "";
+      let abs = null;
+      try { abs = safeUrl(new URL(raw, baseUrl || location.href).href); } catch {}
+      if (!abs) { img.remove(); return; }
+      img.src = abs; img.loading = "lazy"; img.decoding = "async"; img.referrerPolicy = "no-referrer";
+      img.removeAttribute("width"); img.removeAttribute("height");
+      img.onerror = () => img.remove();
+    });
+  }
+
+  function fillPlain(box, text) {
+    box.replaceChildren(...text.split(/\n{2,}/).map(p => p.trim()).filter(Boolean).map(p => el("p", { text: p })));
+  }
+
+  // Drop a leading duplicate of the headline and empty leftovers
+  function tidyArticle(box, title) {
+    const norm = (s) => (s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    const first = box.querySelector("h1, h2");
+    if (first && norm(first.textContent) && norm(title).includes(norm(first.textContent)) && first === box.firstElementChild) first.remove();
+    box.querySelectorAll("p, li").forEach(n => { if (!n.textContent.trim() && !n.querySelector("img")) n.remove(); });
+  }
+
+  // ---- Comments
+  const COMMENT_PAGE = 12;
+
+  function renderComments(story, item) {
+    const box = $("r-comments");
+    if (!box) return;
+    const head = el("h2", { text: "Discussion" });
+    if (!item) {
+      box.replaceChildren(head, el("p", { class: "sub" }, "Couldn't load comments. ",
+        el("a", { href: hnLink(story.objectID), target: "_blank", rel: "noopener noreferrer", text: "Open them on Hacker News ↗" })));
+      return;
+    }
+    const top = (item.children || []).filter(c => c.text || (c.children || []).length)
+      .sort((a, b) => countDesc(b) - countDesc(a));
+    const total = countDesc(item);
+    if (!total) { box.replaceChildren(head, el("p", { class: "sub", text: "No comments yet." })); return; }
+
+    const list = el("div");
+    let shown = 0;
+    const more = el("button", { class: "linkish", type: "button" });
+    const showMore = () => {
+      top.slice(shown, shown + COMMENT_PAGE).forEach(c => list.append(commentNode(c, 0)));
+      shown += COMMENT_PAGE;
+      more.hidden = shown >= top.length;
+      more.textContent = `Show more comments (${top.length - shown} more threads)`;
+    };
+    more.onclick = showMore;
+    box.replaceChildren(head, el("p", { class: "sub", text: `${total} comments from Hacker News · most active threads first` }), list, more);
+    showMore();
+  }
+
+  function commentNode(c, depth) {
+    const text = el("div", { class: "text" });
+    if (c.text) fillHtml(text, c.text, "https://news.ycombinator.com/");
+    else text.append(el("em", { text: "[deleted]" }));
+    const node = el("div", { class: "comment" },
+      el("div", { class: "who" }, el("b", { text: c.author || "[deleted]" }), c.created_at_i ? ` · ${timeAgo(c.created_at_i)}` : ""),
+      text);
+
+    const kids = (c.children || []).filter(k => k.text || (k.children || []).length)
+      .sort((a, b) => countDesc(b) - countDesc(a));
+    if (!kids.length) return node;
+
+    const replies = el("div", { class: "replies" });
+    const inline = depth < 1 ? 3 : 0;  // show a few direct replies, collapse deeper threads
+    kids.slice(0, inline).forEach(k => replies.append(commentNode(k, depth + 1)));
+    const rest = kids.slice(inline);
+    if (rest.length) {
+      const n = rest.reduce((s, k) => s + 1 + countDesc(k), 0);
+      const btn = el("button", { class: "linkish", type: "button", text: `Show ${n} ${n === 1 ? "reply" : "replies"}` });
+      btn.onclick = () => { btn.replaceWith(...rest.map(k => commentNode(k, depth + 1))); };
+      replies.append(btn);
+    }
+    node.append(replies);
+    return node;
+  }
+
+  // ---- Reader wiring
+  $("r-back").onclick = closeReader;
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !reader.hidden) closeReader(); });
+  reader.addEventListener("scroll", () => {
+    const max = reader.scrollHeight - reader.clientHeight;
+    rProgress.style.width = max > 0 ? `${Math.min(100, (reader.scrollTop / max) * 100)}%` : "0";
+    // Reaching the end of the article (after some real reading time) marks it read
+    if (!current || lib.isRead(String(current.objectID))) return;
+    const content = $("r-content"), end = rBody.querySelector(".continue");
+    if (!content || content.hasAttribute("aria-busy") || !end) return;
+    const words = content.textContent.trim().split(/\s+/).length;
+    const minMs = Math.min(45000, Math.max(6000, words * 60));   // ~20% of normal reading speed
+    if (end.getBoundingClientRect().top < reader.clientHeight && Date.now() - openedAt > minMs) markRead(current, "auto");
+  }, { passive: true });
+  rBody.addEventListener("click", (e) => {
+    if (current && e.target.closest("#r-continue")) markRead(current, "continue");
+  });
+  window.addEventListener("hashchange", route);
+
+  // Refresh when the tab comes back into view after 10+ minutes
+  let lastLoad = Date.now();
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && Date.now() - lastLoad > 600000 && !state.query) { lastLoad = Date.now(); load(); }
+  });
+
+  load();
+  route();   // open a story directly when the page is loaded with #story/<id>
+})();
+</script>
+</body>
+</html>

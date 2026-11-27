@@ -10,7 +10,10 @@ plugins {
 android {
     namespace = "com.code7.techupdates"
     compileSdk {
-        version = release(37)
+        version =
+            release(37) {
+                minorApiLevel = 1
+            }
     }
 
     defaultConfig {
