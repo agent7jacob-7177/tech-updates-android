@@ -1,0 +1,78 @@
+{
+  "author": "scanr",
+  "children": [
+    {
+      "author": "barbaudue710",
+      "children": [
+        {
+          "author": "deathanatos",
+          "children": [
+            {
+              "author": "mlhpdx",
+              "children": [],
+              "created_at": "2026-11-27T18:28:02.000Z",
+              "created_at_i": 1795804082,
+              "id": 50670078,
+              "options": [],
+              "parent_id": 50669200,
+              "points": null,
+              "story_id": 50668145,
+              "text": "Or DNS lookups.",
+              "title": null,
+              "type": "comment",
+              "url": null
+            }
+          ],
+          "created_at": "2026-11-27T17:15:35.000Z",
+          "created_at_i": 1795799735,
+          "id": 50669200,
+          "options": [],
+          "parent_id": 50668191,
+          "points": null,
+          "story_id": 50668145,
+          "text": "WebRTC is just the exfiltration mechanism. The attack could have used a JSON&#x2F;AJAX call, or even an img tag.",
+          "title": null,
+          "type": "comment",
+          "url": null
+        }
+      ],
+      "created_at": "2026-11-27T15:44:28.000Z",
+      "created_at_i": 1795794268,
+      "id": 50668191,
+      "options": [],
+      "parent_id": 50668145,
+      "points": null,
+      "story_id": 50668145,
+      "text": "WebRTC is wild",
+      "title": null,
+      "type": "comment",
+      "url": null
+    },
+    {
+      "author": "javcasas",
+      "children": [],
+      "created_at": "2026-11-27T16:20:39.000Z",
+      "created_at_i": 1795796439,
+      "id": 50668579,
+      "options": [],
+      "parent_id": 50668145,
+      "points": null,
+      "story_id": 50668145,
+      "text": "And another case of a tracking pixel or a third party ad&#x2F;tracker injecting malicious code.",
+      "title": null,
+      "type": "comment",
+      "url": null
+    }
+  ],
+  "created_at": "2026-11-27T15:40:31.000Z",
+  "created_at_i": 1795794031,
+  "id": 50668145,
+  "options": [],
+  "parent_id": null,
+  "points": 388,
+  "story_id": 50668145,
+  "text": null,
+  "title": "Credit card skimming scripts using WebRTC found on popular shopping sites",
+  "type": "story",
+  "url": "https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer"
+}

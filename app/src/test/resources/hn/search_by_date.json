@@ -1,0 +1,93 @@
+{
+  "exhaustive": {
+    "nbHits": false,
+    "typo": true
+  },
+  "exhaustiveNbHits": false,
+  "exhaustiveTypo": true,
+  "hits": [
+    {
+      "_tags": [
+        "story",
+        "author_pg",
+        "story_50672700",
+        "ask_hn"
+      ],
+      "author": "pg",
+      "created_at": "2026-11-27T23:30:00Z",
+      "created_at_i": 1795822200,
+      "num_comments": 4,
+      "objectID": "50672700",
+      "points": 12,
+      "story_id": 50672700,
+      "story_text": "What are you using for <i>local</i> LLM inference?",
+      "title": "Ask HN: What is your local LLM setup?",
+      "updated_at": "2026-11-27T23:46:32Z"
+    },
+    {
+      "_tags": [
+        "story",
+        "author_Daniyal45",
+        "story_50672580"
+      ],
+      "author": "Daniyal45",
+      "created_at": "2026-11-27T23:08:57Z",
+      "created_at_i": 1795820937,
+      "num_comments": 2,
+      "objectID": "50672580",
+      "points": 9,
+      "story_id": 50672580,
+      "title": "Treasury CIO Is Vibe Coding a Civilization Clone During Treasury Department Hack",
+      "updated_at": "2026-11-27T23:46:32Z",
+      "url": "https://www.404media.co/sam-corcos-legatum-treasury-cio-is-vibe-coding-a-civilization-clone-during-treasury-department-hack/"
+    },
+    {
+      "_tags": [
+        "story",
+        "author_cybermango",
+        "story_50672574"
+      ],
+      "author": "cybermango",
+      "created_at": "2026-11-27T23:08:02Z",
+      "created_at_i": 1795820882,
+      "num_comments": 0,
+      "objectID": "50672574",
+      "points": 8,
+      "story_id": 50672574,
+      "title": "Musk makes $18B SpaceX stock pledge for every kid in America",
+      "updated_at": "2026-11-27T23:25:32Z",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/musk-makes-18-billion-spacex-053902980.html"
+    },
+    {
+      "_tags": [
+        "story"
+      ],
+      "author": "ghost",
+      "created_at_i": 1795822000,
+      "objectID": "50672001",
+      "points": null,
+      "num_comments": null,
+      "title": null,
+      "url": null
+    }
+  ],
+  "hitsPerPage": 3,
+  "nbHits": 865678,
+  "nbPages": 334,
+  "page": 0,
+  "params": "hitsPerPage=3&page=0&tags=story&numericFilters=points%3E5&advancedSyntax=true&analyticsTags=backend",
+  "processingTimeMS": 5,
+  "processingTimingsMS": {
+    "_request": {
+      "queue": 18,
+      "roundTrip": 14
+    },
+    "fetch": {
+      "scanning": 4,
+      "total": 5
+    },
+    "total": 5
+  },
+  "query": "",
+  "serverTimeMS": 24
+}
