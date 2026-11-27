@@ -1,0 +1,30 @@
+# Applied on top of detekt's default config (buildUponDefaultConfig = true).
+
+naming:
+  FunctionNaming:
+    active: true
+    ignoreAnnotated:
+      - Composable
+  TopLevelPropertyNaming:
+    active: true
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+
+style:
+  MagicNumber:
+    active: true
+    excludes:
+      - '**/ui/theme/**'
+      - '**/test/**'
+    ignorePropertyDeclaration: true
+    ignoreCompanionObjectPropertyDeclaration: true
+  UnusedPrivateMember:
+    active: true
+    ignoreAnnotated:
+      - Preview
+
+complexity:
+  LongParameterList:
+    active: true
+    ignoreDefaultParameters: true
+    ignoreAnnotated:
+      - Composable
