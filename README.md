@@ -1,5 +1,7 @@
 # tech-updates-android
 
+[![CI](https://github.com/agent7jacob-7177/tech-updates-android/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/agent7jacob-7177/tech-updates-android/actions/workflows/ci.yml)
+
 Code7 Tech Updates — a native Android (Kotlin + Jetpack Compose, Material 3) Hacker News reader.
 It is a port of the [Code7 Tech Updates web app](https://agent7jacob-7177.github.io/code7/).
 
