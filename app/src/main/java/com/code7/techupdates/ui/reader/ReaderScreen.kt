@@ -210,13 +210,17 @@ private fun ReaderTopBar(
                 )
             },
             navigationIcon = {
-                IconButton(onClick = actions.onBack) {
+                IconButton(onClick = actions.onBack, modifier = Modifier.size(48.dp)) {
                     Icon(painterResource(R.drawable.ic_back), stringResource(R.string.icon_back))
                 }
             },
             actions = {
                 if (state.story != null) {
-                    IconToggleButton(checked = state.isSaved, onCheckedChange = { actions.onToggleLater() }) {
+                    IconToggleButton(
+                        checked = state.isSaved,
+                        onCheckedChange = { actions.onToggleLater() },
+                        modifier = Modifier.size(48.dp),
+                    ) {
                         Icon(
                             painter =
                                 painterResource(
@@ -227,11 +231,11 @@ private fun ReaderTopBar(
                             tint = with(MaterialTheme.colorScheme) { if (state.isSaved) primary else onSurfaceVariant },
                         )
                     }
-                    IconButton(onClick = actions.onShare) {
+                    IconButton(onClick = actions.onShare, modifier = Modifier.size(48.dp)) {
                         Icon(painterResource(R.drawable.ic_share), stringResource(R.string.reader_share))
                     }
                 }
-                IconButton(onClick = actions.onOpenInBrowser) {
+                IconButton(onClick = actions.onOpenInBrowser, modifier = Modifier.size(48.dp)) {
                     Icon(painterResource(R.drawable.ic_open_external), stringResource(R.string.reader_open_original))
                 }
             },
