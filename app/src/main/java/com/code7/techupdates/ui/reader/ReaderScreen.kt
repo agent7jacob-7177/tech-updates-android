@@ -220,25 +220,8 @@ private fun ReaderTopBar(
                     .fillMaxWidth()
                     .height(56.dp),
         ) {
-            // Back button — explicit 48dp touch target
-            Surface(
-                modifier =
-                    Modifier
-                        .size(48.dp)
-                        .clickable(onClick = actions.onBack)
-                        .semantics { contentDescription = backDesc },
-                shape = RoundedCornerShape(0),
-                color = Color.Transparent,
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_back),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp),
-                )
-            }
-
+            BackIconButton(backDesc, actions.onBack)
             Spacer(Modifier.weight(1f))
-
             Text(
                 text = state.story?.domain.orEmpty(),
                 style = MaterialTheme.typography.titleSmall,
@@ -251,68 +234,112 @@ private fun ReaderTopBar(
                         .semantics { heading() },
                 textAlign = TextAlign.End,
             )
-
             if (state.story != null) {
-                // Bookmark toggle
-                Surface(
-                    modifier =
-                        Modifier
-                            .size(48.dp)
-                            .clickable(onClick = { actions.onToggleLater() })
-                            .semantics { contentDescription = saveDesc },
-                    shape = RoundedCornerShape(0),
-                    color = Color.Transparent,
-                ) {
-                    Icon(
-                        painter =
-                            painterResource(
-                                if (state.isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark,
-                            ),
-                        contentDescription = null,
-                        tint = with(MaterialTheme.colorScheme) { if (state.isSaved) primary else onSurfaceVariant },
-                        modifier = Modifier.size(24.dp),
-                    )
-                }
-                // Share button
-                Surface(
-                    modifier =
-                        Modifier
-                            .size(48.dp)
-                            .clickable(onClick = actions.onShare)
-                            .semantics { contentDescription = shareDesc },
-                    shape = RoundedCornerShape(0),
-                    color = Color.Transparent,
-                ) {
-                    Icon(
-                        painterResource(R.drawable.ic_share),
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp),
-                    )
-                }
-            }
-            // Open in browser — always present
-            Surface(
-                modifier =
-                    Modifier
-                        .size(48.dp)
-                        .clickable(onClick = actions.onOpenInBrowser)
-                        .semantics { contentDescription = openDesc },
-                shape = RoundedCornerShape(0),
-                color = Color.Transparent,
-            ) {
-                Icon(
-                    painterResource(R.drawable.ic_open_external),
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp),
+                BookmarkAndShareButtons(
+                    isSaved = state.isSaved,
+                    bookmarkDesc = saveDesc,
+                    shareDesc = shareDesc,
+                    onToggleLater = actions.onToggleLater,
+                    onShare = actions.onShare,
                 )
             }
+            OpenInBrowserIconButton(openDesc, actions.onOpenInBrowser)
         }
-        // Progress indicator
         LinearProgressIndicator(
             progress = progress,
             modifier = Modifier.fillMaxWidth().height(2.dp).semantics { contentDescription = progressLabel },
             drawStopIndicator = {},
             gapSize = 0.dp,
+        )
+    }
+}
+
+@Composable
+private fun BackIconButton(
+    contentDesc: String,
+    onBack: () -> Unit,
+) {
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onBack)
+                .semantics { contentDescription = contentDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Icon(
+            painter = painterResource(R.drawable.ic_back),
+            contentDescription = null,
+            modifier = Modifier.size(24.dp),
+        )
+    }
+}
+
+@Composable
+private fun BookmarkAndShareButtons(
+    isSaved: Boolean,
+    bookmarkDesc: String,
+    shareDesc: String,
+    onToggleLater: () -> Unit,
+    onShare: () -> Unit,
+) {
+    // Bookmark toggle
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onToggleLater)
+                .semantics { contentDescription = bookmarkDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Icon(
+            painter =
+                painterResource(
+                    if (isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark,
+                ),
+            contentDescription = null,
+            tint = with(MaterialTheme.colorScheme) { if (isSaved) primary else onSurfaceVariant },
+            modifier = Modifier.size(24.dp),
+        )
+    }
+    // Share button
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onShare)
+                .semantics { contentDescription = shareDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Icon(
+            painterResource(R.drawable.ic_share),
+            contentDescription = null,
+            modifier = Modifier.size(24.dp),
+        )
+    }
+}
+
+@Composable
+private fun OpenInBrowserIconButton(
+    contentDesc: String,
+    onOpen: () -> Unit,
+) {
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onOpen)
+                .semantics { contentDescription = contentDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Icon(
+            painterResource(R.drawable.ic_open_external),
+            contentDescription = null,
+            modifier = Modifier.size(24.dp),
         )
     }
 }
