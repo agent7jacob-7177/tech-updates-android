@@ -134,6 +134,34 @@
         <item quantity="other">%1$d comments</item>
     </plurals>
 
+    <!-- Settings / About screen -->
+    <string name="feed_more_options">More options</string>
+    <string name="settings_open">Settings &amp; about</string>
+    <string name="settings_title">Settings &amp; about</string>
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_system">System default</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_dynamic_color">Dynamic color</string>
+    <string name="settings_dynamic_color_summary">Use colors from your wallpaper</string>
+    <string name="settings_dynamic_color_unsupported">Needs Android 12 or later</string>
+    <string name="settings_section_for_you">For you</string>
+    <string name="settings_reset_learning">Reset For you learning</string>
+    <string name="settings_reset_learning_summary">Forget the topics, words and sites learned from what you open, save and read.</string>
+    <string name="settings_reset_title">Reset For you learning?</string>
+    <string name="settings_reset_message">Forget what the model has learned? Your Read later and Read lists are kept.</string>
+    <string name="settings_reset_confirm">Reset</string>
+    <string name="settings_cancel">Cancel</string>
+    <string name="settings_reset_done">For you learning reset</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_attribution">Stories from Hacker News via the Algolia API. Article text via Jina Reader. Site icons via DuckDuckGo. Not affiliated with Y Combinator.</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_source">Source code</string>
+    <string name="settings_source_summary">github.com/agent7jacob-7177/tech-updates-android</string>
+    <string name="settings_privacy">Privacy policy</string>
+    <string name="settings_privacy_summary">What the app stores and what it sends</string>
+
     <!-- Icon content descriptions -->
     <string name="icon_back">Back</string>
 </resources>

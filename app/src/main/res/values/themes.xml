@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.Code7TechUpdates" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <!-- Launch theme: core-splashscreen shows the launcher icon, then switches to the app theme. -->
+    <style name="Theme.Code7TechUpdates.Starting" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/ic_launcher_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.Code7TechUpdates</item>
+    </style>
 </resources>

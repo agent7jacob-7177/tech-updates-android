@@ -6,26 +6,32 @@
     <application
         android:name=".TechUpdatesApp"
         android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Code7TechUpdates">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Code7TechUpdates.Starting">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <!-- Web app reader links: https://agent7jacob-7177.github.io/code7/#story/{id}.
+                 The fragment never reaches intent matching, so this filter takes the whole /code7 site;
+                 MainActivity parses the fragment (ui/DeepLinks.kt) and opens the reader, or just News.
                  Not a verified App Link (needs assetlinks.json on the site); users can enable it in settings. -->
             <intent-filter android:autoVerify="false">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:scheme="https"
-                    android:host="agent7jacob-7177.github.io"
-                    android:pathPrefix="/code7" />
+                <data android:scheme="https" />
+                <data android:host="agent7jacob-7177.github.io" />
+                <data android:path="/code7" />
+                <data android:pathPrefix="/code7/" />
             </intent-filter>
         </activity>
     </application>

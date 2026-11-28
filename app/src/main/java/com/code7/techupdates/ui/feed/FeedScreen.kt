@@ -86,6 +86,7 @@ import kotlinx.coroutines.launch
 fun FeedRoute(
     onOpenStory: (String) -> Unit,
     onOpenComments: (String) -> Unit,
+    onOpenSettings: () -> Unit = {},
     viewModel: FeedViewModel = viewModel(factory = FeedViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -134,7 +135,7 @@ fun FeedRoute(
                 onToggleLater = viewModel::toggleLater,
             )
         }
-    FeedScreen(state, actions, snackbarHostState)
+    FeedScreen(state, actions, snackbarHostState, onOpenSettings)
 }
 
 @Composable
@@ -142,9 +143,10 @@ fun FeedScreen(
     state: FeedUiState,
     actions: FeedActions,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    onOpenSettings: () -> Unit = {},
 ) {
     Scaffold(
-        topBar = { FeedTopBar(state.searchText, actions.onSearchTextChange) },
+        topBar = { FeedTopBar(state.searchText, actions.onSearchTextChange, onOpenSettings) },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
@@ -198,6 +200,7 @@ fun FeedScreen(
 private fun FeedTopBar(
     searchText: String,
     onSearchTextChange: (String) -> Unit,
+    onOpenSettings: () -> Unit,
 ) {
     var searching by rememberSaveable { mutableStateOf(searchText.isNotEmpty()) }
     val close = {
@@ -226,6 +229,7 @@ private fun FeedTopBar(
                     IconButton(onClick = { searching = true }) {
                         Icon(painterResource(R.drawable.ic_search), stringResource(R.string.feed_search_open))
                     }
+                    OverflowMenu(onOpenSettings)
                 }
 
                 searchText.isNotEmpty() -> {
