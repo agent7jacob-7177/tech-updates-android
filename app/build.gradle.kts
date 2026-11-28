@@ -178,5 +178,16 @@ dependencies {
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    androidTestImplementation(libs.androidx.compose.ui.test)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4.accessibility)
+    androidTestImplementation(libs.androidx.annotation)
     androidTestImplementation(libs.ktor.client.mock)
+
+    // Resolve version conflict: ui-test-junit4-accessibility pulls guava:32 which requires
+    // concurrent-futures:1.2.0, but the lock file pins 1.1.0. Also resolve listenablefuture
+    // conflict between guava:32 (9999.0-empty marker) and androidx.test:core (1.0).
+    constraints {
+        implementation(libs.concurrent.futures)
+        api("com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava")
+    }
 }

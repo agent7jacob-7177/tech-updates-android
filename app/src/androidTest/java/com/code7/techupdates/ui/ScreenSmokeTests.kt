@@ -7,6 +7,7 @@ import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.accessibility.enableAccessibilityChecks
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,6 +29,7 @@ class ScreenSmokeTests {
 
     @Test
     fun launch_showsNewsFeed() {
+        compose.enableAccessibilityChecks()
         await(hasText(FakeAppRule.FIRST_STORY))
         await(hasText(FakeAppRule.SECOND_STORY))
         clickable(R.string.nav_news).assertIsSelected()
@@ -36,6 +38,7 @@ class ScreenSmokeTests {
     @Test
     @Offline
     fun launch_offline_showsErrorState() {
+        compose.enableAccessibilityChecks()
         await(hasText(string(R.string.feed_error_title)))
         clickable(R.string.feed_retry).assertIsDisplayed()
         clickable(R.string.nav_news).assertIsSelected()
@@ -43,6 +46,7 @@ class ScreenSmokeTests {
 
     @Test
     fun openFirstStory_showsReader_andBackReturnsToNews() {
+        compose.enableAccessibilityChecks()
         await(hasText(FakeAppRule.FIRST_STORY))
         compose.onNode(hasText(FakeAppRule.FIRST_STORY)).performClick()
 
@@ -59,6 +63,7 @@ class ScreenSmokeTests {
 
     @Test
     fun bottomBar_opensLibrary_andReturnsToNews() {
+        compose.enableAccessibilityChecks()
         await(hasText(FakeAppRule.FIRST_STORY))
         clickable(R.string.nav_library).performClick()
         await(hasText(string(R.string.library_later_empty_title)))
@@ -72,6 +77,7 @@ class ScreenSmokeTests {
 
     @Test
     fun forYouTab_showsColdStartPanel() {
+        compose.enableAccessibilityChecks()
         await(hasText(FakeAppRule.FIRST_STORY))
         clickable(R.string.feed_tab_for_you).performClick()
 
@@ -82,6 +88,7 @@ class ScreenSmokeTests {
 
     @Test
     fun overflowMenu_opensSettings() {
+        compose.enableAccessibilityChecks()
         await(hasContentDescription(string(R.string.feed_more_options)))
         compose.onNode(hasContentDescription(string(R.string.feed_more_options))).performClick()
         await(hasText(string(R.string.settings_open)))
