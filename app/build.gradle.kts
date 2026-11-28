@@ -106,6 +106,9 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.ktor3)
+    implementation(libs.multiplatform.markdown.renderer.m3)
+    implementation(libs.multiplatform.markdown.renderer.coil3)
+    implementation(libs.androidx.browser)
 
     testImplementation(libs.junit)
     testImplementation(libs.ktor.client.mock)

@@ -1,0 +1,14 @@
+Title: Credit card skimming scripts using WebRTC
+
+URL Source: https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer
+
+Published Time: 2026-11-27T10:00:00Z
+
+Markdown Content:
+# Credit card skimming scripts using WebRTC
+
+Researchers found [skimmers](/research/skimmers) on popular shopping sites.
+
+![diagram](images/flow.png)
+
+They exfiltrate data over WebRTC data channels.

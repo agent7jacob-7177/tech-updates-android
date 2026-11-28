@@ -18,6 +18,9 @@ enum class ReadHow(
 
     /** The user tapped "Mark read". */
     MANUAL("manual"),
+
+    /** The user tapped "Continue on <site>" in the reader. */
+    CONTINUE("continue"),
     ;
 
     companion object {
@@ -89,6 +92,23 @@ interface LibrarySource : LaterToggle {
     suspend fun restoreRead(entries: List<ReadStory>)
 }
 
+/** What the reader screen needs from [LibraryRepository] (a seam for fakes in tests). */
+interface ReaderLibrary : LaterToggle {
+    fun isLater(storyId: String): Flow<Boolean>
+
+    fun isRead(storyId: String): Flow<Boolean>
+
+    /** The snapshot kept in "Read later" or "Read" for [storyId], or null (JS `lib.data.read[id].h`). */
+    suspend fun savedStory(storyId: String): Story?
+
+    suspend fun markRead(
+        story: Story,
+        how: ReadHow,
+    ): ReadReceipt?
+
+    suspend fun undoMarkRead(receipt: ReadReceipt)
+}
+
 /**
  * The on-device library (JS `lib`, `tu.lib`): "Read later" and "Read" lists. Saves and reads are
  * also reported to the [learner] as positive signals, as the web app's `toggleLater` / `markRead` do.
@@ -100,7 +120,8 @@ class LibraryRepository(
     private val learner: LearnerStore,
     private val now: () -> Long = System::currentTimeMillis,
 ) : LaterToggle,
-    LibrarySource {
+    LibrarySource,
+    ReaderLibrary {
     private val laterDao = db.laterDao()
     private val readDao = db.readDao()
 
@@ -117,9 +138,12 @@ class LibraryRepository(
 
     override fun readIds(): Flow<Set<String>> = readDao.readIds().map { it.toSet() }
 
-    fun isLater(storyId: String): Flow<Boolean> = laterDao.observeIsLater(storyId)
+    override fun isLater(storyId: String): Flow<Boolean> = laterDao.observeIsLater(storyId)
 
-    fun isRead(storyId: String): Flow<Boolean> = readDao.observeIsRead(storyId)
+    override fun isRead(storyId: String): Flow<Boolean> = readDao.observeIsRead(storyId)
+
+    override suspend fun savedStory(storyId: String): Story? =
+        laterDao.later(storyId)?.toSavedStory()?.story ?: readDao.read(storyId)?.toReadStory()?.story
 
     /**
      * Saves or un-saves [story] (JS `toggleLater(h, on = !isLater)`); returns the new state. Saving
