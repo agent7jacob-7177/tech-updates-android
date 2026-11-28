@@ -13,6 +13,8 @@ ktor = "3.6.2"
 kotlinxSerialization = "1.13.0"
 kotlinxCoroutines = "1.11.0"
 coil = "3.6.3"
+markdownRenderer = "0.46.0"
+browser = "1.10.0"
 junit = "4.13.2"
 turbine = "1.2.1"
 robolectric = "4.18.1"
@@ -49,6 +51,9 @@ kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-network-ktor3 = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
+multiplatform-markdown-renderer-m3 = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-m3", version.ref = "markdownRenderer" }
+multiplatform-markdown-renderer-coil3 = { group = "com.mikepenz", name = "multiplatform-markdown-renderer-coil3", version.ref = "markdownRenderer" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }

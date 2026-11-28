@@ -5,9 +5,7 @@
     <string name="nav_news">News</string>
     <string name="nav_library">Library</string>
     <string name="coming_soon">Coming soon</string>
-    <string name="reader_coming_soon">The reader is on its way. For now, open the story in your browser.</string>
     <string name="comments_coming_soon">The discussion view is on its way.</string>
-    <string name="reader_open_original">Open original</string>
 
     <!-- Feed screen -->
     <string name="feed_tab_top">Top</string>
@@ -58,6 +56,42 @@
     <string name="library_removed_from_read">Removed from Read</string>
     <string name="library_history_cleared">Reading history cleared</string>
     <string name="library_undo">Undo</string>
+
+    <!-- Reader screen -->
+    <string name="reader_loading">Loading…</string>
+    <string name="reader_untitled">(untitled)</string>
+    <string name="reader_save">Read later</string>
+    <string name="reader_unsave">Remove from Read later</string>
+    <string name="reader_share">Share</string>
+    <string name="reader_open_original">Open original</string>
+    <string name="reader_progress">Reading progress</string>
+    <string name="reader_by_author">by %1$s</string>
+    <plurals name="reader_reading_time">
+        <item quantity="one">%1$d min read</item>
+        <item quantity="other">%1$d min read</item>
+    </plurals>
+    <plurals name="reader_discuss">
+        <item quantity="one">Discuss on HN (%1$d comment)</item>
+        <item quantity="other">Discuss on HN (%1$d comments)</item>
+    </plurals>
+    <string name="reader_note_short">Only a short preview could be extracted from this page. It may be paywalled, need JavaScript, or be mostly images/video. Use the button below to read it on the original site.</string>
+    <string name="reader_note_failed">Couldn\'t fetch the article text right now (the site may block readers, or the reader service is busy). You can still read it on the original site.</string>
+    <string name="reader_note_rate_limited">The reader service is busy right now (too many requests). Try again in a minute, or read it on the original site.</string>
+    <string name="reader_note_blocked">This site doesn\'t allow reader copies. You can still read it on the original site.</string>
+    <string name="reader_open_in_browser">Open in browser</string>
+    <string name="reader_retry">Try again</string>
+    <string name="reader_continue_note">This is a reader copy of the article. Images, embeds, or paywalled parts may be missing.</string>
+    <string name="reader_continue_note_hn">This post lives on Hacker News.</string>
+    <string name="reader_continue_on">Continue on %1$s</string>
+    <string name="reader_open_on_hn">Open on Hacker News</string>
+    <string name="reader_story_error_title">Couldn\'t load this story</string>
+    <string name="reader_story_error_subtitle">The news service didn\'t respond. Check your connection and try again.</string>
+    <string name="reader_saved_later">Saved to Read later</string>
+    <string name="reader_removed_later">Removed from Read later</string>
+    <string name="reader_finished">Finished. Moved to Read</string>
+    <string name="reader_marked_read">Marked as read</string>
+    <string name="reader_undo">Undo</string>
+    <string name="reader_share_chooser">Share story</string>
 
     <!-- Topics (labels match domain/Topic.kt) -->
     <string name="topic_all">All</string>

@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -28,10 +27,10 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.code7.techupdates.R
 import com.code7.techupdates.domain.Story
-import com.code7.techupdates.domain.safeUrl
 import com.code7.techupdates.ui.common.PlaceholderScreen
 import com.code7.techupdates.ui.feed.FeedRoute
 import com.code7.techupdates.ui.library.LibraryRoute
+import com.code7.techupdates.ui.reader.ReaderRoute
 
 private enum class TopLevel(
     val route: String,
@@ -100,16 +99,10 @@ private fun AppNavHost(
             route = Routes.STORY,
             arguments = listOf(navArgument(Routes.ARG_ID) { type = NavType.StringType }),
             deepLinks = listOf(navDeepLink { uriPattern = Routes.STORY_DEEP_LINK }),
-        ) { entry ->
-            val story = entry.arguments?.getString(Routes.ARG_ID)?.let(storyLookup)
-            val uriHandler = LocalUriHandler.current
-            val url = safeUrl(story?.url)
-            PlaceholderScreen(
-                title = story?.title ?: stringResource(R.string.app_name),
-                message = stringResource(R.string.reader_coming_soon),
+        ) {
+            ReaderRoute(
                 onBack = { navController.navigateUpOrNews() },
-                actionLabel = url?.let { stringResource(R.string.reader_open_original) },
-                onAction = { url?.let(uriHandler::openUri) },
+                onOpenComments = { navController.navigate(Routes.comments(it)) },
             )
         }
         composable(

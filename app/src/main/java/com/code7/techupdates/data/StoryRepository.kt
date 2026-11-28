@@ -2,6 +2,7 @@ package com.code7.techupdates.data
 
 import com.code7.techupdates.data.remote.HnApi
 import com.code7.techupdates.data.remote.toComment
+import com.code7.techupdates.data.remote.toStory
 import com.code7.techupdates.domain.Comment
 import com.code7.techupdates.domain.FeedQuery
 import com.code7.techupdates.domain.Story
@@ -38,10 +39,22 @@ interface FeedSource {
     fun story(id: String): Story?
 }
 
+/** What the reader needs to resolve a story id (a seam for fakes in tests). */
+interface StoryLookup {
+    /** A story seen in a feed this session, or null. */
+    fun story(id: String): Story?
+
+    fun remember(story: Story)
+
+    /** Loads the story from the network (`items/{id}`), e.g. for a deep link. */
+    suspend fun fetchStory(id: String): Result<Story>
+}
+
 class StoryRepository(
     private val api: HnApi,
     private val nowEpochSec: () -> Long = { System.currentTimeMillis() / MILLIS_PER_SECOND },
-) : FeedSource {
+) : FeedSource,
+    StoryLookup {
     private val mutex = Mutex()
     private val cache = mutableMapOf<FeedQuery, Page>()
     private val byId = ConcurrentHashMap<String, Story>()
@@ -79,6 +92,17 @@ class StoryRepository(
             if (cached != null) Result.success(cached.copy(fromCache = true, offline = true)) else Result.failure(e)
         }
     }
+
+    override suspend fun fetchStory(id: String): Result<Story> =
+        try {
+            Result.success(api.item(id).toStory().also(::remember))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (
+            @Suppress("TooGenericExceptionCaught") e: Exception,
+        ) {
+            Result.failure(e)
+        }
 
     /** Top-level comments (with nested replies) of a story. */
     suspend fun comments(storyId: String): Result<List<Comment>> =

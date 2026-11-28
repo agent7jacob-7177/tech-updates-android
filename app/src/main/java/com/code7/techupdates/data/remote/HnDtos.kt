@@ -60,3 +60,22 @@ fun ItemDto.toComment(): Comment =
         createdAtEpochSec = createdAtI,
         children = children.map { it.toComment() },
     )
+
+/** Descendants that still have text (JS `countDesc`): the item's comment count. */
+fun ItemDto.countDescendants(): Int = children.sumOf { (if (it.text != null) 1 else 0) + it.countDescendants() }
+
+/**
+ * Maps an item to a [Story] (JS `itemToHit`), for stories opened by id. A missing title stays empty;
+ * the UI shows its own placeholder.
+ */
+fun ItemDto.toStory(): Story =
+    Story(
+        id = id.toString(),
+        title = title.orEmpty(),
+        url = url?.takeIf { it.isNotEmpty() },
+        author = author.orEmpty(),
+        points = points ?: 0,
+        numComments = countDescendants(),
+        createdAtEpochSec = createdAtI,
+        storyText = text?.takeIf { it.isNotEmpty() },
+    )

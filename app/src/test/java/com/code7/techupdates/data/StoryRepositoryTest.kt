@@ -159,4 +159,27 @@ class StoryRepositoryTest {
             assertTrue(r.feed(FeedQuery(FeedType.LATEST)).isSuccess)
             assertTrue(r.comments("1").isSuccess)
         }
+
+    @Test
+    fun fetchStory_mapsItemAndRemembersIt() =
+        runTest {
+            val story = repo.fetchStory("50668145").getOrThrow()
+            assertEquals("50668145", story.id)
+            assertEquals("Credit card skimming scripts using WebRTC found on popular shopping sites", story.title)
+            assertEquals("https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer", story.url)
+            assertEquals("scanr", story.author)
+            assertEquals(388, story.points)
+            assertEquals(4, story.numComments)
+            assertEquals(1_795_794_031L, story.createdAtEpochSec)
+            assertNull(story.storyText)
+            assertEquals(story, repo.story("50668145"))
+        }
+
+    @Test
+    fun fetchStory_networkFailure_isFailure() =
+        runTest {
+            failing = true
+            assertTrue(repo.fetchStory("1").isFailure)
+            assertNull(repo.story("1"))
+        }
 }

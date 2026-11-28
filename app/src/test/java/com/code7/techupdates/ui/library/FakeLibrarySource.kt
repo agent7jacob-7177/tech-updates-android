@@ -4,6 +4,7 @@ import com.code7.techupdates.data.LibrarySource
 import com.code7.techupdates.data.ReadHow
 import com.code7.techupdates.data.ReadReceipt
 import com.code7.techupdates.data.ReadStory
+import com.code7.techupdates.data.ReaderLibrary
 import com.code7.techupdates.data.SavedStory
 import com.code7.techupdates.data.SignalKind
 import com.code7.techupdates.domain.Story
@@ -13,7 +14,9 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 
 /** In-memory [LibrarySource] mirroring [com.code7.techupdates.data.LibraryRepository]'s rules. */
-class FakeLibrarySource : LibrarySource {
+class FakeLibrarySource :
+    LibrarySource,
+    ReaderLibrary {
     val later = MutableStateFlow<List<SavedStory>>(emptyList())
     val read = MutableStateFlow<List<ReadStory>>(emptyList())
 
@@ -26,7 +29,17 @@ class FakeLibrarySource : LibrarySource {
     fun addRead(vararg stories: Story) =
         stories.forEach { read.update { l -> listOf(ReadStory(it, clock++, ReadHow.MANUAL)) + l } }
 
+    /** How each story was marked read, in call order. */
+    val readHows = mutableListOf<Pair<String, ReadHow>>()
+
     override fun later(): Flow<List<SavedStory>> = later
+
+    override fun isLater(storyId: String): Flow<Boolean> = later.map { l -> l.any { it.story.id == storyId } }
+
+    override fun isRead(storyId: String): Flow<Boolean> = read.map { l -> l.any { it.story.id == storyId } }
+
+    override suspend fun savedStory(storyId: String): Story? =
+        (later.value.map { it.story } + read.value.map { it.story }).firstOrNull { it.id == storyId }
 
     override fun read(): Flow<List<ReadStory>> = read
 
@@ -66,6 +79,7 @@ class FakeLibrarySource : LibrarySource {
         how: ReadHow,
     ): ReadReceipt? {
         if (read.value.any { it.story.id == story.id }) return null
+        readHows += story.id to how
         val wasLater = later.value.any { it.story.id == story.id }
         later.update { l -> l.filterNot { it.story.id == story.id } }
         read.update { listOf(ReadStory(story, clock++, how)) + it }
