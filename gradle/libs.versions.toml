@@ -70,6 +70,10 @@ turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine
 robolectric = { group = "org.robolectric", name = "robolectric", version.ref = "robolectric" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTestRunner" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test" }
+androidx-compose-ui-test-junit4-accessibility = { group = "androidx.compose.ui", name = "ui-test-junit4-accessibility" }
+concurrent-futures = { group = "androidx.concurrent", name = "concurrent-futures", version = "1.2.0" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.9.1" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

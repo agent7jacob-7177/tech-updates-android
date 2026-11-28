@@ -1,15 +1,21 @@
 package com.code7.techupdates.ui.reader
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,6 +29,7 @@ import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -36,7 +43,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
@@ -48,6 +57,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -197,52 +207,148 @@ private fun ReaderTopBar(
     actions: ReaderActions,
     progress: () -> Float,
 ) {
+    val backDesc = stringResource(R.string.icon_back)
+    val shareDesc = stringResource(R.string.reader_share)
+    val openDesc = stringResource(R.string.reader_open_original)
+    val progressLabel = stringResource(R.string.reader_progress)
+    val saveDesc = stringResource(if (state.isSaved) R.string.reader_unsave else R.string.reader_save)
+
     Column {
-        TopAppBar(
-            title = {
-                Text(
-                    text = state.story?.domain.orEmpty(),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.semantics { heading() },
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+        ) {
+            BackIconButton(backDesc, actions.onBack)
+            Spacer(Modifier.weight(1f))
+            Text(
+                text = state.story?.domain.orEmpty(),
+                style = MaterialTheme.typography.titleSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .semantics { heading() },
+                textAlign = TextAlign.End,
+            )
+            if (state.story != null) {
+                BookmarkAndShareButtons(
+                    isSaved = state.isSaved,
+                    bookmarkDesc = saveDesc,
+                    shareDesc = shareDesc,
+                    onToggleLater = actions.onToggleLater,
+                    onShare = actions.onShare,
                 )
-            },
-            navigationIcon = {
-                IconButton(onClick = actions.onBack) {
-                    Icon(painterResource(R.drawable.ic_back), stringResource(R.string.icon_back))
-                }
-            },
-            actions = {
-                if (state.story != null) {
-                    IconToggleButton(checked = state.isSaved, onCheckedChange = { actions.onToggleLater() }) {
-                        Icon(
-                            painter =
-                                painterResource(
-                                    if (state.isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark,
-                                ),
-                            contentDescription =
-                                stringResource(if (state.isSaved) R.string.reader_unsave else R.string.reader_save),
-                            tint = with(MaterialTheme.colorScheme) { if (state.isSaved) primary else onSurfaceVariant },
-                        )
-                    }
-                    IconButton(onClick = actions.onShare) {
-                        Icon(painterResource(R.drawable.ic_share), stringResource(R.string.reader_share))
-                    }
-                }
-                IconButton(onClick = actions.onOpenInBrowser) {
-                    Icon(painterResource(R.drawable.ic_open_external), stringResource(R.string.reader_open_original))
-                }
-            },
-        )
-        val progressLabel = stringResource(R.string.reader_progress)
+            }
+            OpenInBrowserIconButton(openDesc, actions.onOpenInBrowser)
+        }
         LinearProgressIndicator(
             progress = progress,
             modifier = Modifier.fillMaxWidth().height(2.dp).semantics { contentDescription = progressLabel },
             drawStopIndicator = {},
             gapSize = 0.dp,
         )
+    }
+}
+
+@Composable
+private fun BackIconButton(
+    contentDesc: String,
+    onBack: () -> Unit,
+) {
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onBack)
+                .semantics { contentDescription = contentDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painter = painterResource(R.drawable.ic_back),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+            )
+        }
+    }
+}
+
+@Composable
+private fun BookmarkAndShareButtons(
+    isSaved: Boolean,
+    bookmarkDesc: String,
+    shareDesc: String,
+    onToggleLater: () -> Unit,
+    onShare: () -> Unit,
+) {
+    // Bookmark toggle
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onToggleLater)
+                .semantics { contentDescription = bookmarkDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painter =
+                    painterResource(
+                        if (isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark,
+                    ),
+                contentDescription = null,
+                tint = with(MaterialTheme.colorScheme) { if (isSaved) primary else onSurfaceVariant },
+                modifier = Modifier.size(24.dp),
+            )
+        }
+    }
+    // Share button
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onShare)
+                .semantics { contentDescription = shareDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painterResource(R.drawable.ic_share),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+            )
+        }
+    }
+}
+
+@Composable
+private fun OpenInBrowserIconButton(
+    contentDesc: String,
+    onOpen: () -> Unit,
+) {
+    Surface(
+        modifier =
+            Modifier
+                .size(48.dp)
+                .clickable(onClick = onOpen)
+                .semantics { contentDescription = contentDesc },
+        shape = RoundedCornerShape(0),
+        color = Color.Transparent,
+    ) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painterResource(R.drawable.ic_open_external),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+            )
+        }
     }
 }
 
