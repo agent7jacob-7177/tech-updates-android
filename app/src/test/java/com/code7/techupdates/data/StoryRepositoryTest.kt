@@ -146,6 +146,19 @@ class StoryRepositoryTest {
         }
 
     @Test
+    fun discussion_returnsStoryAndTree() =
+        runTest {
+            val d = repo.discussion("50668145").getOrThrow()
+            assertEquals("50668145", d.story.id)
+            assertEquals("scanr", d.story.author)
+            assertEquals(2, d.comments.size)
+            assertEquals(1, calls)
+            assertTrue(repo.discussion("1").isSuccess)
+            failing = true
+            assertTrue(repo.discussion("1").isFailure)
+        }
+
+    @Test
     fun comments_failure_isFailure() =
         runTest {
             failing = true
