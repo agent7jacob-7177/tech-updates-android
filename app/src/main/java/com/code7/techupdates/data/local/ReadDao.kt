@@ -6,6 +6,7 @@ import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 
 /** JS `tu.lib.read`. */
+@Suppress("TooManyFunctions") // one query per access pattern
 @Dao
 interface ReadDao {
     @Query("SELECT * FROM read_history ORDER BY read_at DESC")
@@ -25,6 +26,9 @@ interface ReadDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM read_history WHERE story_id = :id)")
     suspend fun isRead(id: String): Boolean
+
+    @Query("SELECT * FROM read_history WHERE story_id = :id")
+    suspend fun read(id: String): ReadEntity?
 
     @Upsert
     suspend fun upsertRead(entity: ReadEntity)

@@ -23,6 +23,9 @@ interface LaterDao {
     @Query("SELECT EXISTS(SELECT 1 FROM read_later WHERE story_id = :id)")
     suspend fun isLater(id: String): Boolean
 
+    @Query("SELECT * FROM read_later WHERE story_id = :id")
+    suspend fun later(id: String): LaterEntity?
+
     @Upsert
     suspend fun upsertLater(entity: LaterEntity)
 

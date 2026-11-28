@@ -57,6 +57,38 @@ interface LaterToggle {
     ): Boolean
 }
 
+/** What the library screen needs from [LibraryRepository] (a seam for fakes in tests). */
+interface LibrarySource : LaterToggle {
+    /** "Read later", newest first. */
+    fun later(): Flow<List<SavedStory>>
+
+    /** Read history, newest first. */
+    fun read(): Flow<List<ReadStory>>
+
+    /** Removes [storyId] from "Read later" and forgets its `save` signal; null if it wasn't there. */
+    suspend fun removeLater(storyId: String): SavedStory?
+
+    /** Undoes [removeLater]: back in place (original time) and the `save` signal re-recorded. */
+    suspend fun undoRemoveLater(entry: SavedStory)
+
+    suspend fun markRead(
+        story: Story,
+        how: ReadHow,
+    ): ReadReceipt?
+
+    suspend fun undoMarkRead(receipt: ReadReceipt)
+
+    /** Removes [storyId] from the read history and forgets its `read` signal; null if it wasn't there. */
+    suspend fun removeRead(storyId: String): ReadStory?
+
+    /** Undoes [removeRead]: back in place (original time) and the `read` signal re-recorded. */
+    suspend fun undoRemoveRead(entry: ReadStory)
+
+    suspend fun clearRead(): List<ReadStory>
+
+    suspend fun restoreRead(entries: List<ReadStory>)
+}
+
 /**
  * The on-device library (JS `lib`, `tu.lib`): "Read later" and "Read" lists. Saves and reads are
  * also reported to the [learner] as positive signals, as the web app's `toggleLater` / `markRead` do.
@@ -67,7 +99,8 @@ class LibraryRepository(
     private val db: AppDatabase,
     private val learner: LearnerStore,
     private val now: () -> Long = System::currentTimeMillis,
-) : LaterToggle {
+) : LaterToggle,
+    LibrarySource {
     private val laterDao = db.laterDao()
     private val readDao = db.readDao()
 
@@ -75,11 +108,10 @@ class LibraryRepository(
     val readCount: Flow<Int> = readDao.readCount()
 
     /** Newest first. */
-    fun later(): Flow<List<SavedStory>> =
-        laterDao.laterList().map { rows -> rows.map { SavedStory(it.story.toStory(it.storyId), it.savedAt) } }
+    override fun later(): Flow<List<SavedStory>> = laterDao.laterList().map { rows -> rows.map { it.toSavedStory() } }
 
     /** Newest first. */
-    fun read(): Flow<List<ReadStory>> = readDao.readList().map { rows -> rows.map { it.toReadStory() } }
+    override fun read(): Flow<List<ReadStory>> = readDao.readList().map { rows -> rows.map { it.toReadStory() } }
 
     override fun laterIds(): Flow<Set<String>> = laterDao.laterIds().map { it.toSet() }
 
@@ -115,7 +147,7 @@ class LibraryRepository(
      * Moves [story] to the read history (leaving "Read later"), records a `read` signal and keeps the
      * newest [MAX_READ] entries. Returns null if it was already read (nothing changed).
      */
-    suspend fun markRead(
+    override suspend fun markRead(
         story: Story,
         how: ReadHow,
     ): ReadReceipt? {
@@ -139,7 +171,7 @@ class LibraryRepository(
     }
 
     /** Undoes [markRead]: unread, and back into "Read later" if it was there. */
-    suspend fun undoMarkRead(receipt: ReadReceipt) {
+    override suspend fun undoMarkRead(receipt: ReadReceipt) {
         db.withTransaction {
             readDao.deleteRead(receipt.story.id)
             if (receipt.wasLater) laterDao.upsertLater(LaterEntity(receipt.story.id, receipt.story.toSnapshot(), now()))
@@ -148,17 +180,48 @@ class LibraryRepository(
     }
 
     /** Clears the read history; returns the removed entries for [restoreRead] (undo). */
-    suspend fun clearRead(): List<ReadStory> =
+    override suspend fun clearRead(): List<ReadStory> =
         db.withTransaction {
             val all = readDao.readSnapshot()
             readDao.clearRead()
             all.map { it.toReadStory() }
         }
 
-    suspend fun restoreRead(entries: List<ReadStory>) =
+    /** Undoes [clearRead]. Clearing keeps the learner's `read` signals (as JS), so nothing to restore there. */
+    override suspend fun restoreRead(entries: List<ReadStory>) =
         db.withTransaction {
             entries.forEach { readDao.upsertRead(ReadEntity(it.story.id, it.story.toSnapshot(), it.readAt, it.how.id)) }
         }
+
+    override suspend fun removeLater(storyId: String): SavedStory? {
+        val removed =
+            db.withTransaction {
+                laterDao.later(storyId)?.also { laterDao.deleteLater(storyId) }
+            } ?: return null
+        learner.forget(SignalKind.SAVE, storyId)
+        return removed.toSavedStory()
+    }
+
+    override suspend fun undoRemoveLater(entry: SavedStory) {
+        laterDao.upsertLater(LaterEntity(entry.story.id, entry.story.toSnapshot(), entry.savedAt))
+        learner.record(SignalKind.SAVE, entry.story)
+    }
+
+    override suspend fun removeRead(storyId: String): ReadStory? {
+        val removed =
+            db.withTransaction {
+                readDao.read(storyId)?.also { readDao.deleteRead(storyId) }
+            } ?: return null
+        learner.forget(SignalKind.READ, storyId)
+        return removed.toReadStory()
+    }
+
+    override suspend fun undoRemoveRead(entry: ReadStory) {
+        restoreRead(listOf(entry))
+        learner.record(SignalKind.READ, entry.story)
+    }
+
+    private fun LaterEntity.toSavedStory() = SavedStory(story.toStory(storyId), savedAt)
 
     private fun ReadEntity.toReadStory() = ReadStory(story.toStory(storyId), readAt, ReadHow.fromId(how))
 

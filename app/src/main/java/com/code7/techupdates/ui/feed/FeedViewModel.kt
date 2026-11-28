@@ -15,8 +15,6 @@ import com.code7.techupdates.data.local.FeedSettings
 import com.code7.techupdates.domain.FeedQuery
 import com.code7.techupdates.domain.Story
 import com.code7.techupdates.domain.Topic
-import com.code7.techupdates.domain.domainOf
-import com.code7.techupdates.domain.stripHtml
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -252,15 +250,6 @@ class FeedViewModel(
             }
         return FeedUiState(tab, topicId, searchText, content, refreshing)
     }
-
-    private fun Story.toCard(saved: Boolean) =
-        StoryCardUi(
-            story = this,
-            domain = domainOf(url).ifEmpty { StoryCardUi.FALLBACK_DOMAIN },
-            topic = Topic.forTitle(title),
-            excerpt = stripHtml(storyText),
-            isSaved = saved,
-        )
 
     companion object {
         const val SEARCH_DEBOUNCE_MS = 400L

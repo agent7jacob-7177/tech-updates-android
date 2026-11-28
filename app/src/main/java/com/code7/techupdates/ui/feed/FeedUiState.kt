@@ -3,6 +3,8 @@ package com.code7.techupdates.ui.feed
 import com.code7.techupdates.domain.FeedType
 import com.code7.techupdates.domain.Story
 import com.code7.techupdates.domain.Topic
+import com.code7.techupdates.domain.domainOf
+import com.code7.techupdates.domain.stripHtml
 
 /** Feed screen tabs; [id] is the web app's tab id persisted in settings. [type] is null for "For you". */
 enum class FeedTab(
@@ -42,6 +44,16 @@ data class StoryCardUi(
         const val FALLBACK_DOMAIN = "news.ycombinator.com"
     }
 }
+
+/** Precomputes what [StoryCard] shows for this story (shared by the feed and the library). */
+fun Story.toCard(saved: Boolean) =
+    StoryCardUi(
+        story = this,
+        domain = domainOf(url).ifEmpty { StoryCardUi.FALLBACK_DOMAIN },
+        topic = Topic.forTitle(title),
+        excerpt = stripHtml(storyText),
+        isSaved = saved,
+    )
 
 sealed interface FeedContent {
     /** First load of a feed: skeleton cards. */
