@@ -11,6 +11,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,12 +25,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import com.code7.techupdates.R
 import com.code7.techupdates.ui.comments.CommentsRoute
 import com.code7.techupdates.ui.feed.FeedRoute
 import com.code7.techupdates.ui.library.LibraryRoute
 import com.code7.techupdates.ui.reader.ReaderRoute
+import com.code7.techupdates.ui.settings.SettingsRoute
 
 private enum class TopLevel(
     val route: String,
@@ -41,10 +42,15 @@ private enum class TopLevel(
 }
 
 /**
- * App shell: bottom navigation (News, Library) plus full-screen reader and comments destinations.
+ * App shell: bottom navigation (News, Library) plus full-screen reader, comments and settings.
+ * [deepLinkStoryId] is a story to open from a web reader link (parsed by `DeepLink`, since
+ * Navigation's URI patterns can't match the `#story/<id>` fragment); [onDeepLinkHandled] clears it.
  */
 @Composable
-fun AppRoot() {
+fun AppRoot(
+    deepLinkStoryId: String? = null,
+    onDeepLinkHandled: () -> Unit = {},
+) {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val destination = backStackEntry?.destination
@@ -67,6 +73,15 @@ fun AppRoot() {
         },
     ) { padding ->
         AppNavHost(navController, Modifier.padding(padding).consumeWindowInsets(padding))
+        // After NavHost in the same (sub)composition, so the graph is set when this runs.
+        LaunchedEffect(deepLinkStoryId) {
+            if (deepLinkStoryId != null) {
+                navController.navigate(Routes.story(deepLinkStoryId)) {
+                    popUpTo(navController.graph.findStartDestination().id)
+                }
+                onDeepLinkHandled()
+            }
+        }
     }
 }
 
@@ -84,6 +99,7 @@ private fun AppNavHost(
             FeedRoute(
                 onOpenStory = { navController.navigate(Routes.story(it)) },
                 onOpenComments = { navController.navigate(Routes.comments(it)) },
+                onOpenSettings = { navController.navigate(Routes.SETTINGS) { launchSingleTop = true } },
             )
         }
         composable(Routes.LIBRARY) {
@@ -95,7 +111,6 @@ private fun AppNavHost(
         composable(
             route = Routes.STORY,
             arguments = listOf(navArgument(Routes.ARG_ID) { type = NavType.StringType }),
-            deepLinks = listOf(navDeepLink { uriPattern = Routes.STORY_DEEP_LINK }),
         ) {
             ReaderRoute(
                 onBack = { navController.navigateUpOrNews() },
@@ -107,6 +122,9 @@ private fun AppNavHost(
             arguments = listOf(navArgument(Routes.ARG_ID) { type = NavType.StringType }),
         ) {
             CommentsRoute(onBack = { navController.navigateUpOrNews() })
+        }
+        composable(Routes.SETTINGS) {
+            SettingsRoute(onBack = { navController.navigateUpOrNews() })
         }
     }
 }

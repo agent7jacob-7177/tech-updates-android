@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Web favicon (32x32 viewBox: three lines 14, 14, 9 long) centred in the adaptive icon's
+     72dp visible area: a 48-unit viewport maps 108dp, so the 32-unit favicon sits at offset 8. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <group
+        android:translateX="8"
+        android:translateY="8">
+        <path
+            android:pathData="M9,11h14M9,16h14M9,21h9"
+            android:strokeWidth="2.5"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeLineCap="round" />
+    </group>
+</vector>
