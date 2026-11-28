@@ -64,3 +64,36 @@ fun timeAgo(
     for ((unit, n) in TimeUnits) if (s >= n) return "${s / n}$unit ago"
     return "just now"
 }
+
+private val BlockTag = Regex("""<\s*(p|br|/p|div|/div|li|pre|/pre)\b[^>]*>""", RegexOption.IGNORE_CASE)
+private val AnyTag = Regex("""<[^>]*>""")
+private val Entity = Regex("""&(#[xX][0-9a-fA-F]+|#[0-9]+|[a-zA-Z]+);""")
+private val Whitespace = Regex("""\s+""")
+private val NamedEntities =
+    mapOf("amp" to "&", "lt" to "<", "gt" to ">", "quot" to "\"", "apos" to "'", "nbsp" to " ")
+
+private object Radix {
+    const val HEX = 16
+}
+
+private fun decodeEntity(body: String): String? =
+    when {
+        body.startsWith("#x", ignoreCase = true) -> body.drop(2).toIntOrNull(Radix.HEX)
+        body.startsWith("#") -> body.drop(1).toIntOrNull()
+        else -> null
+    }?.takeIf { Character.isValidCodePoint(it) }?.let { String(Character.toChars(it)) }
+        ?: NamedEntities[body]
+
+/**
+ * Port of JS `stripHtml(html)` (the DOM's `textContent`): tags removed and entities decoded. Unlike
+ * `textContent`, block breaks (`<p>`, `<br>` …) become spaces and whitespace runs collapse, since the
+ * result is shown as a one-paragraph excerpt.
+ */
+fun stripHtml(html: String?): String {
+    if (html.isNullOrEmpty()) return ""
+    val text = html.replace(BlockTag, " ").replace(AnyTag, "")
+    return Entity
+        .replace(text) { m -> decodeEntity(m.groupValues[1]) ?: m.value }
+        .replace(Whitespace, " ")
+        .trim()
+}

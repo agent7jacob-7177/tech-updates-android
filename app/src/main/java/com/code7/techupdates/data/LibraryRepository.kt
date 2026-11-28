@@ -44,6 +44,19 @@ data class ReadReceipt(
     val wasLater: Boolean,
 )
 
+/** What the feed screen needs from [LibraryRepository] (a seam for fakes in tests). */
+interface LaterToggle {
+    fun laterIds(): Flow<Set<String>>
+
+    fun readIds(): Flow<Set<String>>
+
+    /** Saves ([on] = true), un-saves (false) or toggles (null) [story]; returns the new state. */
+    suspend fun toggleLater(
+        story: Story,
+        on: Boolean? = null,
+    ): Boolean
+}
+
 /**
  * The on-device library (JS `lib`, `tu.lib`): "Read later" and "Read" lists. Saves and reads are
  * also reported to the [learner] as positive signals, as the web app's `toggleLater` / `markRead` do.
@@ -54,7 +67,7 @@ class LibraryRepository(
     private val db: AppDatabase,
     private val learner: LearnerStore,
     private val now: () -> Long = System::currentTimeMillis,
-) {
+) : LaterToggle {
     private val laterDao = db.laterDao()
     private val readDao = db.readDao()
 
@@ -68,9 +81,9 @@ class LibraryRepository(
     /** Newest first. */
     fun read(): Flow<List<ReadStory>> = readDao.readList().map { rows -> rows.map { it.toReadStory() } }
 
-    fun laterIds(): Flow<Set<String>> = laterDao.laterIds().map { it.toSet() }
+    override fun laterIds(): Flow<Set<String>> = laterDao.laterIds().map { it.toSet() }
 
-    fun readIds(): Flow<Set<String>> = readDao.readIds().map { it.toSet() }
+    override fun readIds(): Flow<Set<String>> = readDao.readIds().map { it.toSet() }
 
     fun isLater(storyId: String): Flow<Boolean> = laterDao.observeIsLater(storyId)
 
@@ -80,9 +93,9 @@ class LibraryRepository(
      * Saves or un-saves [story] (JS `toggleLater(h, on = !isLater)`); returns the new state. Saving
      * records a `save` signal, un-saving forgets it.
      */
-    suspend fun toggleLater(
+    override suspend fun toggleLater(
         story: Story,
-        on: Boolean? = null,
+        on: Boolean?,
     ): Boolean {
         val target =
             db.withTransaction {
