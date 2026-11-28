@@ -104,7 +104,11 @@ kover {
     reports {
         filters {
             includes {
-                packages("com.code7.techupdates.data", "com.code7.techupdates.domain", "com.code7.techupdates.recommender")
+                packages(
+                    "com.code7.techupdates.data",
+                    "com.code7.techupdates.domain",
+                    "com.code7.techupdates.recommender",
+                )
             }
             excludes {
                 annotatedBy("*Generated*")
