@@ -5,6 +5,7 @@ import com.code7.techupdates.data.remote.toComment
 import com.code7.techupdates.data.remote.toStory
 import com.code7.techupdates.domain.Comment
 import com.code7.techupdates.domain.FeedQuery
+import com.code7.techupdates.domain.SearchRequest
 import com.code7.techupdates.domain.Story
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
@@ -39,6 +40,12 @@ interface FeedSource {
     fun story(id: String): Story?
 }
 
+/** Where "For you" candidates come from (a seam for fakes in tests). */
+interface CandidateSource {
+    /** One uncached search; the stories are remembered so the reader can open them. */
+    suspend fun candidates(request: SearchRequest): Result<List<Story>>
+}
+
 /** What the reader needs to resolve a story id (a seam for fakes in tests). */
 interface StoryLookup {
     /** A story seen in a feed this session, or null. */
@@ -70,7 +77,8 @@ class StoryRepository(
     private val nowEpochSec: () -> Long = { System.currentTimeMillis() / MILLIS_PER_SECOND },
 ) : FeedSource,
     StoryLookup,
-    DiscussionSource {
+    DiscussionSource,
+    CandidateSource {
     private val mutex = Mutex()
     private val cache = mutableMapOf<FeedQuery, Page>()
     private val byId = ConcurrentHashMap<String, Story>()
@@ -108,6 +116,17 @@ class StoryRepository(
             if (cached != null) Result.success(cached.copy(fromCache = true, offline = true)) else Result.failure(e)
         }
     }
+
+    override suspend fun candidates(request: SearchRequest): Result<List<Story>> =
+        try {
+            Result.success(api.search(request).stories.onEach(::remember))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (
+            @Suppress("TooGenericExceptionCaught") e: Exception,
+        ) {
+            Result.failure(e)
+        }
 
     override suspend fun fetchStory(id: String): Result<Story> =
         try {

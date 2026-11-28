@@ -61,6 +61,10 @@ fun StoryCard(
                     style = with(MaterialTheme.typography) { if (featured) headlineSmall else titleMedium },
                     fontWeight = FontWeight.SemiBold,
                 )
+                if (card.why.isNotEmpty()) {
+                    Spacer(Modifier.height(6.dp))
+                    WhyLine(card.why)
+                }
                 if (card.excerpt.isNotEmpty()) {
                     Spacer(Modifier.height(6.dp))
                     Text(
@@ -74,6 +78,27 @@ fun StoryCard(
             }
             CardMeta(card.story, card.isHot, nowEpochSec, onOpenComments)
         }
+    }
+}
+
+/** JS `.why`: "Because you read about X and Y". */
+@Composable
+private fun WhyLine(why: List<String>) {
+    val reasons = why.reduce { joined, next -> stringResource(R.string.card_why_join, joined, next) }
+    val color = MaterialTheme.colorScheme.primary
+    Row {
+        Icon(
+            painterResource(R.drawable.ic_spark),
+            contentDescription = null,
+            tint = color,
+            modifier = Modifier.padding(top = 2.dp).size(14.dp),
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            stringResource(R.string.card_why, reasons),
+            style = MaterialTheme.typography.bodySmall,
+            color = color,
+        )
     }
 }
 

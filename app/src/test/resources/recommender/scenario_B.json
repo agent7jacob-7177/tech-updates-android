@@ -1,0 +1,2433 @@
+{
+  "scenario": "B",
+  "stories": [
+    {
+      "id": "s01",
+      "title": "OpenAI releases GPT-5 with improved reasoning",
+      "url": "https://www.openai.com/blog/gpt-5"
+    },
+    {
+      "id": "s02",
+      "title": "Claude 4 benchmarks and what they mean",
+      "url": "https://anthropic.com/claude-4"
+    },
+    {
+      "id": "s03",
+      "title": "Anthropic publishes its AI safety report",
+      "url": "https://www.anthropic.com/safety"
+    },
+    {
+      "id": "s04",
+      "title": "Gemini 2.5 review: a year of chatbot progress",
+      "url": "https://blog.google/gemini-2-5"
+    },
+    {
+      "id": "s05",
+      "title": "ChatGPT memory feature explained",
+      "url": "https://openai.com/chatgpt-memory"
+    },
+    {
+      "id": "s06",
+      "title": "AGI timelines: a sober look",
+      "url": "https://example-ai.org/agi-timelines"
+    },
+    {
+      "id": "s07",
+      "title": "PyTorch 3.0 released",
+      "url": "https://pytorch.org/blog/pytorch-3-0"
+    },
+    {
+      "id": "s08",
+      "title": "TensorFlow vs JAX in 2026",
+      "url": "https://www.tensorflow.org/blog/tf-vs-jax"
+    },
+    {
+      "id": "s09",
+      "title": "Fine-tuning LLMs on edge devices",
+      "url": "https://huggingface.co/blog/edge-finetuning"
+    },
+    {
+      "id": "s10",
+      "title": "A survey of diffusion models",
+      "url": "https://arxiv.org/abs/2601.01234"
+    },
+    {
+      "id": "s11",
+      "title": "Kaggle tabular competition results",
+      "url": "https://www.kaggle.com/competitions/tabular-2026"
+    },
+    {
+      "id": "s12",
+      "title": "XGBoost still wins tabular data",
+      "url": "https://dmlc.ai/blog/xgboost-2026"
+    },
+    {
+      "id": "s13",
+      "title": "scikit-learn 1.7 and open weights models",
+      "url": "https://scikit-learn.org/stable/whats_new"
+    },
+    {
+      "id": "s14",
+      "title": "Major breach at a cloud provider",
+      "url": "https://www.securityweek.com/cloud-breach"
+    },
+    {
+      "id": "s15",
+      "title": "New CVE in the Linux kernel",
+      "url": "https://kernel.org/security/cve-2026-1234"
+    },
+    {
+      "id": "s16",
+      "title": "Ransomware targets hospitals again",
+      "url": "https://www.bleepingcomputer.com/ransomware"
+    },
+    {
+      "id": "s17",
+      "title": "Privacy regulations in 2026",
+      "url": "https://iapp.org/privacy-regulations"
+    },
+    {
+      "id": "s18",
+      "title": "An exploit chain, dissected",
+      "url": "https://thehackernews.com/exploit-chain"
+    },
+    {
+      "id": "s19",
+      "title": "Malware found in npm packages",
+      "url": "https://www.snyk.com/blog/npm-malware"
+    },
+    {
+      "id": "s20",
+      "title": "Rust 2.0 announced",
+      "url": "https://www.rust-lang.org/blog/rust-2-0"
+    },
+    {
+      "id": "s21",
+      "title": "Python 3.14 release notes",
+      "url": "https://docs.python.org/3/whatsnew/3.14.html"
+    },
+    {
+      "id": "s22",
+      "title": "TypeScript 6.0: what changed",
+      "url": "https://www.typescriptlang.org/blog/ts-6"
+    },
+    {
+      "id": "s23",
+      "title": "Go 1.25 performance improvements",
+      "url": "https://go.dev/blog/go1.25"
+    },
+    {
+      "id": "s24",
+      "title": "Golang vs Rust for backend services",
+      "url": "https://example.dev/golang-vs-rust"
+    },
+    {
+      "id": "s25",
+      "title": "Notes on compiler design",
+      "url": "https://www.cs.cmu.edu/compilers/notes"
+    },
+    {
+      "id": "s26",
+      "title": "API design patterns that scale",
+      "url": "https://www.iamnotapi.com/api-design"
+    },
+    {
+      "id": "s27",
+      "title": "Developer productivity survey 2026",
+      "url": "https://survey.dev/productivity"
+    },
+    {
+      "id": "s28",
+      "title": "Nvidia unveils the B400 GPU",
+      "url": "https://www.nvidia.com/en-us/data-center/b400"
+    },
+    {
+      "id": "s29",
+      "title": "AMD Ryzen 10000 series review",
+      "url": "https://www.amd.com/en/ryzen-10000"
+    },
+    {
+      "id": "s30",
+      "title": "Intel 18A process in production",
+      "url": "https://www.intel.com/content/www/us/en/newsroom/18a.html"
+    },
+    {
+      "id": "s31",
+      "title": "Apple Silicon M6 inside the new Mac",
+      "url": "https://www.apple.com/mac/m6"
+    },
+    {
+      "id": "s32",
+      "title": "ARM servers keep rising",
+      "url": "https://www.arm.com/servers"
+    },
+    {
+      "id": "s33",
+      "title": "Chip fabrication: the next decade",
+      "url": "https://www.semiconductors.org/fab-2036"
+    },
+    {
+      "id": "s34",
+      "title": "NASA Artemis launch goes ahead",
+      "url": "https://www.nasa.gov/artemis-launch"
+    },
+    {
+      "id": "s35",
+      "title": "SpaceX Starship completes orbital test",
+      "url": "https://www.spacex.com/starship"
+    },
+    {
+      "id": "s36",
+      "title": "Rocket recovery test succeeds",
+      "url": "https://arstechnica.com/rocket-recovery"
+    },
+    {
+      "id": "s37",
+      "title": "Satellite internet expansion continues",
+      "url": "https://www.satellitedaily.com/expansion"
+    },
+    {
+      "id": "s38",
+      "title": "Mars rover finds new mineral",
+      "url": "https://mars.nasa.gov/rover-mineral"
+    },
+    {
+      "id": "s39",
+      "title": "Moon base plans take shape",
+      "url": "https://moonbase.example.org/plans"
+    },
+    {
+      "id": "s40",
+      "title": "Startup raises $100M Series B",
+      "url": "https://techcrunch.com/series-b"
+    },
+    {
+      "id": "s41",
+      "title": "Acquisition of a dev tools company",
+      "url": "https://www.theverge.com/acquisition"
+    },
+    {
+      "id": "s42",
+      "title": "IPO of a cloud firm priced",
+      "url": "https://www.reuters.com/cloud-ipo"
+    },
+    {
+      "id": "s43",
+      "title": "VC winter may finally end",
+      "url": "https://www.pwc.com/vc-winter"
+    },
+    {
+      "id": "s44",
+      "title": "Funding rounds hit a record in Q3",
+      "url": "https://crunchbase.com/funding-q3"
+    },
+    {
+      "id": "s45",
+      "title": "Show HN: A terminal-based git client",
+      "url": "https://news.ycombinator.com/item?id=45000001"
+    },
+    {
+      "id": "s46",
+      "title": "Show HN: Build a website in 60 seconds",
+      "url": "https://www.showhn.dev/website-60s"
+    },
+    {
+      "id": "s47",
+      "title": "Ask HN: How do you manage context switching?",
+      "url": null
+    },
+    {
+      "id": "s48",
+      "title": "Ask HN: What is your dev setup in 2026?",
+      "url": null
+    },
+    {
+      "id": "s49",
+      "title": "The new",
+      "url": null
+    },
+    {
+      "id": "s50",
+      "title": "!!!",
+      "url": "https://example.com/no-words"
+    },
+    {
+      "id": "s51",
+      "title": "OpenAI developer platform update",
+      "url": "https://openai.com/platform"
+    },
+    {
+      "id": "s52",
+      "title": "Copilot and chatbot usage at work",
+      "url": "https://www.example-copilot.org/usage"
+    }
+  ],
+  "events": [
+    {
+      "kind": "open",
+      "id": "s01",
+      "at": 1764000060000
+    },
+    {
+      "kind": "open",
+      "id": "s07",
+      "at": 1764000120000
+    },
+    {
+      "kind": "save",
+      "id": "s09",
+      "at": 1764000180000
+    },
+    {
+      "kind": "open",
+      "id": "s09",
+      "at": 1764000240000
+    },
+    {
+      "kind": "read",
+      "id": "s01",
+      "at": 1764000300000
+    },
+    {
+      "kind": "open",
+      "id": "s14",
+      "at": 1764000360000
+    },
+    {
+      "kind": "save",
+      "id": "s28",
+      "at": 1764000420000
+    },
+    {
+      "kind": "read",
+      "id": "s34",
+      "at": 1764000480000
+    },
+    {
+      "kind": "open",
+      "id": "s40",
+      "at": 1764000540000
+    },
+    {
+      "kind": "open",
+      "id": "s47",
+      "at": 1764000600000
+    },
+    {
+      "kind": "open",
+      "id": "s03",
+      "at": 1764000660000
+    },
+    {
+      "kind": "open",
+      "id": "s05",
+      "at": 1764000720000
+    },
+    {
+      "kind": "open",
+      "id": "s08",
+      "at": 1764000780000
+    },
+    {
+      "kind": "open",
+      "id": "s21",
+      "at": 1764000840000
+    },
+    {
+      "kind": "open",
+      "id": "s29",
+      "at": 1764000900000
+    },
+    {
+      "kind": "open",
+      "id": "s35",
+      "at": 1764000960000
+    },
+    {
+      "kind": "open",
+      "id": "s41",
+      "at": 1764001020000
+    },
+    {
+      "kind": "open",
+      "id": "s51",
+      "at": 1764001080000
+    },
+    {
+      "kind": "open",
+      "id": "s52",
+      "at": 1764001140000
+    }
+  ],
+  "impressions": [
+    {
+      "id": "s14",
+      "n": 4,
+      "at": 1764001200000
+    },
+    {
+      "id": "s22",
+      "n": 3,
+      "at": 1764001260000
+    },
+    {
+      "id": "s30",
+      "n": 2,
+      "at": 1764001320000
+    },
+    {
+      "id": "s43",
+      "n": 1,
+      "at": 1764001380000
+    },
+    {
+      "id": "s49",
+      "n": 2,
+      "at": 1764001440000
+    }
+  ],
+  "features": {
+    "s01": [
+      "w:openai",
+      "w:releases",
+      "w:gpt-5",
+      "w:improved",
+      "w:reasoning",
+      "b:openai releases",
+      "b:releases gpt-5",
+      "b:gpt-5 improved",
+      "b:improved reasoning",
+      "d:openai.com",
+      "t:AI"
+    ],
+    "s02": [
+      "w:claude",
+      "w:benchmarks",
+      "w:mean",
+      "b:claude benchmarks",
+      "b:benchmarks mean",
+      "d:anthropic.com",
+      "t:AI"
+    ],
+    "s03": [
+      "w:anthropic",
+      "w:publishes",
+      "w:ai",
+      "w:safety",
+      "w:report",
+      "b:anthropic publishes",
+      "b:publishes ai",
+      "b:ai safety",
+      "b:safety report",
+      "d:anthropic.com",
+      "t:AI"
+    ],
+    "s04": [
+      "w:gemini",
+      "w:2.5",
+      "w:review",
+      "w:chatbot",
+      "w:progress",
+      "b:gemini 2.5",
+      "b:2.5 review",
+      "b:review chatbot",
+      "b:chatbot progress",
+      "d:blog.google",
+      "t:AI"
+    ],
+    "s05": [
+      "w:chatgpt",
+      "w:memory",
+      "w:feature",
+      "w:explained",
+      "b:chatgpt memory",
+      "b:memory feature",
+      "b:feature explained",
+      "d:openai.com",
+      "t:AI"
+    ],
+    "s06": [
+      "w:agi",
+      "w:timelines",
+      "w:sober",
+      "w:look",
+      "b:agi timelines",
+      "b:timelines sober",
+      "b:sober look",
+      "d:example-ai.org",
+      "t:AI"
+    ],
+    "s07": [
+      "w:pytorch",
+      "w:3.0",
+      "w:released",
+      "b:pytorch 3.0",
+      "b:3.0 released",
+      "d:pytorch.org",
+      "t:ML"
+    ],
+    "s08": [
+      "w:tensorflow",
+      "w:jax",
+      "b:tensorflow jax",
+      "d:tensorflow.org",
+      "t:ML"
+    ],
+    "s09": [
+      "w:fine-tuning",
+      "w:llms",
+      "w:edge",
+      "w:devices",
+      "b:fine-tuning llms",
+      "b:llms edge",
+      "b:edge devices",
+      "d:huggingface.co",
+      "t:AI"
+    ],
+    "s10": [
+      "w:survey",
+      "w:diffusion",
+      "w:models",
+      "b:survey diffusion",
+      "b:diffusion models",
+      "d:arxiv.org",
+      "t:ML"
+    ],
+    "s11": [
+      "w:kaggle",
+      "w:tabular",
+      "w:competition",
+      "w:results",
+      "b:kaggle tabular",
+      "b:tabular competition",
+      "b:competition results",
+      "d:kaggle.com",
+      "t:ML"
+    ],
+    "s12": [
+      "w:xgboost",
+      "w:still",
+      "w:wins",
+      "w:tabular",
+      "w:data",
+      "b:xgboost still",
+      "b:still wins",
+      "b:wins tabular",
+      "b:tabular data",
+      "d:dmlc.ai",
+      "t:ML"
+    ],
+    "s13": [
+      "w:scikit-learn",
+      "w:1.7",
+      "w:open",
+      "w:weights",
+      "w:models",
+      "b:scikit-learn 1.7",
+      "b:1.7 open",
+      "b:open weights",
+      "b:weights models",
+      "d:scikit-learn.org",
+      "t:ML"
+    ],
+    "s14": [
+      "w:major",
+      "w:breach",
+      "w:cloud",
+      "w:provider",
+      "b:major breach",
+      "b:breach cloud",
+      "b:cloud provider",
+      "d:securityweek.com",
+      "t:Security"
+    ],
+    "s15": [
+      "w:cve",
+      "w:linux",
+      "w:kernel",
+      "b:cve linux",
+      "b:linux kernel",
+      "d:kernel.org",
+      "t:Security"
+    ],
+    "s16": [
+      "w:ransomware",
+      "w:targets",
+      "w:hospitals",
+      "w:again",
+      "b:ransomware targets",
+      "b:targets hospitals",
+      "b:hospitals again",
+      "d:bleepingcomputer.com",
+      "t:Security"
+    ],
+    "s17": [
+      "w:privacy",
+      "w:regulations",
+      "b:privacy regulations",
+      "d:iapp.org",
+      "t:Security"
+    ],
+    "s18": [
+      "w:exploit",
+      "w:chain",
+      "w:dissected",
+      "b:exploit chain",
+      "b:chain dissected",
+      "d:thehackernews.com",
+      "t:Security"
+    ],
+    "s19": [
+      "w:malware",
+      "w:found",
+      "w:npm",
+      "w:packages",
+      "b:malware found",
+      "b:found npm",
+      "b:npm packages",
+      "d:snyk.com",
+      "t:Security"
+    ],
+    "s20": [
+      "w:rust",
+      "w:2.0",
+      "w:announced",
+      "b:rust 2.0",
+      "b:2.0 announced",
+      "d:rust-lang.org",
+      "t:Programming"
+    ],
+    "s21": [
+      "w:python",
+      "w:3.14",
+      "w:release",
+      "w:notes",
+      "b:python 3.14",
+      "b:3.14 release",
+      "b:release notes",
+      "d:docs.python.org",
+      "t:Programming"
+    ],
+    "s22": [
+      "w:typescript",
+      "w:6.0",
+      "w:changed",
+      "b:typescript 6.0",
+      "b:6.0 changed",
+      "d:typescriptlang.org",
+      "t:Programming"
+    ],
+    "s23": [
+      "w:go",
+      "w:1.25",
+      "w:performance",
+      "w:improvements",
+      "b:go 1.25",
+      "b:1.25 performance",
+      "b:performance improvements",
+      "d:go.dev",
+      "t:Programming"
+    ],
+    "s24": [
+      "w:golang",
+      "w:rust",
+      "w:backend",
+      "w:services",
+      "b:golang rust",
+      "b:rust backend",
+      "b:backend services",
+      "d:example.dev",
+      "t:Programming"
+    ],
+    "s25": [
+      "w:notes",
+      "w:compiler",
+      "w:design",
+      "b:notes compiler",
+      "b:compiler design",
+      "d:cs.cmu.edu",
+      "t:Programming"
+    ],
+    "s26": [
+      "w:api",
+      "w:design",
+      "w:patterns",
+      "w:scale",
+      "b:api design",
+      "b:design patterns",
+      "b:patterns scale",
+      "d:iamnotapi.com",
+      "t:Programming"
+    ],
+    "s27": [
+      "w:developer",
+      "w:productivity",
+      "w:survey",
+      "b:developer productivity",
+      "b:productivity survey",
+      "d:survey.dev",
+      "t:Programming"
+    ],
+    "s28": [
+      "w:nvidia",
+      "w:unveils",
+      "w:b400",
+      "w:gpu",
+      "b:nvidia unveils",
+      "b:unveils b400",
+      "b:b400 gpu",
+      "d:nvidia.com",
+      "t:Hardware"
+    ],
+    "s29": [
+      "w:amd",
+      "w:ryzen",
+      "w:series",
+      "w:review",
+      "b:amd ryzen",
+      "b:ryzen series",
+      "b:series review",
+      "d:amd.com",
+      "t:Hardware"
+    ],
+    "s30": [
+      "w:intel",
+      "w:18a",
+      "w:process",
+      "w:production",
+      "b:intel 18a",
+      "b:18a process",
+      "b:process production",
+      "d:intel.com",
+      "t:Hardware"
+    ],
+    "s31": [
+      "w:apple",
+      "w:silicon",
+      "w:m6",
+      "w:inside",
+      "w:mac",
+      "b:apple silicon",
+      "b:silicon m6",
+      "b:m6 inside",
+      "b:inside mac",
+      "d:apple.com",
+      "t:Hardware"
+    ],
+    "s32": [
+      "w:arm",
+      "w:servers",
+      "w:keep",
+      "w:rising",
+      "b:arm servers",
+      "b:servers keep",
+      "b:keep rising",
+      "d:arm.com",
+      "t:Hardware"
+    ],
+    "s33": [
+      "w:chip",
+      "w:fabrication",
+      "w:next",
+      "w:decade",
+      "b:chip fabrication",
+      "b:fabrication next",
+      "b:next decade",
+      "d:semiconductors.org",
+      "t:Hardware"
+    ],
+    "s34": [
+      "w:nasa",
+      "w:artemis",
+      "w:launch",
+      "w:goes",
+      "w:ahead",
+      "b:nasa artemis",
+      "b:artemis launch",
+      "b:launch goes",
+      "b:goes ahead",
+      "d:nasa.gov",
+      "t:Space"
+    ],
+    "s35": [
+      "w:spacex",
+      "w:starship",
+      "w:completes",
+      "w:orbital",
+      "w:test",
+      "b:spacex starship",
+      "b:starship completes",
+      "b:completes orbital",
+      "b:orbital test",
+      "d:spacex.com",
+      "t:Space"
+    ],
+    "s36": [
+      "w:rocket",
+      "w:recovery",
+      "w:test",
+      "w:succeeds",
+      "b:rocket recovery",
+      "b:recovery test",
+      "b:test succeeds",
+      "d:arstechnica.com",
+      "t:Space"
+    ],
+    "s37": [
+      "w:satellite",
+      "w:internet",
+      "w:expansion",
+      "w:continues",
+      "b:satellite internet",
+      "b:internet expansion",
+      "b:expansion continues",
+      "d:satellitedaily.com",
+      "t:Space"
+    ],
+    "s38": [
+      "w:mars",
+      "w:rover",
+      "w:finds",
+      "w:mineral",
+      "b:mars rover",
+      "b:rover finds",
+      "b:finds mineral",
+      "d:mars.nasa.gov",
+      "t:Space"
+    ],
+    "s39": [
+      "w:moon",
+      "w:base",
+      "w:plans",
+      "w:take",
+      "w:shape",
+      "b:moon base",
+      "b:base plans",
+      "b:plans take",
+      "b:take shape",
+      "d:moonbase.example.org",
+      "t:Space"
+    ],
+    "s40": [
+      "w:startup",
+      "w:raises",
+      "w:100m",
+      "w:series",
+      "b:startup raises",
+      "b:raises 100m",
+      "b:100m series",
+      "d:techcrunch.com",
+      "t:Startups"
+    ],
+    "s41": [
+      "w:acquisition",
+      "w:dev",
+      "w:tools",
+      "w:company",
+      "b:acquisition dev",
+      "b:dev tools",
+      "b:tools company",
+      "d:theverge.com",
+      "t:Startups"
+    ],
+    "s42": [
+      "w:ipo",
+      "w:cloud",
+      "w:firm",
+      "w:priced",
+      "b:ipo cloud",
+      "b:cloud firm",
+      "b:firm priced",
+      "d:reuters.com",
+      "t:Startups"
+    ],
+    "s43": [
+      "w:vc",
+      "w:winter",
+      "w:may",
+      "w:finally",
+      "w:end",
+      "b:vc winter",
+      "b:winter may",
+      "b:may finally",
+      "b:finally end",
+      "d:pwc.com",
+      "t:Startups"
+    ],
+    "s44": [
+      "w:funding",
+      "w:rounds",
+      "w:hit",
+      "w:record",
+      "w:q3",
+      "b:funding rounds",
+      "b:rounds hit",
+      "b:hit record",
+      "b:record q3",
+      "d:crunchbase.com",
+      "t:Startups"
+    ],
+    "s45": [
+      "w:terminal-based",
+      "w:git",
+      "w:client",
+      "b:terminal-based git",
+      "b:git client",
+      "d:news.ycombinator.com",
+      "k:Show HN"
+    ],
+    "s46": [
+      "w:build",
+      "w:website",
+      "w:seconds",
+      "b:build website",
+      "b:website seconds",
+      "d:showhn.dev",
+      "k:Show HN"
+    ],
+    "s47": [
+      "w:manage",
+      "w:context",
+      "w:switching",
+      "b:manage context",
+      "b:context switching",
+      "k:Ask HN"
+    ],
+    "s48": [
+      "w:dev",
+      "w:setup",
+      "b:dev setup",
+      "k:Ask HN"
+    ],
+    "s49": [],
+    "s50": [
+      "d:example.com"
+    ],
+    "s51": [
+      "w:openai",
+      "w:developer",
+      "w:platform",
+      "w:update",
+      "b:openai developer",
+      "b:developer platform",
+      "b:platform update",
+      "d:openai.com",
+      "t:AI"
+    ],
+    "s52": [
+      "w:copilot",
+      "w:chatbot",
+      "w:usage",
+      "w:work",
+      "b:copilot chatbot",
+      "b:chatbot usage",
+      "b:usage work",
+      "d:example-copilot.org",
+      "t:AI"
+    ]
+  },
+  "model": {
+    "w": [
+      [
+        "w:openai",
+        0.5362266318361505
+      ],
+      [
+        "w:developer",
+        0.18743298324961621
+      ],
+      [
+        "w:platform",
+        0.18743298324961621
+      ],
+      [
+        "w:update",
+        0.18743298324961621
+      ],
+      [
+        "b:openai developer",
+        0.18743298324961621
+      ],
+      [
+        "b:developer platform",
+        0.18743298324961621
+      ],
+      [
+        "b:platform update",
+        0.18743298324961621
+      ],
+      [
+        "d:openai.com",
+        0.7227621833613392
+      ],
+      [
+        "t:AI",
+        1.424259276813025
+      ],
+      [
+        "w:vc",
+        -0.1938561868409071
+      ],
+      [
+        "w:winter",
+        -0.1938561868409071
+      ],
+      [
+        "w:may",
+        -0.1938561868409071
+      ],
+      [
+        "w:finally",
+        -0.1938561868409071
+      ],
+      [
+        "w:end",
+        -0.1938561868409071
+      ],
+      [
+        "b:vc winter",
+        -0.1938561868409071
+      ],
+      [
+        "b:winter may",
+        -0.1938561868409071
+      ],
+      [
+        "b:may finally",
+        -0.1938561868409071
+      ],
+      [
+        "b:finally end",
+        -0.1938561868409071
+      ],
+      [
+        "d:pwc.com",
+        -0.1938561868409071
+      ],
+      [
+        "t:Startups",
+        0.2749435480041353
+      ],
+      [
+        "w:copilot",
+        0.20897696134875574
+      ],
+      [
+        "w:chatbot",
+        0.20897696134875574
+      ],
+      [
+        "w:usage",
+        0.20897696134875574
+      ],
+      [
+        "w:work",
+        0.20897696134875574
+      ],
+      [
+        "b:copilot chatbot",
+        0.20897696134875574
+      ],
+      [
+        "b:chatbot usage",
+        0.20897696134875574
+      ],
+      [
+        "b:usage work",
+        0.20897696134875574
+      ],
+      [
+        "d:example-copilot.org",
+        0.20897696134875574
+      ],
+      [
+        "w:typescript",
+        -0.586551730822385
+      ],
+      [
+        "w:6.0",
+        -0.586551730822385
+      ],
+      [
+        "w:changed",
+        -0.586551730822385
+      ],
+      [
+        "b:typescript 6.0",
+        -0.586551730822385
+      ],
+      [
+        "b:6.0 changed",
+        -0.586551730822385
+      ],
+      [
+        "d:typescriptlang.org",
+        -0.586551730822385
+      ],
+      [
+        "t:Programming",
+        -0.3295618615799918
+      ],
+      [
+        "w:acquisition",
+        0.24195528657526089
+      ],
+      [
+        "w:dev",
+        0.24195528657526089
+      ],
+      [
+        "w:tools",
+        0.24195528657526089
+      ],
+      [
+        "w:company",
+        0.24195528657526089
+      ],
+      [
+        "b:acquisition dev",
+        0.24195528657526089
+      ],
+      [
+        "b:dev tools",
+        0.24195528657526089
+      ],
+      [
+        "b:tools company",
+        0.24195528657526089
+      ],
+      [
+        "d:theverge.com",
+        0.24195528657526089
+      ],
+      [
+        "w:fine-tuning",
+        0.35547941981600895
+      ],
+      [
+        "w:llms",
+        0.35547941981600895
+      ],
+      [
+        "w:edge",
+        0.35547941981600895
+      ],
+      [
+        "w:devices",
+        0.35547941981600895
+      ],
+      [
+        "b:fine-tuning llms",
+        0.35547941981600895
+      ],
+      [
+        "b:llms edge",
+        0.35547941981600895
+      ],
+      [
+        "b:edge devices",
+        0.35547941981600895
+      ],
+      [
+        "d:huggingface.co",
+        0.35547941981600895
+      ],
+      [
+        "w:pytorch",
+        0.2634130622289292
+      ],
+      [
+        "w:3.0",
+        0.2634130622289292
+      ],
+      [
+        "w:released",
+        0.2634130622289292
+      ],
+      [
+        "b:pytorch 3.0",
+        0.2634130622289292
+      ],
+      [
+        "b:3.0 released",
+        0.2634130622289292
+      ],
+      [
+        "d:pytorch.org",
+        0.2634130622289292
+      ],
+      [
+        "t:ML",
+        0.5706396154712152
+      ],
+      [
+        "w:spacex",
+        0.20901039764615212
+      ],
+      [
+        "w:starship",
+        0.20901039764615212
+      ],
+      [
+        "w:completes",
+        0.20901039764615212
+      ],
+      [
+        "w:orbital",
+        0.20901039764615212
+      ],
+      [
+        "w:test",
+        0.20901039764615212
+      ],
+      [
+        "b:spacex starship",
+        0.20901039764615212
+      ],
+      [
+        "b:starship completes",
+        0.20901039764615212
+      ],
+      [
+        "b:completes orbital",
+        0.20901039764615212
+      ],
+      [
+        "b:orbital test",
+        0.20901039764615212
+      ],
+      [
+        "d:spacex.com",
+        0.20901039764615212
+      ],
+      [
+        "t:Space",
+        0.6100965700594752
+      ],
+      [
+        "w:python",
+        0.25469554767016944
+      ],
+      [
+        "w:3.14",
+        0.25469554767016944
+      ],
+      [
+        "w:release",
+        0.25469554767016944
+      ],
+      [
+        "w:notes",
+        0.25469554767016944
+      ],
+      [
+        "b:python 3.14",
+        0.25469554767016944
+      ],
+      [
+        "b:3.14 release",
+        0.25469554767016944
+      ],
+      [
+        "b:release notes",
+        0.25469554767016944
+      ],
+      [
+        "d:docs.python.org",
+        0.25469554767016944
+      ],
+      [
+        "w:manage",
+        0.2952365583908986
+      ],
+      [
+        "w:context",
+        0.2952365583908986
+      ],
+      [
+        "w:switching",
+        0.2952365583908986
+      ],
+      [
+        "b:manage context",
+        0.2952365583908986
+      ],
+      [
+        "b:context switching",
+        0.2952365583908986
+      ],
+      [
+        "k:Ask HN",
+        0.2952365583908986
+      ],
+      [
+        "w:startup",
+        0.232191317482217
+      ],
+      [
+        "w:raises",
+        0.232191317482217
+      ],
+      [
+        "w:100m",
+        0.232191317482217
+      ],
+      [
+        "w:series",
+        0.4599626081107622
+      ],
+      [
+        "b:startup raises",
+        0.232191317482217
+      ],
+      [
+        "b:raises 100m",
+        0.232191317482217
+      ],
+      [
+        "b:100m series",
+        0.232191317482217
+      ],
+      [
+        "d:techcrunch.com",
+        0.232191317482217
+      ],
+      [
+        "w:chatgpt",
+        0.19488427455298624
+      ],
+      [
+        "w:memory",
+        0.19488427455298624
+      ],
+      [
+        "w:feature",
+        0.19488427455298624
+      ],
+      [
+        "w:explained",
+        0.19488427455298624
+      ],
+      [
+        "b:chatgpt memory",
+        0.19488427455298624
+      ],
+      [
+        "b:memory feature",
+        0.19488427455298624
+      ],
+      [
+        "b:feature explained",
+        0.19488427455298624
+      ],
+      [
+        "w:tensorflow",
+        0.31209998587875787
+      ],
+      [
+        "w:jax",
+        0.31209998587875787
+      ],
+      [
+        "b:tensorflow jax",
+        0.31209998587875787
+      ],
+      [
+        "d:tensorflow.org",
+        0.31209998587875787
+      ],
+      [
+        "w:nvidia",
+        0.40164472375181354
+      ],
+      [
+        "w:unveils",
+        0.40164472375181354
+      ],
+      [
+        "w:b400",
+        0.40164472375181354
+      ],
+      [
+        "w:gpu",
+        0.40164472375181354
+      ],
+      [
+        "b:nvidia unveils",
+        0.40164472375181354
+      ],
+      [
+        "b:unveils b400",
+        0.40164472375181354
+      ],
+      [
+        "b:b400 gpu",
+        0.40164472375181354
+      ],
+      [
+        "d:nvidia.com",
+        0.40164472375181354
+      ],
+      [
+        "t:Hardware",
+        0.23286083539252633
+      ],
+      [
+        "w:anthropic",
+        0.18941844047053413
+      ],
+      [
+        "w:publishes",
+        0.18941844047053413
+      ],
+      [
+        "w:ai",
+        0.18941844047053413
+      ],
+      [
+        "w:safety",
+        0.18941844047053413
+      ],
+      [
+        "w:report",
+        0.18941844047053413
+      ],
+      [
+        "b:anthropic publishes",
+        0.18941844047053413
+      ],
+      [
+        "b:publishes ai",
+        0.18941844047053413
+      ],
+      [
+        "b:ai safety",
+        0.18941844047053413
+      ],
+      [
+        "b:safety report",
+        0.18941844047053413
+      ],
+      [
+        "d:anthropic.com",
+        0.18941844047053413
+      ],
+      [
+        "w:amd",
+        0.23166312267087602
+      ],
+      [
+        "w:ryzen",
+        0.23166312267087602
+      ],
+      [
+        "w:review",
+        0.23166312267087602
+      ],
+      [
+        "b:amd ryzen",
+        0.23166312267087602
+      ],
+      [
+        "b:ryzen series",
+        0.23166312267087602
+      ],
+      [
+        "b:series review",
+        0.23166312267087602
+      ],
+      [
+        "d:amd.com",
+        0.23166312267087602
+      ],
+      [
+        "w:major",
+        0.24189762593020986
+      ],
+      [
+        "w:breach",
+        0.24189762593020986
+      ],
+      [
+        "w:cloud",
+        0.24189762593020986
+      ],
+      [
+        "w:provider",
+        0.24189762593020986
+      ],
+      [
+        "b:major breach",
+        0.24189762593020986
+      ],
+      [
+        "b:breach cloud",
+        0.24189762593020986
+      ],
+      [
+        "b:cloud provider",
+        0.24189762593020986
+      ],
+      [
+        "d:securityweek.com",
+        0.24189762593020986
+      ],
+      [
+        "t:Security",
+        0.24189762593020986
+      ],
+      [
+        "w:nasa",
+        0.4065578722219207
+      ],
+      [
+        "w:artemis",
+        0.4065578722219207
+      ],
+      [
+        "w:launch",
+        0.4065578722219207
+      ],
+      [
+        "w:goes",
+        0.4065578722219207
+      ],
+      [
+        "w:ahead",
+        0.4065578722219207
+      ],
+      [
+        "b:nasa artemis",
+        0.4065578722219207
+      ],
+      [
+        "b:artemis launch",
+        0.4065578722219207
+      ],
+      [
+        "b:launch goes",
+        0.4065578722219207
+      ],
+      [
+        "b:goes ahead",
+        0.4065578722219207
+      ],
+      [
+        "d:nasa.gov",
+        0.4065578722219207
+      ],
+      [
+        "w:intel",
+        -0.39481758694591923
+      ],
+      [
+        "w:18a",
+        -0.39481758694591923
+      ],
+      [
+        "w:process",
+        -0.39481758694591923
+      ],
+      [
+        "w:production",
+        -0.39481758694591923
+      ],
+      [
+        "b:intel 18a",
+        -0.39481758694591923
+      ],
+      [
+        "b:18a process",
+        -0.39481758694591923
+      ],
+      [
+        "b:process production",
+        -0.39481758694591923
+      ],
+      [
+        "d:intel.com",
+        -0.39481758694591923
+      ],
+      [
+        "w:releases",
+        0.3537795519670017
+      ],
+      [
+        "w:gpt-5",
+        0.3537795519670017
+      ],
+      [
+        "w:improved",
+        0.3537795519670017
+      ],
+      [
+        "w:reasoning",
+        0.3537795519670017
+      ],
+      [
+        "b:openai releases",
+        0.3537795519670017
+      ],
+      [
+        "b:releases gpt-5",
+        0.3537795519670017
+      ],
+      [
+        "b:gpt-5 improved",
+        0.3537795519670017
+      ],
+      [
+        "b:improved reasoning",
+        0.3537795519670017
+      ]
+    ],
+    "b": 1.0324919741959668,
+    "n": 21,
+    "support": [
+      [
+        "w:amd",
+        1
+      ],
+      [
+        "w:ryzen",
+        1
+      ],
+      [
+        "w:series",
+        2
+      ],
+      [
+        "w:review",
+        1
+      ],
+      [
+        "b:amd ryzen",
+        1
+      ],
+      [
+        "b:ryzen series",
+        1
+      ],
+      [
+        "b:series review",
+        1
+      ],
+      [
+        "d:amd.com",
+        1
+      ],
+      [
+        "t:Hardware",
+        2
+      ],
+      [
+        "w:startup",
+        1
+      ],
+      [
+        "w:raises",
+        1
+      ],
+      [
+        "w:100m",
+        1
+      ],
+      [
+        "b:startup raises",
+        1
+      ],
+      [
+        "b:raises 100m",
+        1
+      ],
+      [
+        "b:100m series",
+        1
+      ],
+      [
+        "d:techcrunch.com",
+        1
+      ],
+      [
+        "t:Startups",
+        2
+      ],
+      [
+        "w:acquisition",
+        1
+      ],
+      [
+        "w:dev",
+        1
+      ],
+      [
+        "w:tools",
+        1
+      ],
+      [
+        "w:company",
+        1
+      ],
+      [
+        "b:acquisition dev",
+        1
+      ],
+      [
+        "b:dev tools",
+        1
+      ],
+      [
+        "b:tools company",
+        1
+      ],
+      [
+        "d:theverge.com",
+        1
+      ],
+      [
+        "w:nasa",
+        1
+      ],
+      [
+        "w:artemis",
+        1
+      ],
+      [
+        "w:launch",
+        1
+      ],
+      [
+        "w:goes",
+        1
+      ],
+      [
+        "w:ahead",
+        1
+      ],
+      [
+        "b:nasa artemis",
+        1
+      ],
+      [
+        "b:artemis launch",
+        1
+      ],
+      [
+        "b:launch goes",
+        1
+      ],
+      [
+        "b:goes ahead",
+        1
+      ],
+      [
+        "d:nasa.gov",
+        1
+      ],
+      [
+        "t:Space",
+        2
+      ],
+      [
+        "w:chatgpt",
+        1
+      ],
+      [
+        "w:memory",
+        1
+      ],
+      [
+        "w:feature",
+        1
+      ],
+      [
+        "w:explained",
+        1
+      ],
+      [
+        "b:chatgpt memory",
+        1
+      ],
+      [
+        "b:memory feature",
+        1
+      ],
+      [
+        "b:feature explained",
+        1
+      ],
+      [
+        "d:openai.com",
+        3
+      ],
+      [
+        "t:AI",
+        6
+      ],
+      [
+        "w:openai",
+        2
+      ],
+      [
+        "w:developer",
+        1
+      ],
+      [
+        "w:platform",
+        1
+      ],
+      [
+        "w:update",
+        1
+      ],
+      [
+        "b:openai developer",
+        1
+      ],
+      [
+        "b:developer platform",
+        1
+      ],
+      [
+        "b:platform update",
+        1
+      ],
+      [
+        "w:nvidia",
+        1
+      ],
+      [
+        "w:unveils",
+        1
+      ],
+      [
+        "w:b400",
+        1
+      ],
+      [
+        "w:gpu",
+        1
+      ],
+      [
+        "b:nvidia unveils",
+        1
+      ],
+      [
+        "b:unveils b400",
+        1
+      ],
+      [
+        "b:b400 gpu",
+        1
+      ],
+      [
+        "d:nvidia.com",
+        1
+      ],
+      [
+        "w:major",
+        1
+      ],
+      [
+        "w:breach",
+        1
+      ],
+      [
+        "w:cloud",
+        1
+      ],
+      [
+        "w:provider",
+        1
+      ],
+      [
+        "b:major breach",
+        1
+      ],
+      [
+        "b:breach cloud",
+        1
+      ],
+      [
+        "b:cloud provider",
+        1
+      ],
+      [
+        "d:securityweek.com",
+        1
+      ],
+      [
+        "t:Security",
+        1
+      ],
+      [
+        "w:python",
+        1
+      ],
+      [
+        "w:3.14",
+        1
+      ],
+      [
+        "w:release",
+        1
+      ],
+      [
+        "w:notes",
+        1
+      ],
+      [
+        "b:python 3.14",
+        1
+      ],
+      [
+        "b:3.14 release",
+        1
+      ],
+      [
+        "b:release notes",
+        1
+      ],
+      [
+        "d:docs.python.org",
+        1
+      ],
+      [
+        "t:Programming",
+        1
+      ],
+      [
+        "w:spacex",
+        1
+      ],
+      [
+        "w:starship",
+        1
+      ],
+      [
+        "w:completes",
+        1
+      ],
+      [
+        "w:orbital",
+        1
+      ],
+      [
+        "w:test",
+        1
+      ],
+      [
+        "b:spacex starship",
+        1
+      ],
+      [
+        "b:starship completes",
+        1
+      ],
+      [
+        "b:completes orbital",
+        1
+      ],
+      [
+        "b:orbital test",
+        1
+      ],
+      [
+        "d:spacex.com",
+        1
+      ],
+      [
+        "w:manage",
+        1
+      ],
+      [
+        "w:context",
+        1
+      ],
+      [
+        "w:switching",
+        1
+      ],
+      [
+        "b:manage context",
+        1
+      ],
+      [
+        "b:context switching",
+        1
+      ],
+      [
+        "k:Ask HN",
+        1
+      ],
+      [
+        "w:fine-tuning",
+        1
+      ],
+      [
+        "w:llms",
+        1
+      ],
+      [
+        "w:edge",
+        1
+      ],
+      [
+        "w:devices",
+        1
+      ],
+      [
+        "b:fine-tuning llms",
+        1
+      ],
+      [
+        "b:llms edge",
+        1
+      ],
+      [
+        "b:edge devices",
+        1
+      ],
+      [
+        "d:huggingface.co",
+        1
+      ],
+      [
+        "w:pytorch",
+        1
+      ],
+      [
+        "w:3.0",
+        1
+      ],
+      [
+        "w:released",
+        1
+      ],
+      [
+        "b:pytorch 3.0",
+        1
+      ],
+      [
+        "b:3.0 released",
+        1
+      ],
+      [
+        "d:pytorch.org",
+        1
+      ],
+      [
+        "t:ML",
+        2
+      ],
+      [
+        "w:tensorflow",
+        1
+      ],
+      [
+        "w:jax",
+        1
+      ],
+      [
+        "b:tensorflow jax",
+        1
+      ],
+      [
+        "d:tensorflow.org",
+        1
+      ],
+      [
+        "w:anthropic",
+        1
+      ],
+      [
+        "w:publishes",
+        1
+      ],
+      [
+        "w:ai",
+        1
+      ],
+      [
+        "w:safety",
+        1
+      ],
+      [
+        "w:report",
+        1
+      ],
+      [
+        "b:anthropic publishes",
+        1
+      ],
+      [
+        "b:publishes ai",
+        1
+      ],
+      [
+        "b:ai safety",
+        1
+      ],
+      [
+        "b:safety report",
+        1
+      ],
+      [
+        "d:anthropic.com",
+        1
+      ],
+      [
+        "w:releases",
+        1
+      ],
+      [
+        "w:gpt-5",
+        1
+      ],
+      [
+        "w:improved",
+        1
+      ],
+      [
+        "w:reasoning",
+        1
+      ],
+      [
+        "b:openai releases",
+        1
+      ],
+      [
+        "b:releases gpt-5",
+        1
+      ],
+      [
+        "b:gpt-5 improved",
+        1
+      ],
+      [
+        "b:improved reasoning",
+        1
+      ],
+      [
+        "w:copilot",
+        1
+      ],
+      [
+        "w:chatbot",
+        1
+      ],
+      [
+        "w:usage",
+        1
+      ],
+      [
+        "w:work",
+        1
+      ],
+      [
+        "b:copilot chatbot",
+        1
+      ],
+      [
+        "b:chatbot usage",
+        1
+      ],
+      [
+        "b:usage work",
+        1
+      ],
+      [
+        "d:example-copilot.org",
+        1
+      ]
+    ]
+  },
+  "scores": {
+    "s01": {
+      "affinity": 1.6623781272393248,
+      "why": [
+        "AI",
+        "openai.com"
+      ]
+    },
+    "s02": {
+      "affinity": 0.6099128480198132,
+      "why": [
+        "AI"
+      ]
+    },
+    "s03": {
+      "affinity": 1.0005484163201865,
+      "why": [
+        "AI"
+      ]
+    },
+    "s04": {
+      "affinity": 0.5622883137868664,
+      "why": [
+        "AI"
+      ]
+    },
+    "s05": {
+      "affinity": 1.1704037940150893,
+      "why": [
+        "AI",
+        "openai.com"
+      ]
+    },
+    "s06": {
+      "affinity": 0.47475309227100837,
+      "why": [
+        "AI"
+      ]
+    },
+    "s07": {
+      "affinity": 0.8130461770343899,
+      "why": [
+        "Machine Learning"
+      ]
+    },
+    "s08": {
+      "affinity": 0.8134992215308972,
+      "why": [
+        "Machine Learning"
+      ]
+    },
+    "s09": {
+      "affinity": 1.4226982117803653,
+      "why": [
+        "AI"
+      ]
+    },
+    "s10": {
+      "affinity": 0.21568150153976592,
+      "why": [
+        "Machine Learning"
+      ]
+    },
+    "s11": {
+      "affinity": 0.19021320515707174,
+      "why": [
+        "Machine Learning"
+      ]
+    },
+    "s12": {
+      "affinity": 0.1720543177300641,
+      "why": [
+        "Machine Learning"
+      ]
+    },
+    "s13": {
+      "affinity": 0.1720543177300641,
+      "why": [
+        "Machine Learning"
+      ]
+    },
+    "s14": {
+      "affinity": 0.7256928777906296,
+      "why": []
+    },
+    "s15": {
+      "affinity": 0.09142870870689494,
+      "why": []
+    },
+    "s16": {
+      "affinity": 0.08063254197673661,
+      "why": []
+    },
+    "s17": {
+      "affinity": 0.10817990703515301,
+      "why": []
+    },
+    "s18": {
+      "affinity": 0.09142870870689494,
+      "why": []
+    },
+    "s19": {
+      "affinity": 0.08063254197673661,
+      "why": []
+    },
+    "s20": {
+      "affinity": -0.12456267533602147,
+      "why": []
+    },
+    "s21": {
+      "affinity": 0.5693341732604545,
+      "why": []
+    },
+    "s22": {
+      "affinity": -1.4547369703336184,
+      "why": []
+    },
+    "s23": {
+      "affinity": -0.10985395385999726,
+      "why": []
+    },
+    "s24": {
+      "affinity": -0.10985395385999726,
+      "why": []
+    },
+    "s25": {
+      "affinity": -0.028296806883069375,
+      "why": []
+    },
+    "s26": {
+      "affinity": -0.10985395385999726,
+      "why": []
+    },
+    "s27": {
+      "affinity": -0.05371966659753297,
+      "why": []
+    },
+    "s28": {
+      "affinity": 1.1486728751356785,
+      "why": [
+        "Hardware"
+      ]
+    },
+    "s29": {
+      "affinity": 0.7714884340664736,
+      "why": [
+        "series",
+        "Hardware"
+      ]
+    },
+    "s30": {
+      "affinity": -0.9752266200582761,
+      "why": [
+        "Hardware"
+      ]
+    },
+    "s31": {
+      "affinity": 0.0702101835787019,
+      "why": [
+        "Hardware"
+      ]
+    },
+    "s32": {
+      "affinity": 0.07762027846417544,
+      "why": [
+        "Hardware"
+      ]
+    },
+    "s33": {
+      "affinity": 0.07762027846417544,
+      "why": [
+        "Hardware"
+      ]
+    },
+    "s34": {
+      "affinity": 1.4097691441839733,
+      "why": [
+        "Space"
+      ]
+    },
+    "s35": {
+      "affinity": 0.8141410974111579,
+      "why": [
+        "Space"
+      ]
+    },
+    "s36": {
+      "affinity": 0.27303565590187573,
+      "why": [
+        "Space"
+      ]
+    },
+    "s37": {
+      "affinity": 0.20336552335315838,
+      "why": [
+        "Space"
+      ]
+    },
+    "s38": {
+      "affinity": 0.20336552335315838,
+      "why": [
+        "Space"
+      ]
+    },
+    "s39": {
+      "affinity": 0.18395103716091413,
+      "why": [
+        "Space"
+      ]
+    },
+    "s40": {
+      "affinity": 0.7867484594968055,
+      "why": [
+        "series",
+        "Startups"
+      ]
+    },
+    "s41": {
+      "affinity": 0.7368619468687407,
+      "why": [
+        "Startups"
+      ]
+    },
+    "s42": {
+      "affinity": 0.17228039131144837,
+      "why": [
+        "Startups"
+      ]
+    },
+    "s43": {
+      "affinity": -0.5015997966494931,
+      "why": [
+        "Startups"
+      ]
+    },
+    "s44": {
+      "affinity": 0.08289859884170774,
+      "why": [
+        "Startups"
+      ]
+    },
+    "s45": {
+      "affinity": 0,
+      "why": []
+    },
+    "s46": {
+      "affinity": 0,
+      "why": []
+    },
+    "s47": {
+      "affinity": 0.723178921473113,
+      "why": []
+    },
+    "s48": {
+      "affinity": 0.26859592248307973,
+      "why": []
+    },
+    "s49": {
+      "affinity": 0,
+      "why": []
+    },
+    "s50": {
+      "affinity": 0,
+      "why": []
+    },
+    "s51": {
+      "affinity": 1.269281997169404,
+      "why": [
+        "AI",
+        "openai.com"
+      ]
+    },
+    "s52": {
+      "affinity": 1.0320249892010236,
+      "why": [
+        "AI"
+      ]
+    }
+  },
+  "interests": [
+    "AI",
+    "openai.com",
+    "Space",
+    "Machine Learning",
+    "series",
+    "Startups",
+    "Hardware"
+  ]
+}
