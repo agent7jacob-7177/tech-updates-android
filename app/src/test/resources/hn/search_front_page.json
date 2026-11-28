@@ -1,0 +1,79 @@
+{
+  "exhaustive": {
+    "nbHits": true,
+    "typo": true
+  },
+  "exhaustiveNbHits": true,
+  "exhaustiveTypo": true,
+  "hits": [
+    {
+      "_tags": [
+        "story",
+        "author_jlelse",
+        "story_50660180",
+        "front_page"
+      ],
+      "author": "jlelse",
+      "created_at": "2026-11-26T21:47:45Z",
+      "created_at_i": 1795729665,
+      "num_comments": 502,
+      "objectID": "50660180",
+      "points": 1093,
+      "story_id": 50660180,
+      "title": "AI made self-hosting fun again",
+      "updated_at": "2026-11-27T23:46:32Z",
+      "url": "https://janlukas.blog/posts/ai-self-hosting"
+    },
+    {
+      "_tags": [
+        "story",
+        "author_utiiiD",
+        "story_50663595",
+        "front_page"
+      ],
+      "author": "utiiiD",
+      "created_at": "2026-11-27T06:44:34Z",
+      "created_at_i": 1795761874,
+      "num_comments": 281,
+      "objectID": "50663595",
+      "points": 677,
+      "story_id": 50663595,
+      "title": "Group chat where your AI talks behind your back",
+      "updated_at": "2026-11-27T23:46:32Z",
+      "url": "https://construct22.com/"
+    },
+    {
+      "_tags": [
+        "story",
+        "author_scanr",
+        "story_50668145",
+        "front_page"
+      ],
+      "author": "scanr",
+      "created_at": "2026-11-27T15:40:31Z",
+      "created_at_i": 1795794031,
+      "num_comments": 199,
+      "objectID": "50668145",
+      "points": 388,
+      "story_id": 50668145,
+      "title": "Credit card skimming scripts using WebRTC found on popular shopping sites",
+      "updated_at": "2026-11-27T23:45:48Z",
+      "url": "https://www.infohawk.com/news/2026-11-27-black-friday-webrtc-skimmer"
+    }
+  ],
+  "hitsPerPage": 3,
+  "nbHits": 29,
+  "nbPages": 10,
+  "page": 0,
+  "params": "hitsPerPage=3&page=0&tags=front_page&advancedSyntax=true&analyticsTags=backend",
+  "processingTimeMS": 1,
+  "processingTimingsMS": {
+    "_request": {
+      "queue": 27,
+      "roundTrip": 20
+    },
+    "total": 1
+  },
+  "query": "",
+  "serverTimeMS": 28
+}
