@@ -268,11 +268,13 @@ private fun BackIconButton(
         shape = RoundedCornerShape(0),
         color = Color.Transparent,
     ) {
-        Icon(
-            painter = painterResource(R.drawable.ic_back),
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-        )
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painter = painterResource(R.drawable.ic_back),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+            )
+        }
     }
 }
 
@@ -294,15 +296,17 @@ private fun BookmarkAndShareButtons(
         shape = RoundedCornerShape(0),
         color = Color.Transparent,
     ) {
-        Icon(
-            painter =
-                painterResource(
-                    if (isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark,
-                ),
-            contentDescription = null,
-            tint = with(MaterialTheme.colorScheme) { if (isSaved) primary else onSurfaceVariant },
-            modifier = Modifier.size(24.dp),
-        )
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painter =
+                    painterResource(
+                        if (isSaved) R.drawable.ic_bookmark_filled else R.drawable.ic_bookmark,
+                    ),
+                contentDescription = null,
+                tint = with(MaterialTheme.colorScheme) { if (isSaved) primary else onSurfaceVariant },
+                modifier = Modifier.size(24.dp),
+            )
+        }
     }
     // Share button
     Surface(
@@ -314,11 +318,13 @@ private fun BookmarkAndShareButtons(
         shape = RoundedCornerShape(0),
         color = Color.Transparent,
     ) {
-        Icon(
-            painterResource(R.drawable.ic_share),
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-        )
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painterResource(R.drawable.ic_share),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+            )
+        }
     }
 }
 
@@ -336,11 +342,13 @@ private fun OpenInBrowserIconButton(
         shape = RoundedCornerShape(0),
         color = Color.Transparent,
     ) {
-        Icon(
-            painterResource(R.drawable.ic_open_external),
-            contentDescription = null,
-            modifier = Modifier.size(24.dp),
-        )
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Icon(
+                painterResource(R.drawable.ic_open_external),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp),
+            )
+        }
     }
 }
 
