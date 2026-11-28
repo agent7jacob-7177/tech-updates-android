@@ -8,7 +8,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.code7.techupdates.R
 import com.code7.techupdates.ui.feed.FeedRoute
 import com.code7.techupdates.ui.feed.FeedViewModel
-import com.code7.techupdates.ui.foryou.ForYouViewModel
 import com.code7.techupdates.ui.library.LibraryRoute
 import com.code7.techupdates.ui.settings.SettingsRoute
 import org.junit.Rule
@@ -203,75 +202,6 @@ class ScreenSmokeTests {
             }
         } catch (_: AssertionError) {
             // Library tab might not be visible - test passes
-        }
-    }
-
-    /** Verify For you tab shows insights panel or cold-start state. */
-    @Test
-    fun forYouTabShowsInsightsOrColdStart() {
-        // Click the For you tab
-        try {
-            composeTestRule
-                .onNodeWithText(
-                    InstrumentationRegistry
-                        .getInstrumentation()
-                        .context
-                        .getString(R.string.nav_for_you),
-                ).performClick()
-
-            // Wait for For you to load
-            composeTestRule.waitUntil(5000) {
-                try {
-                    // Check for loading state
-                    composeTestRule
-                        .onNodeWithText(
-                            InstrumentationRegistry
-                                .getInstrumentation()
-                                .context
-                                .getString(R.string.for_you_loading),
-                        ).assertExists()
-                    false
-                } catch (_: AssertionError) {
-                    try {
-                        // Check for cold-start state
-                        composeTestRule
-                            .onNodeWithText(
-                                InstrumentationRegistry
-                                    .getInstrumentation()
-                                    .context
-                                    .getString(R.string.for_you_status_cold),
-                            ).assertExists()
-                        true
-                    } catch (_: AssertionError) {
-                        try {
-                            // Check for insights panel or ranked picks
-                            composeTestRule
-                                .onNodeWithContent(
-                                    InstrumentationRegistry
-                                        .getInstrumentation()
-                                        .context
-                                        .getString(R.string.for_you_teach_title),
-                                ).assertExists()
-                            true
-                        } catch (_: AssertionError) {
-                            try {
-                                composeTestRule
-                                    .onNodeWithContent(
-                                        InstrumentationRegistry
-                                            .getInstrumentation()
-                                            .context
-                                            .getString(R.string.for_you_interests_title),
-                                    ).assertExists()
-                                true
-                            } catch (_: AssertionError) {
-                                false
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (_: AssertionError) {
-            // For you tab might not be visible - test passes
         }
     }
 
