@@ -2,7 +2,6 @@ package com.code7.techupdates.ui.comments
 
 import app.cash.turbine.test
 import com.code7.techupdates.data.Discussion
-import com.code7.techupdates.data.DiscussionSource
 import com.code7.techupdates.domain.Comment
 import com.code7.techupdates.domain.Story
 import com.code7.techupdates.ui.feed.MainDispatcherRule
@@ -13,27 +12,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
-
-private class FakeDiscussions : DiscussionSource {
-    val cached = mutableMapOf<String, Story>()
-    var result: Result<Discussion> = Result.failure(IOException("offline"))
-    var calls = 0
-
-    /** When set, the next call suspends until completed. */
-    var gate: CompletableDeferred<Unit>? = null
-
-    override fun story(id: String): Story? = cached[id]
-
-    override suspend fun discussion(storyId: String): Result<Discussion> {
-        calls++
-        gate?.let {
-            it.await()
-            gate = null
-        }
-        return result
-    }
-}
 
 class CommentsViewModelTest {
     @get:Rule val main = MainDispatcherRule()

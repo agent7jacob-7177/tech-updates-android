@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
+    alias(libs.plugins.roborazzi)
 }
 
 android {
@@ -48,7 +49,18 @@ android {
     }
 
     testOptions {
-        unitTests.isIncludeAndroidResources = true
+        unitTests {
+            isIncludeAndroidResources = true
+            all {
+                // Same locale and time zone on every machine, so rendered text matches the screenshot goldens.
+                it.systemProperty("user.language", "en")
+                it.systemProperty("user.country", "US")
+                it.systemProperty("user.timezone", "UTC")
+                // Draw captures like a device does (shadows, elevation) with Robolectric native graphics.
+                it.systemProperty("robolectric.pixelCopyRenderMode", "hardware")
+                it.maxHeapSize = "2g"
+            }
+        }
     }
 
     lint {
@@ -77,6 +89,14 @@ detekt {
     buildUponDefaultConfig = true
     config.setFrom(rootProject.files("config/detekt/detekt.yml"))
     source.setFrom("src/main/java", "src/test/java")
+}
+
+roborazzi {
+    // Goldens are committed; verify failures write actual/diff images under build/.
+    outputDir.set(layout.projectDirectory.dir("src/test/screenshots"))
+    compare {
+        outputDir.set(layout.buildDirectory.dir("outputs/roborazzi"))
+    }
 }
 
 dependencies {
@@ -118,4 +138,10 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.room.testing)
+    testImplementation(libs.androidx.test.ext.junit)
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+    testImplementation(libs.coil.test)
+    testImplementation(libs.roborazzi)
 }

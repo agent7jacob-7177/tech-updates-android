@@ -29,6 +29,20 @@ All checks at once:
 ./gradlew assembleDebug lintDebug ktlintCheck detekt testDebugUnitTest
 ```
 
+### UI and screenshot tests
+
+Compose UI tests and [Roborazzi](https://github.com/takahirom/roborazzi) screenshot tests run on the
+JVM with Robolectric (no emulator) as part of `testDebugUnitTest`, which compares screenshots with the
+goldens in `app/src/test/screenshots`. After an intended UI change, re-record and commit them:
+
+```sh
+./gradlew recordRoborazziDebug
+```
+
+On a mismatch, comparison images are written to `app/build/outputs/roborazzi` (CI uploads them as the
+`screenshot-diffs` artifact). Goldens are recorded on Linux x86_64, like CI; other platforms may render
+slightly differently.
+
 Dependency versions live in `gradle/libs.versions.toml`.
 
 ## License

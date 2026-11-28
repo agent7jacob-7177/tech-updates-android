@@ -61,6 +61,16 @@ jobs:
           retention-days: 14
           if-no-files-found: warn
 
+      # Screenshot tests verify against app/src/test/screenshots; on a mismatch this holds the
+      # *_compare.png (golden | diff | actual) and *_actual.png images.
+      - name: Upload screenshot diffs
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshot-diffs
+          path: app/build/outputs/roborazzi/**
+          if-no-files-found: ignore
+
       - name: Upload reports
         if: always()
         uses: actions/upload-artifact@v7
