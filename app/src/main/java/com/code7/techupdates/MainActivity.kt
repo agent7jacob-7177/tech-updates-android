@@ -11,10 +11,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val stories = (application as TechUpdatesApp).container.storyRepository
         setContent {
             Code7Theme {
-                AppRoot(storyLookup = stories::story)
+                AppRoot()
             }
         }
     }

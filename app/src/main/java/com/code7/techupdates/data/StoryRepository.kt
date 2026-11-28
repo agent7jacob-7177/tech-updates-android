@@ -50,11 +50,27 @@ interface StoryLookup {
     suspend fun fetchStory(id: String): Result<Story>
 }
 
+/** A story and its comment tree, from one `items/{id}` call. */
+data class Discussion(
+    val story: Story,
+    val comments: List<Comment>,
+)
+
+/** What the comments screen needs (a seam for fakes in tests). */
+interface DiscussionSource {
+    /** A story seen in a feed this session, or null (shown as the header while loading). */
+    fun story(id: String): Story?
+
+    /** Loads the story with its full comment tree. */
+    suspend fun discussion(storyId: String): Result<Discussion>
+}
+
 class StoryRepository(
     private val api: HnApi,
     private val nowEpochSec: () -> Long = { System.currentTimeMillis() / MILLIS_PER_SECOND },
 ) : FeedSource,
-    StoryLookup {
+    StoryLookup,
+    DiscussionSource {
     private val mutex = Mutex()
     private val cache = mutableMapOf<FeedQuery, Page>()
     private val byId = ConcurrentHashMap<String, Story>()
@@ -105,9 +121,12 @@ class StoryRepository(
         }
 
     /** Top-level comments (with nested replies) of a story. */
-    suspend fun comments(storyId: String): Result<List<Comment>> =
+    suspend fun comments(storyId: String): Result<List<Comment>> = discussion(storyId).map { it.comments }
+
+    override suspend fun discussion(storyId: String): Result<Discussion> =
         try {
-            Result.success(api.item(storyId).children.map { it.toComment() })
+            val item = api.item(storyId)
+            Result.success(Discussion(item.toStory(), item.children.map { it.toComment() }))
         } catch (e: CancellationException) {
             throw e
         } catch (

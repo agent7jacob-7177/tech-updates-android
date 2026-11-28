@@ -19,3 +19,23 @@ val Slate100 = Color(0xFFF1F5F9)
 // "Hot" story points (web `--hot`)
 val HotLight = Color(0xFFC2410C)
 val HotDark = Color(0xFFFB923C)
+
+// Comment thread rails, one per nesting level (indigo, teal, amber, rose, sky, lime)
+val RailsLight =
+    listOf(
+        Color(0xFF6366F1),
+        Color(0xFF0D9488),
+        Color(0xFFD97706),
+        Color(0xFFE11D48),
+        Color(0xFF0284C7),
+        Color(0xFF65A30D),
+    )
+val RailsDark =
+    listOf(
+        Color(0xFF818CF8),
+        Color(0xFF2DD4BF),
+        Color(0xFFFBBF24),
+        Color(0xFFFB7185),
+        Color(0xFF38BDF8),
+        Color(0xFFA3E635),
+    )

@@ -84,6 +84,10 @@ private fun decodeEntity(body: String): String? =
     }?.takeIf { Character.isValidCodePoint(it) }?.let { String(Character.toChars(it)) }
         ?: NamedEntities[body]
 
+/** Decodes `&amp;`, `&#x27;`, `&#39;` etc.; unknown entities are left as they are. */
+fun decodeHtmlEntities(text: String): String =
+    if ('&' !in text) text else Entity.replace(text) { m -> decodeEntity(m.groupValues[1]) ?: m.value }
+
 /**
  * Port of JS `stripHtml(html)` (the DOM's `textContent`): tags removed and entities decoded. Unlike
  * `textContent`, block breaks (`<p>`, `<br>` …) become spaces and whitespace runs collapse, since the
@@ -92,8 +96,7 @@ private fun decodeEntity(body: String): String? =
 fun stripHtml(html: String?): String {
     if (html.isNullOrEmpty()) return ""
     val text = html.replace(BlockTag, " ").replace(AnyTag, "")
-    return Entity
-        .replace(text) { m -> decodeEntity(m.groupValues[1]) ?: m.value }
+    return decodeHtmlEntities(text)
         .replace(Whitespace, " ")
         .trim()
 }

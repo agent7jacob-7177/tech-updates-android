@@ -26,8 +26,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.code7.techupdates.R
-import com.code7.techupdates.domain.Story
-import com.code7.techupdates.ui.common.PlaceholderScreen
+import com.code7.techupdates.ui.comments.CommentsRoute
 import com.code7.techupdates.ui.feed.FeedRoute
 import com.code7.techupdates.ui.library.LibraryRoute
 import com.code7.techupdates.ui.reader.ReaderRoute
@@ -43,10 +42,9 @@ private enum class TopLevel(
 
 /**
  * App shell: bottom navigation (News, Library) plus full-screen reader and comments destinations.
- * [storyLookup] resolves stories already seen in a feed (the reader's in-memory hand-off).
  */
 @Composable
-fun AppRoot(storyLookup: (String) -> Story?) {
+fun AppRoot() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val destination = backStackEntry?.destination
@@ -68,14 +66,13 @@ fun AppRoot(storyLookup: (String) -> Story?) {
             }
         },
     ) { padding ->
-        AppNavHost(navController, storyLookup, Modifier.padding(padding).consumeWindowInsets(padding))
+        AppNavHost(navController, Modifier.padding(padding).consumeWindowInsets(padding))
     }
 }
 
 @Composable
 private fun AppNavHost(
     navController: NavHostController,
-    storyLookup: (String) -> Story?,
     modifier: Modifier = Modifier,
 ) {
     NavHost(
@@ -108,13 +105,8 @@ private fun AppNavHost(
         composable(
             route = Routes.COMMENTS,
             arguments = listOf(navArgument(Routes.ARG_ID) { type = NavType.StringType }),
-        ) { entry ->
-            val story = entry.arguments?.getString(Routes.ARG_ID)?.let(storyLookup)
-            PlaceholderScreen(
-                title = story?.title ?: stringResource(R.string.app_name),
-                message = stringResource(R.string.comments_coming_soon),
-                onBack = { navController.navigateUpOrNews() },
-            )
+        ) {
+            CommentsRoute(onBack = { navController.navigateUpOrNews() })
         }
     }
 }

@@ -4,8 +4,6 @@
     <!-- App shell -->
     <string name="nav_news">News</string>
     <string name="nav_library">Library</string>
-    <string name="coming_soon">Coming soon</string>
-    <string name="comments_coming_soon">The discussion view is on its way.</string>
 
     <!-- Feed screen -->
     <string name="feed_tab_top">Top</string>
@@ -92,6 +90,26 @@
     <string name="reader_marked_read">Marked as read</string>
     <string name="reader_undo">Undo</string>
     <string name="reader_share_chooser">Share story</string>
+
+    <!-- Comments screen -->
+    <string name="comments_title">Discussion</string>
+    <string name="comments_loading">Loading comments…</string>
+    <plurals name="comments_summary">
+        <item quantity="one">%1$d comment from Hacker News · most active threads first</item>
+        <item quantity="other">%1$d comments from Hacker News · most active threads first</item>
+    </plurals>
+    <string name="comments_empty">No comments yet.</string>
+    <string name="comments_error_title">Couldn\'t load comments</string>
+    <string name="comments_error_subtitle">The news service didn\'t respond. Check your connection and try again, or read them on Hacker News.</string>
+    <string name="comments_retry">Try again</string>
+    <string name="comments_open_on_hn">Open on Hacker News</string>
+    <string name="comments_deleted">[deleted]</string>
+    <plurals name="comments_replies">
+        <item quantity="one">%1$d reply</item>
+        <item quantity="other">%1$d replies</item>
+    </plurals>
+    <string name="comments_collapse">Collapse replies</string>
+    <string name="comments_expand">Expand replies</string>
 
     <!-- Topics (labels match domain/Topic.kt) -->
     <string name="topic_all">All</string>
