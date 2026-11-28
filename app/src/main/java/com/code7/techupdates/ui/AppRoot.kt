@@ -31,6 +31,7 @@ import com.code7.techupdates.domain.Story
 import com.code7.techupdates.domain.safeUrl
 import com.code7.techupdates.ui.common.PlaceholderScreen
 import com.code7.techupdates.ui.feed.FeedRoute
+import com.code7.techupdates.ui.library.LibraryRoute
 
 private enum class TopLevel(
     val route: String,
@@ -90,9 +91,9 @@ private fun AppNavHost(
             )
         }
         composable(Routes.LIBRARY) {
-            PlaceholderScreen(
-                title = stringResource(R.string.nav_library),
-                message = stringResource(R.string.library_coming_soon),
+            LibraryRoute(
+                onOpenStory = { navController.navigate(Routes.story(it)) },
+                onOpenComments = { navController.navigate(Routes.comments(it)) },
             )
         }
         composable(

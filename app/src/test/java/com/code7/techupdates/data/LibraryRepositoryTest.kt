@@ -162,4 +162,55 @@ class LibraryRepositoryTest {
                 cancelAndIgnoreRemainingEvents()
             }
         }
+
+    @Test
+    fun removeLater_forgetsSave_undoRestoresPositionAndSignal() =
+        runTest {
+            repo.toggleLater(story("1"))
+            repo.toggleLater(story("2"))
+            val before = repo.later().first()
+            val removed = repo.removeLater("1")!!
+            assertEquals(before[1], removed)
+            assertEquals(listOf("2"), repo.later().first().map { it.story.id })
+            assertEquals(listOf(SignalKind.SAVE to "2"), signals())
+
+            repo.undoRemoveLater(removed)
+            assertEquals(before, repo.later().first())
+            assertEquals(setOf(SignalKind.SAVE to "1", SignalKind.SAVE to "2"), signals().toSet())
+        }
+
+    @Test
+    fun removeLater_missingReturnsNullAndKeepsSignals() =
+        runTest {
+            repo.markRead(story("1"), ReadHow.MANUAL)
+            assertNull(repo.removeLater("1"))
+            assertEquals(listOf(SignalKind.READ to "1"), signals())
+        }
+
+    @Test
+    fun removeRead_forgetsRead_undoRestoresEntryAndSignal() =
+        runTest {
+            repo.markRead(story("1"), ReadHow.AUTO)
+            repo.markRead(story("2"), ReadHow.MANUAL)
+            val before = repo.read().first()
+            val removed = repo.removeRead("1")!!
+            assertEquals(before[1], removed)
+            assertEquals(listOf("2"), repo.read().first().map { it.story.id })
+            assertEquals(listOf(SignalKind.READ to "2"), signals())
+
+            repo.undoRemoveRead(removed)
+            assertEquals(before, repo.read().first())
+            assertEquals(setOf(SignalKind.READ to "1", SignalKind.READ to "2"), signals().toSet())
+        }
+
+    @Test
+    fun removeRead_missingReturnsNull() = runTest { assertNull(repo.removeRead("nope")) }
+
+    @Test
+    fun clearRead_keepsLearnerSignals() =
+        runTest {
+            repo.markRead(story("1"), ReadHow.MANUAL)
+            repo.clearRead()
+            assertEquals(listOf(SignalKind.READ to "1"), signals())
+        }
 }
