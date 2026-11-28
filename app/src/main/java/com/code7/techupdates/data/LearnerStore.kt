@@ -1,4 +1,4 @@
-package com.code7.techupdates.recommender
+package com.code7.techupdates.data
 
 import com.code7.techupdates.domain.Story
 import kotlinx.coroutines.flow.Flow

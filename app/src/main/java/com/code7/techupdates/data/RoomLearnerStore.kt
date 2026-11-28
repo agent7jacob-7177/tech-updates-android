@@ -6,10 +6,6 @@ import com.code7.techupdates.data.local.ImpressionEntity
 import com.code7.techupdates.data.local.LearnerEventEntity
 import com.code7.techupdates.data.local.toSnapshot
 import com.code7.techupdates.domain.Story
-import com.code7.techupdates.recommender.Impression
-import com.code7.techupdates.recommender.LearnerEvent
-import com.code7.techupdates.recommender.LearnerStore
-import com.code7.techupdates.recommender.SignalKind
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex

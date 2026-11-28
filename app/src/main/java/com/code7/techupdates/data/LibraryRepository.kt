@@ -6,8 +6,6 @@ import com.code7.techupdates.data.local.LaterEntity
 import com.code7.techupdates.data.local.ReadEntity
 import com.code7.techupdates.data.local.toSnapshot
 import com.code7.techupdates.domain.Story
-import com.code7.techupdates.recommender.LearnerStore
-import com.code7.techupdates.recommender.SignalKind
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

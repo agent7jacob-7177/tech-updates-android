@@ -5,7 +5,6 @@ import com.code7.techupdates.data.local.FakeClock
 import com.code7.techupdates.data.local.awaitValue
 import com.code7.techupdates.data.local.inMemoryDb
 import com.code7.techupdates.data.local.story
-import com.code7.techupdates.recommender.SignalKind
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
