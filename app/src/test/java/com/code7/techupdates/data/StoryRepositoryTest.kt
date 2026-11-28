@@ -13,6 +13,7 @@ import io.ktor.http.headersOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -63,7 +64,33 @@ class StoryRepositoryTest {
             failing = true
             val page = repo.feed(FeedQuery(FeedType.TOP), forceRefresh = true).getOrThrow()
             assertTrue(page.fromCache)
+            assertTrue(page.offline)
             assertEquals(3, page.stories.size)
+        }
+
+    @Test
+    fun feed_plainCacheHit_isNotOffline() =
+        runTest {
+            repo.feed(FeedQuery(FeedType.TOP))
+            val page = repo.feed(FeedQuery(FeedType.TOP)).getOrThrow()
+            assertTrue(page.fromCache)
+            assertFalse(page.offline)
+        }
+
+    @Test
+    fun story_isRememberedFromFeedsAndExplicitly() =
+        runTest {
+            assertNull(repo.story("x"))
+            val first =
+                repo
+                    .feed(FeedQuery(FeedType.TOP))
+                    .getOrThrow()
+                    .stories
+                    .first()
+            assertEquals(first, repo.story(first.id))
+            val extra = first.copy(id = "x", title = "Extra")
+            repo.remember(extra)
+            assertEquals(extra, repo.story("x"))
         }
 
     @Test

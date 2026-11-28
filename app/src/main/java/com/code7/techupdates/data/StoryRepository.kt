@@ -8,31 +8,58 @@ import com.code7.techupdates.domain.Story
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.util.concurrent.ConcurrentHashMap
 
-/** A page of feed results. [fromCache] is true when served from the in-memory cache. */
+/**
+ * A page of feed results. [fromCache] is true when served from the in-memory cache; [offline] is
+ * true only when that happened because the network failed (the web app's "Offline: showing saved
+ * stories" case).
+ */
 data class Page(
     val stories: List<Story>,
     val page: Int,
     val nbPages: Int,
     val fetchedAtEpochSec: Long,
     val fromCache: Boolean = false,
+    val offline: Boolean = false,
 )
+
+/** What the feed screen needs from [StoryRepository] (a seam for fakes in tests). */
+interface FeedSource {
+    suspend fun feed(
+        query: FeedQuery,
+        forceRefresh: Boolean = false,
+    ): Result<Page>
+
+    /** Keeps [story] in memory so the reader can open it by id (JS `byId`). */
+    fun remember(story: Story)
+
+    /** A story seen in a feed this session, or null. */
+    fun story(id: String): Story?
+}
 
 class StoryRepository(
     private val api: HnApi,
     private val nowEpochSec: () -> Long = { System.currentTimeMillis() / MILLIS_PER_SECOND },
-) {
+) : FeedSource {
     private val mutex = Mutex()
     private val cache = mutableMapOf<FeedQuery, Page>()
+    private val byId = ConcurrentHashMap<String, Story>()
+
+    override fun remember(story: Story) {
+        byId[story.id] = story
+    }
+
+    override fun story(id: String): Story? = byId[id]
 
     /**
      * Loads one feed page. Results are cached per [FeedQuery]; a cached page is returned unless
      * [forceRefresh]. If the network fails, a previously cached page is returned instead (the web
      * app's offline fallback), otherwise the failure.
      */
-    suspend fun feed(
+    override suspend fun feed(
         query: FeedQuery,
-        forceRefresh: Boolean = false,
+        forceRefresh: Boolean,
     ): Result<Page> {
         val cached = mutex.withLock { cache[query] }
         if (cached != null && !forceRefresh) return Result.success(cached.copy(fromCache = true))
@@ -42,13 +69,14 @@ class StoryRepository(
             val stories = if (query.sortsByPoints) result.stories.sortedByDescending { it.points } else result.stories
             val page = Page(stories, result.page, result.nbPages, now)
             mutex.withLock { cache[query] = page }
+            stories.forEach(::remember)
             Result.success(page)
         } catch (e: CancellationException) {
             throw e
         } catch (
             @Suppress("TooGenericExceptionCaught") e: Exception,
         ) {
-            if (cached != null) Result.success(cached.copy(fromCache = true)) else Result.failure(e)
+            if (cached != null) Result.success(cached.copy(fromCache = true, offline = true)) else Result.failure(e)
         }
     }
 

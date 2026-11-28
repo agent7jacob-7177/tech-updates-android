@@ -66,4 +66,25 @@ class FormatTest {
     fun timeAgo_futureTimestamps_areJustNow() {
         assertEquals("just now", timeAgo(2_000, 1_000))
     }
+
+    @Test
+    fun stripHtml_removesTagsAndDecodesEntities() {
+        assertEquals(
+            "I built this & it's <fast>. Second para \"quoted\" / ok",
+            stripHtml(
+                "I built this &amp; it&#x27;s &lt;fast&gt;.<p>Second <i>para</i> &quot;quoted&quot; &#x2F; ok</p>",
+            ),
+        )
+        assertEquals("a b", stripHtml("a<br>b"))
+        assertEquals("link", stripHtml("""<a href="https://x.com" rel="nofollow">link</a>"""))
+        assertEquals("caf\u00e9 \uD83D\uDE00", stripHtml("caf&#233; &#x1F600;"))
+    }
+
+    @Test
+    fun stripHtml_keepsUnknownEntitiesAndHandlesEmpty() {
+        assertEquals("&bogus; &#xZZ;", stripHtml("&bogus; &#xZZ;"))
+        assertEquals("", stripHtml(null))
+        assertEquals("", stripHtml(""))
+        assertEquals("", stripHtml("  <p> </p> "))
+    }
 }

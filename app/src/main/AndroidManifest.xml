@@ -16,6 +16,17 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Web app reader links: https://agent7jacob-7177.github.io/code7/#story/{id}.
+                 Not a verified App Link (needs assetlinks.json on the site); users can enable it in settings. -->
+            <intent-filter android:autoVerify="false">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="https"
+                    android:host="agent7jacob-7177.github.io"
+                    android:pathPrefix="/code7" />
+            </intent-filter>
         </activity>
     </application>
 

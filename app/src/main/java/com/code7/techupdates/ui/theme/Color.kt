@@ -15,3 +15,7 @@ val IndigoDeep = Color(0xFF1E1A6B)
 val Indigo50 = Color(0xFFEEF2FF)
 val Slate950 = Color(0xFF020617)
 val Slate100 = Color(0xFFF1F5F9)
+
+// "Hot" story points (web `--hot`)
+val HotLight = Color(0xFFC2410C)
+val HotDark = Color(0xFFFB923C)
