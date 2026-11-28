@@ -1,245 +1,114 @@
 package com.code7.techupdates.ui
 
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
+import androidx.annotation.StringRes
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.performClick
-import androidx.test.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.code7.techupdates.MainActivity
 import com.code7.techupdates.R
-import com.code7.techupdates.ui.feed.FeedRoute
-import com.code7.techupdates.ui.feed.FeedViewModel
-import com.code7.techupdates.ui.library.LibraryRoute
-import com.code7.techupdates.ui.settings.SettingsRoute
+import com.code7.techupdates.recommender.Ranking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-/**
- * Smoke tests for the app screens.
- * These tests verify that each screen launches and displays expected UI elements.
- * Network calls are live (OK), so tests handle both success and error states.
- */
+/** One smoke test per screen: the real [MainActivity] and navigation graph on top of [FakeAppRule]. */
 @RunWith(AndroidJUnit4::class)
 class ScreenSmokeTests {
-    @get:Rule
-    val composeTestRule = createAndroidComposeRule<MainActivity>()
+    @get:Rule(order = 0)
+    val fakeApp = FakeAppRule()
 
-    /** Verify the app launches and shows the News feed. */
+    @get:Rule(order = 1)
+    val compose = createAndroidComposeRule<MainActivity>()
+
     @Test
-    fun appLaunchesToNews() {
-        // The app should launch to the News tab (start destination)
-        composeTestRule.waitUntil(3000) {
-            // Check that we're on the News tab by looking for the search hint
-            var found = false
-            try {
-                composeTestRule
-                    .onNodeWithText(
-                        InstrumentationRegistry
-                            .getInstrumentation()
-                            .context
-                            .getString(R.string.feed_search_hint),
-                    ).assertExists()
-                found = true
-            } catch (_: AssertionError) {
-                try {
-                    composeTestRule
-                        .onNodeWithText(
-                            InstrumentationRegistry
-                                .getInstrumentation()
-                                .context
-                                .getString(R.string.feed_loading_latest),
-                        ).assertExists()
-                    found = true
-                } catch (_: AssertionError) {
-                    try {
-                        composeTestRule
-                            .onNodeWithText(
-                                InstrumentationRegistry
-                                    .getInstrumentation()
-                                    .context
-                                    .getString(R.string.feed_error_title),
-                            ).assertExists()
-                        found = true
-                    } catch (_: AssertionError) {
-                        found = false
-                    }
-                }
-            }
-            found
-        }
+    fun launch_showsNewsFeed() {
+        await(hasText(FakeAppRule.FIRST_STORY))
+        await(hasText(FakeAppRule.SECOND_STORY))
+        clickable(R.string.nav_news).assertIsSelected()
     }
 
-    /** Verify the feed shows items or error/offline state. */
     @Test
-    fun feedShowsContentOrError() {
-        // Wait for feed to load (or show error)
-        composeTestRule.waitUntil(5000) {
-            try {
-                // Check for error state
-                composeTestRule
-                    .onNodeWithText(
-                        InstrumentationRegistry
-                            .getInstrumentation()
-                            .context
-                            .getString(R.string.feed_error_title),
-                    ).assertExists()
-                true
-            } catch (_: AssertionError) {
-                try {
-                    // Check for loading state
-                    composeTestRule
-                        .onNodeWithText(
-                            InstrumentationRegistry
-                                .getInstrumentation()
-                                .context
-                                .getString(R.string.feed_loading_latest),
-                        ).assertExists()
-                    false
-                } catch (_: AssertionError) {
-                    try {
-                        // Check for story cards (any card with points)
-                        composeTestRule
-                            .onNodeWithContentDescription(
-                                InstrumentationRegistry
-                                    .getInstrumentation()
-                                    .context
-                                    .getString(R.string.card_read_later),
-                            ).assertExists()
-                        true
-                    } catch (_: AssertionError) {
-                        false
-                    }
-                }
-            }
-        }
+    @Offline
+    fun launch_offline_showsErrorState() {
+        await(hasText(string(R.string.feed_error_title)))
+        clickable(R.string.feed_retry).assertIsDisplayed()
+        clickable(R.string.nav_news).assertIsSelected()
     }
 
-    /** Verify opening a story navigates to the reader. */
     @Test
-    fun openStoryShowsReader() {
-        // Wait for feed to load
-        composeTestRule.waitUntil(5000) {
-            try {
-                composeTestRule
-                    .onNodeWithText(
-                        InstrumentationRegistry
-                            .getInstrumentation()
-                            .context
-                            .getString(R.string.feed_loading_latest),
-                    ).assertExists()
-                false
-            } catch (_: AssertionError) {
-                true
-            }
-        }
+    fun openFirstStory_showsReader_andBackReturnsToNews() {
+        await(hasText(FakeAppRule.FIRST_STORY))
+        compose.onNode(hasText(FakeAppRule.FIRST_STORY)).performClick()
 
-        // Try to open the first story card
-        try {
-            composeTestRule
-                .onNodeWithContentDescription(
-                    InstrumentationRegistry
-                        .getInstrumentation()
-                        .context
-                        .getString(R.string.card_read_later),
-                ).performClick()
+        await(hasText(FakeAppRule.ARTICLE_TEXT, substring = true))
+        await(hasContentDescription(string(R.string.reader_open_original)))
+        // The reader is full screen; this also waits for the feed to leave after the transition.
+        awaitGone(hasText(string(R.string.nav_library)))
 
-            // Wait for reader to load
-            composeTestRule.waitUntil(5000) {
-                try {
-                    composeTestRule
-                        .onNodeWithText(
-                            InstrumentationRegistry
-                                .getInstrumentation()
-                                .context
-                                .getString(R.string.reader_loading),
-                        ).assertExists()
-                    true
-                } catch (_: AssertionError) {
-                    try {
-                        // Reader might show content directly
-                        composeTestRule
-                            .onNodeWithContentDescription(
-                                InstrumentationRegistry
-                                    .getInstrumentation()
-                                    .context
-                                    .getString(R.string.reader_share),
-                            ).assertExists()
-                        true
-                    } catch (_: AssertionError) {
-                        false
-                    }
-                }
-            }
-        } catch (_: AssertionError) {
-            // No story cards to click - test passes if we can navigate
-        }
+        compose.onNode(hasContentDescription(string(R.string.icon_back))).performClick()
+        awaitGone(hasContentDescription(string(R.string.reader_open_original)))
+        await(hasText(string(R.string.nav_library)))
+        clickable(R.string.nav_news).assertIsSelected()
     }
 
-    /** Verify bottom bar navigation to Library. */
     @Test
-    fun bottomBarNavigatesToLibrary() {
-        // Click the Library tab
-        try {
-            composeTestRule
-                .onNodeWithText(
-                    InstrumentationRegistry
-                        .getInstrumentation()
-                        .context
-                        .getString(R.string.nav_library),
-                ).performClick()
+    fun bottomBar_opensLibrary_andReturnsToNews() {
+        await(hasText(FakeAppRule.FIRST_STORY))
+        clickable(R.string.nav_library).performClick()
+        await(hasText(string(R.string.library_later_empty_title)))
+        awaitGone(hasText(FakeAppRule.FIRST_STORY))
+        clickable(R.string.nav_library).assertIsSelected()
 
-            // Wait for library to load
-            composeTestRule.waitUntil(3000) {
-                try {
-                    composeTestRule
-                        .onNodeWithText(
-                            InstrumentationRegistry
-                                .getInstrumentation()
-                                .context
-                                .getString(R.string.library_tab_later),
-                        ).assertExists()
-                    true
-                } catch (_: AssertionError) {
-                    false
-                }
-            }
-        } catch (_: AssertionError) {
-            // Library tab might not be visible - test passes
-        }
+        clickable(R.string.nav_news).performClick()
+        await(hasText(FakeAppRule.FIRST_STORY))
+        clickable(R.string.nav_news).assertIsSelected()
     }
 
-    /** Verify Settings screen opens. */
     @Test
-    fun settingsScreenOpens() {
-        // Try to open settings from the feed
-        try {
-            composeTestRule
-                .onNodeWithContentDescription(
-                    InstrumentationRegistry
-                        .getInstrumentation()
-                        .context
-                        .getString(R.string.settings_open),
-                ).performClick()
+    fun forYouTab_showsColdStartPanel() {
+        await(hasText(FakeAppRule.FIRST_STORY))
+        clickable(R.string.feed_tab_for_you).performClick()
 
-            // Wait for settings to load
-            composeTestRule.waitUntil(3000) {
-                try {
-                    composeTestRule
-                        .onNodeWithText(
-                            InstrumentationRegistry
-                                .getInstrumentation()
-                                .context
-                                .getString(R.string.settings_title),
-                        ).assertExists()
-                    true
-                } catch (_: AssertionError) {
-                    false
-                }
-            }
-        } catch (_: AssertionError) {
-            // Settings might not be accessible from current screen - test passes
-        }
+        await(hasText(string(R.string.for_you_teach_title)))
+        await(hasText(string(R.string.for_you_progress, 0, Ranking.MIN_SIGNALS)))
+        clickable(R.string.feed_tab_for_you).assertIsSelected()
+    }
+
+    @Test
+    fun overflowMenu_opensSettings() {
+        await(hasContentDescription(string(R.string.feed_more_options)))
+        compose.onNode(hasContentDescription(string(R.string.feed_more_options))).performClick()
+        await(hasText(string(R.string.settings_open)))
+        clickable(R.string.settings_open).performClick()
+
+        await(hasText(string(R.string.settings_section_appearance)))
+        compose.onNode(hasText(string(R.string.settings_section_appearance))).assertIsDisplayed()
+    }
+
+    private fun string(
+        @StringRes id: Int,
+        vararg args: Any,
+    ): String = compose.activity.getString(id, *args)
+
+    private fun clickable(
+        @StringRes label: Int,
+    ) = compose.onNode(hasText(string(label)) and hasClickAction())
+
+    /** Waits for work outside Compose's clock (Ktor, Room, Markdown parsing) to show a matching node. */
+    private fun await(matcher: SemanticsMatcher) =
+        compose.waitUntil(TIMEOUT_MILLIS) { compose.onAllNodes(matcher).fetchSemanticsNodes().isNotEmpty() }
+
+    private fun awaitGone(matcher: SemanticsMatcher) =
+        compose.waitUntil(TIMEOUT_MILLIS) { compose.onAllNodes(matcher).fetchSemanticsNodes().isEmpty() }
+
+    private companion object {
+        /** Generous: software-rendered CI emulators can stall for seconds. */
+        const val TIMEOUT_MILLIS = 30_000L
     }
 }
