@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
     alias(libs.plugins.roborazzi)
+    alias(libs.plugins.kover)
 }
 
 android {
@@ -96,6 +97,27 @@ roborazzi {
     outputDir.set(layout.projectDirectory.dir("src/test/screenshots"))
     compare {
         outputDir.set(layout.buildDirectory.dir("outputs/roborazzi"))
+    }
+}
+
+kover {
+    reports {
+        filters {
+            includes {
+                packages("com.code7.techupdates.data", "com.code7.techupdates.domain", "com.code7.techupdates.recommender")
+            }
+            excludes {
+                annotatedBy("*Generated*")
+                classes("*_Impl", "*_ImplBase")
+                classes("com.code7.techupdates.data.local.*")
+                packages("com.code7.techupdates.ui")
+            }
+        }
+        verify {
+            rule {
+                minBound(70)
+            }
+        }
     }
 }
 

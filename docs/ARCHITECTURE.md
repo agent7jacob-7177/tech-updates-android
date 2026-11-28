@@ -24,6 +24,22 @@ ui/theme/        theme
 ui/feed/  ui/library/  ui/reader/  ui/comments/  ui/foryou/  ui/common/
 ```
 
+## Testing Strategy
+
+**Unit Tests**
+- Framework: JUnit 5 + Kotlin Test
+- Coverage target: ≥70% line coverage (enforced by Kover)
+- Coverage tool: [Kover](https://github.com/Kotlin/kover) (v0.9.11)
+- Scope: `data`, `domain`, `recommender` packages only
+- Exclusions: Room-generated DAOs (`data.local`), `ui` package, `*_Impl` classes
+- Command: `./gradlew koverHtmlReportDebug` (HTML report at `app/build/reports/kover/htmlDebug/index.html`)
+- Verification: `./gradlew koverVerify` (fails CI if coverage < 70%)
+
+**CI/CD**
+- GitHub Actions workflow: `.github/workflows/ci-coverage.yml`
+- Runs on: push to `main`, `develop`, `feat/**`; pull requests to `main`
+- Steps: build → unit tests with Kover instrumentation → HTML report upload → XML report for validation
+
 ## Rules
 - `domain/` and `recommender/` must not import Android or data-layer classes (pure JVM, fast tests).
 - Every public function with logic gets a unit test. Fixtures live in `app/src/test/resources/`.
