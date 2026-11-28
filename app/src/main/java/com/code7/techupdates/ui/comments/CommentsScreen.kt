@@ -35,6 +35,8 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -78,7 +80,12 @@ fun CommentsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(R.string.comments_title)) },
+                title = {
+                    Text(
+                        stringResource(R.string.comments_title),
+                        modifier = Modifier.semantics { heading() },
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = actions.onBack) {
                         Icon(painterResource(R.drawable.ic_back), stringResource(R.string.icon_back))
@@ -171,6 +178,7 @@ private fun StoryHeader(
                     else -> story.title
                 },
             style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier.semantics { heading() },
         )
         if (story != null) {
             val meta =

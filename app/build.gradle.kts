@@ -36,6 +36,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            // TODO (#23): replace with the Play upload key; debug-signed for local release testing only.
+            signingConfig = signingConfigs["debug"]
         }
     }
 
