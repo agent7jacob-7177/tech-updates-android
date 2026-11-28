@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Code7Theme {
-                TechUpdatesApp()
+                AppRoot()
             }
         }
     }
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TechUpdatesApp(modifier: Modifier = Modifier) {
+fun AppRoot(modifier: Modifier = Modifier) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -54,8 +54,8 @@ fun TechUpdatesApp(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-private fun TechUpdatesAppPreview() {
+private fun AppRootPreview() {
     Code7Theme {
-        TechUpdatesApp()
+        AppRoot()
     }
 }
