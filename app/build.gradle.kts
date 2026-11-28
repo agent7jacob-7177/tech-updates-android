@@ -28,6 +28,17 @@ android {
         versionName = "0.1.0"
     }
 
+    signingConfigs {
+        create("release") {
+            // TODO (#23): switch to Play App Signing / upload keystore before publishing.
+            // For now reuse debug keystore so assembleRelease succeeds with a valid APK.
+            storeFile = file("${rootProject.projectDir}/keystore.jks")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -36,6 +47,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            signingConfig = signingConfigs["debug"]
         }
     }
 

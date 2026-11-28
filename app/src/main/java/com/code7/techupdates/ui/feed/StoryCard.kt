@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -52,7 +53,14 @@ fun StoryCard(
     onToggleLater: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    OutlinedCard(onClick = onOpen, modifier = modifier.fillMaxWidth()) {
+    val desc = "${card.story.title} · ${card.domain} · ${card.story.points} points · ${card.story.numComments} comments"
+    OutlinedCard(
+        onClick = onOpen,
+        modifier =
+            modifier.fillMaxWidth().semantics(mergeDescendants = true) {
+                contentDescription = desc
+            },
+    ) {
         Column(Modifier.padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)) {
             CardHeader(card, onToggleLater)
             Column(Modifier.padding(end = 12.dp)) {
