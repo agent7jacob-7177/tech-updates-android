@@ -75,11 +75,11 @@ class FeedViewModelTest {
         }
 
     @Test
-    fun initialLoad_restoredForYou_showsComingSoonWithoutRequest() =
+    fun initialLoad_restoredForYou_showsForYouContentWithoutRequest() =
         runTest {
             val vm = viewModel(FakeSettings(feed = "foryou"))
             vm.uiState.test {
-                val state = awaitUntil { it.content == FeedContent.ComingSoon }
+                val state = awaitUntil { it.content == FeedContent.ForYou }
                 assertEquals(FeedTab.FOR_YOU, state.tab)
             }
             assertTrue(source.requests.isEmpty())
@@ -221,12 +221,12 @@ class FeedViewModelTest {
         }
 
     @Test
-    fun selectTab_forYou_showsComingSoon_withoutRequest() =
+    fun selectTab_forYou_showsForYouContent_withoutRequest() =
         runTest {
             val settings = FakeSettings()
             val vm = viewModel(settings)
             vm.selectTab(FeedTab.FOR_YOU)
-            vm.uiState.test { awaitUntil { it.content == FeedContent.ComingSoon } }
+            vm.uiState.test { awaitUntil { it.content == FeedContent.ForYou } }
             assertEquals("foryou", settings.selectedFeed.value)
             assertEquals(1, source.requests.size)
         }

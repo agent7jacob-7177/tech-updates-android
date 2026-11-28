@@ -39,10 +39,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
@@ -55,7 +53,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -64,7 +61,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -78,9 +74,13 @@ import com.code7.techupdates.domain.Story
 import com.code7.techupdates.domain.Topic
 import com.code7.techupdates.domain.timeAgo
 import com.code7.techupdates.ui.common.MessageState
+import com.code7.techupdates.ui.foryou.ForYouActions
+import com.code7.techupdates.ui.foryou.ForYouFilter
+import com.code7.techupdates.ui.foryou.ForYouList
+import com.code7.techupdates.ui.foryou.ForYouUiState
+import com.code7.techupdates.ui.foryou.ForYouViewModel
 import com.code7.techupdates.ui.theme.Code7Theme
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun FeedRoute(
@@ -88,36 +88,29 @@ fun FeedRoute(
     onOpenComments: (String) -> Unit,
     onOpenSettings: () -> Unit = {},
     viewModel: FeedViewModel = viewModel(factory = FeedViewModel.Factory),
+    forYouViewModel: ForYouViewModel = viewModel(factory = ForYouViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    val snackbarHostState = remember { SnackbarHostState() }
-    val resources = LocalResources.current
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(viewModel) {
-        viewModel.uiEvents.collect { event ->
-            when (event) {
-                is FeedEvent.LaterToggled -> {
-                    snackbarHostState.currentSnackbarData?.dismiss()
-                    scope.launch {
-                        val result =
-                            snackbarHostState.showSnackbar(
-                                message =
-                                    resources.getString(
-                                        if (event.saved) R.string.feed_saved_later else R.string.feed_removed_later,
-                                    ),
-                                actionLabel = resources.getString(R.string.feed_undo),
-                                duration = SnackbarDuration.Short,
-                            )
-                        if (result == SnackbarResult.ActionPerformed) viewModel.undoToggleLater(event)
-                    }
-                }
-            }
+    val forYouState by forYouViewModel.uiState.collectAsStateWithLifecycle()
+    val forYouActions =
+        remember(forYouViewModel) {
+            ForYouActions(
+                onShow = forYouViewModel::show,
+                onRefresh = forYouViewModel::refresh,
+                onRetry = forYouViewModel::retry,
+                onReset = forYouViewModel::reset,
+            )
         }
-    }
+    val snackbarHostState = remember { SnackbarHostState() }
+    FeedEventsEffect(viewModel, snackbarHostState)
     val actions =
         remember(viewModel) {
             FeedActions(
-                onSelectTab = viewModel::selectTab,
+                onSelectTab = { tab ->
+                    val entering = tab == FeedTab.FOR_YOU && viewModel.uiState.value.tab != FeedTab.FOR_YOU
+                    if (entering) forYouViewModel.onTabEntered()
+                    viewModel.selectTab(tab)
+                },
                 onSelectTopic = viewModel::selectTopic,
                 onSearchTextChange = viewModel::onSearchTextChange,
                 onRefresh = viewModel::refresh,
@@ -135,7 +128,7 @@ fun FeedRoute(
                 onToggleLater = viewModel::toggleLater,
             )
         }
-    FeedScreen(state, actions, snackbarHostState, onOpenSettings)
+    FeedScreen(state, actions, snackbarHostState, onOpenSettings, forYouState, forYouActions)
 }
 
 @Composable
@@ -144,7 +137,14 @@ fun FeedScreen(
     actions: FeedActions,
     snackbarHostState: SnackbarHostState = remember { SnackbarHostState() },
     onOpenSettings: () -> Unit = {},
+    forYouState: ForYouUiState = ForYouUiState(),
+    forYouActions: ForYouActions = ForYouActions(),
 ) {
+    val isForYou = state.content == FeedContent.ForYou
+    if (isForYou) {
+        val filter = ForYouFilter(state.query, state.topicId)
+        LaunchedEffect(filter) { forYouActions.onShow(filter) }
+    }
     Scaffold(
         topBar = { FeedTopBar(state.searchText, actions.onSearchTextChange, onOpenSettings) },
         snackbarHost = { SnackbarHost(snackbarHostState) },
@@ -159,10 +159,10 @@ fun FeedScreen(
                     )
                 }
             }
-            if (state.tab != FeedTab.FOR_YOU) TopicChips(state.topicId, actions.onSelectTopic)
+            TopicChips(state.topicId, actions.onSelectTopic)
             PullToRefreshBox(
-                isRefreshing = state.isRefreshing,
-                onRefresh = actions.onRefresh,
+                isRefreshing = if (isForYou) forYouState.isRefreshing else state.isRefreshing,
+                onRefresh = if (isForYou) forYouActions.onRefresh else actions.onRefresh,
                 modifier = Modifier.weight(1f).fillMaxWidth(),
             ) {
                 when (val content = state.content) {
@@ -179,11 +179,8 @@ fun FeedScreen(
                         )
                     }
 
-                    FeedContent.ComingSoon -> {
-                        ScrollableMessage(
-                            title = stringResource(R.string.feed_for_you_title),
-                            message = stringResource(R.string.feed_for_you_subtitle),
-                        )
+                    FeedContent.ForYou -> {
+                        ForYouList(forYouState, forYouActions, actions)
                     }
 
                     is FeedContent.Stories -> {

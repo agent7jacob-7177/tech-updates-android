@@ -1,0 +1,1024 @@
+{
+  "scenario": "C",
+  "stories": [
+    {
+      "id": "s01",
+      "title": "OpenAI releases GPT-5 with improved reasoning",
+      "url": "https://www.openai.com/blog/gpt-5"
+    },
+    {
+      "id": "s02",
+      "title": "Claude 4 benchmarks and what they mean",
+      "url": "https://anthropic.com/claude-4"
+    },
+    {
+      "id": "s03",
+      "title": "Anthropic publishes its AI safety report",
+      "url": "https://www.anthropic.com/safety"
+    },
+    {
+      "id": "s04",
+      "title": "Gemini 2.5 review: a year of chatbot progress",
+      "url": "https://blog.google/gemini-2-5"
+    },
+    {
+      "id": "s05",
+      "title": "ChatGPT memory feature explained",
+      "url": "https://openai.com/chatgpt-memory"
+    },
+    {
+      "id": "s06",
+      "title": "AGI timelines: a sober look",
+      "url": "https://example-ai.org/agi-timelines"
+    },
+    {
+      "id": "s07",
+      "title": "PyTorch 3.0 released",
+      "url": "https://pytorch.org/blog/pytorch-3-0"
+    },
+    {
+      "id": "s08",
+      "title": "TensorFlow vs JAX in 2026",
+      "url": "https://www.tensorflow.org/blog/tf-vs-jax"
+    },
+    {
+      "id": "s09",
+      "title": "Fine-tuning LLMs on edge devices",
+      "url": "https://huggingface.co/blog/edge-finetuning"
+    },
+    {
+      "id": "s10",
+      "title": "A survey of diffusion models",
+      "url": "https://arxiv.org/abs/2601.01234"
+    },
+    {
+      "id": "s11",
+      "title": "Kaggle tabular competition results",
+      "url": "https://www.kaggle.com/competitions/tabular-2026"
+    },
+    {
+      "id": "s12",
+      "title": "XGBoost still wins tabular data",
+      "url": "https://dmlc.ai/blog/xgboost-2026"
+    },
+    {
+      "id": "s13",
+      "title": "scikit-learn 1.7 and open weights models",
+      "url": "https://scikit-learn.org/stable/whats_new"
+    },
+    {
+      "id": "s14",
+      "title": "Major breach at a cloud provider",
+      "url": "https://www.securityweek.com/cloud-breach"
+    },
+    {
+      "id": "s15",
+      "title": "New CVE in the Linux kernel",
+      "url": "https://kernel.org/security/cve-2026-1234"
+    },
+    {
+      "id": "s16",
+      "title": "Ransomware targets hospitals again",
+      "url": "https://www.bleepingcomputer.com/ransomware"
+    },
+    {
+      "id": "s17",
+      "title": "Privacy regulations in 2026",
+      "url": "https://iapp.org/privacy-regulations"
+    },
+    {
+      "id": "s18",
+      "title": "An exploit chain, dissected",
+      "url": "https://thehackernews.com/exploit-chain"
+    },
+    {
+      "id": "s19",
+      "title": "Malware found in npm packages",
+      "url": "https://www.snyk.com/blog/npm-malware"
+    },
+    {
+      "id": "s20",
+      "title": "Rust 2.0 announced",
+      "url": "https://www.rust-lang.org/blog/rust-2-0"
+    },
+    {
+      "id": "s21",
+      "title": "Python 3.14 release notes",
+      "url": "https://docs.python.org/3/whatsnew/3.14.html"
+    },
+    {
+      "id": "s22",
+      "title": "TypeScript 6.0: what changed",
+      "url": "https://www.typescriptlang.org/blog/ts-6"
+    },
+    {
+      "id": "s23",
+      "title": "Go 1.25 performance improvements",
+      "url": "https://go.dev/blog/go1.25"
+    },
+    {
+      "id": "s24",
+      "title": "Golang vs Rust for backend services",
+      "url": "https://example.dev/golang-vs-rust"
+    },
+    {
+      "id": "s25",
+      "title": "Notes on compiler design",
+      "url": "https://www.cs.cmu.edu/compilers/notes"
+    },
+    {
+      "id": "s26",
+      "title": "API design patterns that scale",
+      "url": "https://www.iamnotapi.com/api-design"
+    },
+    {
+      "id": "s27",
+      "title": "Developer productivity survey 2026",
+      "url": "https://survey.dev/productivity"
+    },
+    {
+      "id": "s28",
+      "title": "Nvidia unveils the B400 GPU",
+      "url": "https://www.nvidia.com/en-us/data-center/b400"
+    },
+    {
+      "id": "s29",
+      "title": "AMD Ryzen 10000 series review",
+      "url": "https://www.amd.com/en/ryzen-10000"
+    },
+    {
+      "id": "s30",
+      "title": "Intel 18A process in production",
+      "url": "https://www.intel.com/content/www/us/en/newsroom/18a.html"
+    },
+    {
+      "id": "s31",
+      "title": "Apple Silicon M6 inside the new Mac",
+      "url": "https://www.apple.com/mac/m6"
+    },
+    {
+      "id": "s32",
+      "title": "ARM servers keep rising",
+      "url": "https://www.arm.com/servers"
+    },
+    {
+      "id": "s33",
+      "title": "Chip fabrication: the next decade",
+      "url": "https://www.semiconductors.org/fab-2036"
+    },
+    {
+      "id": "s34",
+      "title": "NASA Artemis launch goes ahead",
+      "url": "https://www.nasa.gov/artemis-launch"
+    },
+    {
+      "id": "s35",
+      "title": "SpaceX Starship completes orbital test",
+      "url": "https://www.spacex.com/starship"
+    },
+    {
+      "id": "s36",
+      "title": "Rocket recovery test succeeds",
+      "url": "https://arstechnica.com/rocket-recovery"
+    },
+    {
+      "id": "s37",
+      "title": "Satellite internet expansion continues",
+      "url": "https://www.satellitedaily.com/expansion"
+    },
+    {
+      "id": "s38",
+      "title": "Mars rover finds new mineral",
+      "url": "https://mars.nasa.gov/rover-mineral"
+    },
+    {
+      "id": "s39",
+      "title": "Moon base plans take shape",
+      "url": "https://moonbase.example.org/plans"
+    },
+    {
+      "id": "s40",
+      "title": "Startup raises $100M Series B",
+      "url": "https://techcrunch.com/series-b"
+    },
+    {
+      "id": "s41",
+      "title": "Acquisition of a dev tools company",
+      "url": "https://www.theverge.com/acquisition"
+    },
+    {
+      "id": "s42",
+      "title": "IPO of a cloud firm priced",
+      "url": "https://www.reuters.com/cloud-ipo"
+    },
+    {
+      "id": "s43",
+      "title": "VC winter may finally end",
+      "url": "https://www.pwc.com/vc-winter"
+    },
+    {
+      "id": "s44",
+      "title": "Funding rounds hit a record in Q3",
+      "url": "https://crunchbase.com/funding-q3"
+    },
+    {
+      "id": "s45",
+      "title": "Show HN: A terminal-based git client",
+      "url": "https://news.ycombinator.com/item?id=45000001"
+    },
+    {
+      "id": "s46",
+      "title": "Show HN: Build a website in 60 seconds",
+      "url": "https://www.showhn.dev/website-60s"
+    },
+    {
+      "id": "s47",
+      "title": "Ask HN: How do you manage context switching?",
+      "url": null
+    },
+    {
+      "id": "s48",
+      "title": "Ask HN: What is your dev setup in 2026?",
+      "url": null
+    },
+    {
+      "id": "s49",
+      "title": "The new",
+      "url": null
+    },
+    {
+      "id": "s50",
+      "title": "!!!",
+      "url": "https://example.com/no-words"
+    },
+    {
+      "id": "s51",
+      "title": "OpenAI developer platform update",
+      "url": "https://openai.com/platform"
+    },
+    {
+      "id": "s52",
+      "title": "Copilot and chatbot usage at work",
+      "url": "https://www.example-copilot.org/usage"
+    }
+  ],
+  "events": [],
+  "impressions": [],
+  "features": {
+    "s01": [
+      "w:openai",
+      "w:releases",
+      "w:gpt-5",
+      "w:improved",
+      "w:reasoning",
+      "b:openai releases",
+      "b:releases gpt-5",
+      "b:gpt-5 improved",
+      "b:improved reasoning",
+      "d:openai.com",
+      "t:AI"
+    ],
+    "s02": [
+      "w:claude",
+      "w:benchmarks",
+      "w:mean",
+      "b:claude benchmarks",
+      "b:benchmarks mean",
+      "d:anthropic.com",
+      "t:AI"
+    ],
+    "s03": [
+      "w:anthropic",
+      "w:publishes",
+      "w:ai",
+      "w:safety",
+      "w:report",
+      "b:anthropic publishes",
+      "b:publishes ai",
+      "b:ai safety",
+      "b:safety report",
+      "d:anthropic.com",
+      "t:AI"
+    ],
+    "s04": [
+      "w:gemini",
+      "w:2.5",
+      "w:review",
+      "w:chatbot",
+      "w:progress",
+      "b:gemini 2.5",
+      "b:2.5 review",
+      "b:review chatbot",
+      "b:chatbot progress",
+      "d:blog.google",
+      "t:AI"
+    ],
+    "s05": [
+      "w:chatgpt",
+      "w:memory",
+      "w:feature",
+      "w:explained",
+      "b:chatgpt memory",
+      "b:memory feature",
+      "b:feature explained",
+      "d:openai.com",
+      "t:AI"
+    ],
+    "s06": [
+      "w:agi",
+      "w:timelines",
+      "w:sober",
+      "w:look",
+      "b:agi timelines",
+      "b:timelines sober",
+      "b:sober look",
+      "d:example-ai.org",
+      "t:AI"
+    ],
+    "s07": [
+      "w:pytorch",
+      "w:3.0",
+      "w:released",
+      "b:pytorch 3.0",
+      "b:3.0 released",
+      "d:pytorch.org",
+      "t:ML"
+    ],
+    "s08": [
+      "w:tensorflow",
+      "w:jax",
+      "b:tensorflow jax",
+      "d:tensorflow.org",
+      "t:ML"
+    ],
+    "s09": [
+      "w:fine-tuning",
+      "w:llms",
+      "w:edge",
+      "w:devices",
+      "b:fine-tuning llms",
+      "b:llms edge",
+      "b:edge devices",
+      "d:huggingface.co",
+      "t:AI"
+    ],
+    "s10": [
+      "w:survey",
+      "w:diffusion",
+      "w:models",
+      "b:survey diffusion",
+      "b:diffusion models",
+      "d:arxiv.org",
+      "t:ML"
+    ],
+    "s11": [
+      "w:kaggle",
+      "w:tabular",
+      "w:competition",
+      "w:results",
+      "b:kaggle tabular",
+      "b:tabular competition",
+      "b:competition results",
+      "d:kaggle.com",
+      "t:ML"
+    ],
+    "s12": [
+      "w:xgboost",
+      "w:still",
+      "w:wins",
+      "w:tabular",
+      "w:data",
+      "b:xgboost still",
+      "b:still wins",
+      "b:wins tabular",
+      "b:tabular data",
+      "d:dmlc.ai",
+      "t:ML"
+    ],
+    "s13": [
+      "w:scikit-learn",
+      "w:1.7",
+      "w:open",
+      "w:weights",
+      "w:models",
+      "b:scikit-learn 1.7",
+      "b:1.7 open",
+      "b:open weights",
+      "b:weights models",
+      "d:scikit-learn.org",
+      "t:ML"
+    ],
+    "s14": [
+      "w:major",
+      "w:breach",
+      "w:cloud",
+      "w:provider",
+      "b:major breach",
+      "b:breach cloud",
+      "b:cloud provider",
+      "d:securityweek.com",
+      "t:Security"
+    ],
+    "s15": [
+      "w:cve",
+      "w:linux",
+      "w:kernel",
+      "b:cve linux",
+      "b:linux kernel",
+      "d:kernel.org",
+      "t:Security"
+    ],
+    "s16": [
+      "w:ransomware",
+      "w:targets",
+      "w:hospitals",
+      "w:again",
+      "b:ransomware targets",
+      "b:targets hospitals",
+      "b:hospitals again",
+      "d:bleepingcomputer.com",
+      "t:Security"
+    ],
+    "s17": [
+      "w:privacy",
+      "w:regulations",
+      "b:privacy regulations",
+      "d:iapp.org",
+      "t:Security"
+    ],
+    "s18": [
+      "w:exploit",
+      "w:chain",
+      "w:dissected",
+      "b:exploit chain",
+      "b:chain dissected",
+      "d:thehackernews.com",
+      "t:Security"
+    ],
+    "s19": [
+      "w:malware",
+      "w:found",
+      "w:npm",
+      "w:packages",
+      "b:malware found",
+      "b:found npm",
+      "b:npm packages",
+      "d:snyk.com",
+      "t:Security"
+    ],
+    "s20": [
+      "w:rust",
+      "w:2.0",
+      "w:announced",
+      "b:rust 2.0",
+      "b:2.0 announced",
+      "d:rust-lang.org",
+      "t:Programming"
+    ],
+    "s21": [
+      "w:python",
+      "w:3.14",
+      "w:release",
+      "w:notes",
+      "b:python 3.14",
+      "b:3.14 release",
+      "b:release notes",
+      "d:docs.python.org",
+      "t:Programming"
+    ],
+    "s22": [
+      "w:typescript",
+      "w:6.0",
+      "w:changed",
+      "b:typescript 6.0",
+      "b:6.0 changed",
+      "d:typescriptlang.org",
+      "t:Programming"
+    ],
+    "s23": [
+      "w:go",
+      "w:1.25",
+      "w:performance",
+      "w:improvements",
+      "b:go 1.25",
+      "b:1.25 performance",
+      "b:performance improvements",
+      "d:go.dev",
+      "t:Programming"
+    ],
+    "s24": [
+      "w:golang",
+      "w:rust",
+      "w:backend",
+      "w:services",
+      "b:golang rust",
+      "b:rust backend",
+      "b:backend services",
+      "d:example.dev",
+      "t:Programming"
+    ],
+    "s25": [
+      "w:notes",
+      "w:compiler",
+      "w:design",
+      "b:notes compiler",
+      "b:compiler design",
+      "d:cs.cmu.edu",
+      "t:Programming"
+    ],
+    "s26": [
+      "w:api",
+      "w:design",
+      "w:patterns",
+      "w:scale",
+      "b:api design",
+      "b:design patterns",
+      "b:patterns scale",
+      "d:iamnotapi.com",
+      "t:Programming"
+    ],
+    "s27": [
+      "w:developer",
+      "w:productivity",
+      "w:survey",
+      "b:developer productivity",
+      "b:productivity survey",
+      "d:survey.dev",
+      "t:Programming"
+    ],
+    "s28": [
+      "w:nvidia",
+      "w:unveils",
+      "w:b400",
+      "w:gpu",
+      "b:nvidia unveils",
+      "b:unveils b400",
+      "b:b400 gpu",
+      "d:nvidia.com",
+      "t:Hardware"
+    ],
+    "s29": [
+      "w:amd",
+      "w:ryzen",
+      "w:series",
+      "w:review",
+      "b:amd ryzen",
+      "b:ryzen series",
+      "b:series review",
+      "d:amd.com",
+      "t:Hardware"
+    ],
+    "s30": [
+      "w:intel",
+      "w:18a",
+      "w:process",
+      "w:production",
+      "b:intel 18a",
+      "b:18a process",
+      "b:process production",
+      "d:intel.com",
+      "t:Hardware"
+    ],
+    "s31": [
+      "w:apple",
+      "w:silicon",
+      "w:m6",
+      "w:inside",
+      "w:mac",
+      "b:apple silicon",
+      "b:silicon m6",
+      "b:m6 inside",
+      "b:inside mac",
+      "d:apple.com",
+      "t:Hardware"
+    ],
+    "s32": [
+      "w:arm",
+      "w:servers",
+      "w:keep",
+      "w:rising",
+      "b:arm servers",
+      "b:servers keep",
+      "b:keep rising",
+      "d:arm.com",
+      "t:Hardware"
+    ],
+    "s33": [
+      "w:chip",
+      "w:fabrication",
+      "w:next",
+      "w:decade",
+      "b:chip fabrication",
+      "b:fabrication next",
+      "b:next decade",
+      "d:semiconductors.org",
+      "t:Hardware"
+    ],
+    "s34": [
+      "w:nasa",
+      "w:artemis",
+      "w:launch",
+      "w:goes",
+      "w:ahead",
+      "b:nasa artemis",
+      "b:artemis launch",
+      "b:launch goes",
+      "b:goes ahead",
+      "d:nasa.gov",
+      "t:Space"
+    ],
+    "s35": [
+      "w:spacex",
+      "w:starship",
+      "w:completes",
+      "w:orbital",
+      "w:test",
+      "b:spacex starship",
+      "b:starship completes",
+      "b:completes orbital",
+      "b:orbital test",
+      "d:spacex.com",
+      "t:Space"
+    ],
+    "s36": [
+      "w:rocket",
+      "w:recovery",
+      "w:test",
+      "w:succeeds",
+      "b:rocket recovery",
+      "b:recovery test",
+      "b:test succeeds",
+      "d:arstechnica.com",
+      "t:Space"
+    ],
+    "s37": [
+      "w:satellite",
+      "w:internet",
+      "w:expansion",
+      "w:continues",
+      "b:satellite internet",
+      "b:internet expansion",
+      "b:expansion continues",
+      "d:satellitedaily.com",
+      "t:Space"
+    ],
+    "s38": [
+      "w:mars",
+      "w:rover",
+      "w:finds",
+      "w:mineral",
+      "b:mars rover",
+      "b:rover finds",
+      "b:finds mineral",
+      "d:mars.nasa.gov",
+      "t:Space"
+    ],
+    "s39": [
+      "w:moon",
+      "w:base",
+      "w:plans",
+      "w:take",
+      "w:shape",
+      "b:moon base",
+      "b:base plans",
+      "b:plans take",
+      "b:take shape",
+      "d:moonbase.example.org",
+      "t:Space"
+    ],
+    "s40": [
+      "w:startup",
+      "w:raises",
+      "w:100m",
+      "w:series",
+      "b:startup raises",
+      "b:raises 100m",
+      "b:100m series",
+      "d:techcrunch.com",
+      "t:Startups"
+    ],
+    "s41": [
+      "w:acquisition",
+      "w:dev",
+      "w:tools",
+      "w:company",
+      "b:acquisition dev",
+      "b:dev tools",
+      "b:tools company",
+      "d:theverge.com",
+      "t:Startups"
+    ],
+    "s42": [
+      "w:ipo",
+      "w:cloud",
+      "w:firm",
+      "w:priced",
+      "b:ipo cloud",
+      "b:cloud firm",
+      "b:firm priced",
+      "d:reuters.com",
+      "t:Startups"
+    ],
+    "s43": [
+      "w:vc",
+      "w:winter",
+      "w:may",
+      "w:finally",
+      "w:end",
+      "b:vc winter",
+      "b:winter may",
+      "b:may finally",
+      "b:finally end",
+      "d:pwc.com",
+      "t:Startups"
+    ],
+    "s44": [
+      "w:funding",
+      "w:rounds",
+      "w:hit",
+      "w:record",
+      "w:q3",
+      "b:funding rounds",
+      "b:rounds hit",
+      "b:hit record",
+      "b:record q3",
+      "d:crunchbase.com",
+      "t:Startups"
+    ],
+    "s45": [
+      "w:terminal-based",
+      "w:git",
+      "w:client",
+      "b:terminal-based git",
+      "b:git client",
+      "d:news.ycombinator.com",
+      "k:Show HN"
+    ],
+    "s46": [
+      "w:build",
+      "w:website",
+      "w:seconds",
+      "b:build website",
+      "b:website seconds",
+      "d:showhn.dev",
+      "k:Show HN"
+    ],
+    "s47": [
+      "w:manage",
+      "w:context",
+      "w:switching",
+      "b:manage context",
+      "b:context switching",
+      "k:Ask HN"
+    ],
+    "s48": [
+      "w:dev",
+      "w:setup",
+      "b:dev setup",
+      "k:Ask HN"
+    ],
+    "s49": [],
+    "s50": [
+      "d:example.com"
+    ],
+    "s51": [
+      "w:openai",
+      "w:developer",
+      "w:platform",
+      "w:update",
+      "b:openai developer",
+      "b:developer platform",
+      "b:platform update",
+      "d:openai.com",
+      "t:AI"
+    ],
+    "s52": [
+      "w:copilot",
+      "w:chatbot",
+      "w:usage",
+      "w:work",
+      "b:copilot chatbot",
+      "b:chatbot usage",
+      "b:usage work",
+      "d:example-copilot.org",
+      "t:AI"
+    ]
+  },
+  "model": {
+    "w": [],
+    "b": 0,
+    "n": 0,
+    "support": []
+  },
+  "scores": {
+    "s01": {
+      "affinity": 0,
+      "why": []
+    },
+    "s02": {
+      "affinity": 0,
+      "why": []
+    },
+    "s03": {
+      "affinity": 0,
+      "why": []
+    },
+    "s04": {
+      "affinity": 0,
+      "why": []
+    },
+    "s05": {
+      "affinity": 0,
+      "why": []
+    },
+    "s06": {
+      "affinity": 0,
+      "why": []
+    },
+    "s07": {
+      "affinity": 0,
+      "why": []
+    },
+    "s08": {
+      "affinity": 0,
+      "why": []
+    },
+    "s09": {
+      "affinity": 0,
+      "why": []
+    },
+    "s10": {
+      "affinity": 0,
+      "why": []
+    },
+    "s11": {
+      "affinity": 0,
+      "why": []
+    },
+    "s12": {
+      "affinity": 0,
+      "why": []
+    },
+    "s13": {
+      "affinity": 0,
+      "why": []
+    },
+    "s14": {
+      "affinity": 0,
+      "why": []
+    },
+    "s15": {
+      "affinity": 0,
+      "why": []
+    },
+    "s16": {
+      "affinity": 0,
+      "why": []
+    },
+    "s17": {
+      "affinity": 0,
+      "why": []
+    },
+    "s18": {
+      "affinity": 0,
+      "why": []
+    },
+    "s19": {
+      "affinity": 0,
+      "why": []
+    },
+    "s20": {
+      "affinity": 0,
+      "why": []
+    },
+    "s21": {
+      "affinity": 0,
+      "why": []
+    },
+    "s22": {
+      "affinity": 0,
+      "why": []
+    },
+    "s23": {
+      "affinity": 0,
+      "why": []
+    },
+    "s24": {
+      "affinity": 0,
+      "why": []
+    },
+    "s25": {
+      "affinity": 0,
+      "why": []
+    },
+    "s26": {
+      "affinity": 0,
+      "why": []
+    },
+    "s27": {
+      "affinity": 0,
+      "why": []
+    },
+    "s28": {
+      "affinity": 0,
+      "why": []
+    },
+    "s29": {
+      "affinity": 0,
+      "why": []
+    },
+    "s30": {
+      "affinity": 0,
+      "why": []
+    },
+    "s31": {
+      "affinity": 0,
+      "why": []
+    },
+    "s32": {
+      "affinity": 0,
+      "why": []
+    },
+    "s33": {
+      "affinity": 0,
+      "why": []
+    },
+    "s34": {
+      "affinity": 0,
+      "why": []
+    },
+    "s35": {
+      "affinity": 0,
+      "why": []
+    },
+    "s36": {
+      "affinity": 0,
+      "why": []
+    },
+    "s37": {
+      "affinity": 0,
+      "why": []
+    },
+    "s38": {
+      "affinity": 0,
+      "why": []
+    },
+    "s39": {
+      "affinity": 0,
+      "why": []
+    },
+    "s40": {
+      "affinity": 0,
+      "why": []
+    },
+    "s41": {
+      "affinity": 0,
+      "why": []
+    },
+    "s42": {
+      "affinity": 0,
+      "why": []
+    },
+    "s43": {
+      "affinity": 0,
+      "why": []
+    },
+    "s44": {
+      "affinity": 0,
+      "why": []
+    },
+    "s45": {
+      "affinity": 0,
+      "why": []
+    },
+    "s46": {
+      "affinity": 0,
+      "why": []
+    },
+    "s47": {
+      "affinity": 0,
+      "why": []
+    },
+    "s48": {
+      "affinity": 0,
+      "why": []
+    },
+    "s49": {
+      "affinity": 0,
+      "why": []
+    },
+    "s50": {
+      "affinity": 0,
+      "why": []
+    },
+    "s51": {
+      "affinity": 0,
+      "why": []
+    },
+    "s52": {
+      "affinity": 0,
+      "why": []
+    }
+  },
+  "interests": []
+}

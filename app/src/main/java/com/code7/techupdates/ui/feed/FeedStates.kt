@@ -144,7 +144,7 @@ internal fun ScrollableMessage(
 
 /** Port of JS `renderSkeletons()`. */
 @Composable
-internal fun SkeletonList() {
+internal fun SkeletonList(status: String = stringResource(R.string.feed_loading_latest)) {
     val transition = rememberInfiniteTransition(label = "skeleton")
     val alpha by transition.animateFloat(
         initialValue = 0.4f,
@@ -152,7 +152,6 @@ internal fun SkeletonList() {
         animationSpec = infiniteRepeatable(tween(durationMillis = 800), RepeatMode.Reverse),
         label = "skeletonAlpha",
     )
-    val loading = stringResource(R.string.feed_loading_latest)
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
@@ -160,7 +159,7 @@ internal fun SkeletonList() {
     ) {
         item(key = "status") {
             Text(
-                loading,
+                status,
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

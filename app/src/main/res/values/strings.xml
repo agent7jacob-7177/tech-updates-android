@@ -25,8 +25,6 @@
     <string name="feed_load_more">Load more</string>
     <string name="feed_error_load_more">Couldn\'t load more stories. Try again.</string>
     <string name="feed_offline_banner">Offline: showing saved stories from %1$s.</string>
-    <string name="feed_for_you_title">For you is coming soon</string>
-    <string name="feed_for_you_subtitle">Stories picked from what you open, save and read. Keep reading and it will be ready when it lands.</string>
     <string name="feed_saved_later">Saved to Read later</string>
     <string name="feed_removed_later">Removed from Read later</string>
     <string name="feed_undo">Undo</string>
@@ -164,4 +162,26 @@
 
     <!-- Icon content descriptions -->
     <string name="icon_back">Back</string>
+
+    <!-- For you -->
+    <string name="for_you_loading">Finding stories for you…</string>
+    <string name="for_you_teach_title">✦ Teach this feed what you like</string>
+    <string name="for_you_progress">%1$d of %2$d stories</string>
+    <string name="for_you_teach_summary">Open, read or save a few stories. A small model on your device learns the topics, words and sites you care about and ranks new stories for you. Nothing leaves this device.</string>
+    <string name="for_you_interests_title">✦ Your interests</string>
+    <plurals name="for_you_learned_from">
+        <item quantity="one">learned from %d story you opened, saved or read</item>
+        <item quantity="other">learned from %d stories you opened, saved or read</item>
+    </plurals>
+    <string name="for_you_still_learning">Still learning: keep reading.</string>
+    <string name="for_you_reset">Reset</string>
+    <string name="for_you_reset_confirm">Forget what the model has learned? Your Read later and Read lists are kept.</string>
+    <string name="for_you_cancel">Cancel</string>
+    <plurals name="for_you_status_ranked">
+        <item quantity="one">%1$d pick ranked for you · updated %2$s</item>
+        <item quantity="other">%1$d picks ranked for you · updated %2$s</item>
+    </plurals>
+    <string name="for_you_status_cold">Showing popular stories until the model has learned your taste</string>
+    <string name="card_why">Because you read about %1$s</string>
+    <string name="card_why_join">%1$s and %2$s</string>
 </resources>

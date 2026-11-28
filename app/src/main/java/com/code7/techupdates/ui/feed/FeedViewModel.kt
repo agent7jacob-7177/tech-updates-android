@@ -44,7 +44,7 @@ class FeedViewModel(
     private val settings: FeedSettings,
     private val nowEpochSec: () -> Long = { System.currentTimeMillis() / MILLIS_PER_SECOND },
 ) : ViewModel() {
-    private enum class Status { LOADING, LOADED, ERROR, COMING_SOON }
+    private enum class Status { LOADING, LOADED, ERROR, FOR_YOU }
 
     private data class State(
         val restored: Boolean = false,
@@ -186,7 +186,7 @@ class FeedViewModel(
         loadJob?.cancel()
         val query = state.value.query(0)
         if (query == null) {
-            state.update { it.copy(status = Status.COMING_SOON, refreshing = false, appending = false) }
+            state.update { it.copy(status = Status.FOR_YOU, refreshing = false, appending = false) }
             return
         }
         state.update {
@@ -230,8 +230,8 @@ class FeedViewModel(
                     FeedContent.Error
                 }
 
-                Status.COMING_SOON -> {
-                    FeedContent.ComingSoon
+                Status.FOR_YOU -> {
+                    FeedContent.ForYou
                 }
 
                 Status.LOADED -> {
@@ -248,7 +248,7 @@ class FeedViewModel(
                     )
                 }
             }
-        return FeedUiState(tab, topicId, searchText, content, refreshing)
+        return FeedUiState(tab, topicId, searchText, query, content, refreshing)
     }
 
     companion object {

@@ -33,6 +33,8 @@ data class StoryCardUi(
     /** Plain-text excerpt of Ask HN / Show HN text, "" when none. */
     val excerpt: String,
     val isSaved: Boolean,
+    /** "For you" only: why the story was picked, shown as "Because you read about …". */
+    val why: List<String> = emptyList(),
 ) {
     val faviconUrl: String get() = "https://icons.duckduckgo.com/ip3/$domain.ico"
 
@@ -62,8 +64,8 @@ sealed interface FeedContent {
     /** Nothing could be loaded (no cache either): error with Retry. */
     data object Error : FeedContent
 
-    /** "For you" placeholder until the recommender lands (#15). */
-    data object ComingSoon : FeedContent
+    /** The "For you" tab, whose content comes from `ForYouViewModel`. */
+    data object ForYou : FeedContent
 
     data class Stories(
         /** Visible cards; already-read stories are hidden (JS `render`). */
@@ -89,6 +91,8 @@ data class FeedUiState(
     val topicId: String = "",
     /** Raw search field text (the applied query is debounced and trimmed). */
     val searchText: String = "",
+    /** The applied (debounced, trimmed) search query. */
+    val query: String = "",
     val content: FeedContent = FeedContent.Loading,
     /** Pull-to-refresh in progress (content stays visible). */
     val isRefreshing: Boolean = false,
