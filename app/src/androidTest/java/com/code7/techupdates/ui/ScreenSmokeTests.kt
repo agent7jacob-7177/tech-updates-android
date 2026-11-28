@@ -1,10 +1,12 @@
 package com.code7.techupdates.ui
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContent
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.code7.techupdates.MainActivity
 import com.code7.techupdates.R
 import com.code7.techupdates.ui.feed.FeedRoute
 import com.code7.techupdates.ui.feed.FeedViewModel
@@ -30,6 +32,7 @@ class ScreenSmokeTests {
         // The app should launch to the News tab (start destination)
         composeTestRule.waitUntil(3000) {
             // Check that we're on the News tab by looking for the search hint
+            var found = false
             try {
                 composeTestRule
                     .onNodeWithText(
@@ -38,9 +41,8 @@ class ScreenSmokeTests {
                             .context
                             .getString(R.string.feed_search_hint),
                     ).assertExists()
+                found = true
             } catch (_: AssertionError) {
-                // If search hint isn't found, feed might be loading or showing error
-                // Check for loading or error state instead
                 try {
                     composeTestRule
                         .onNodeWithText(
@@ -49,6 +51,7 @@ class ScreenSmokeTests {
                                 .context
                                 .getString(R.string.feed_loading_latest),
                         ).assertExists()
+                    found = true
                 } catch (_: AssertionError) {
                     try {
                         composeTestRule
@@ -58,11 +61,13 @@ class ScreenSmokeTests {
                                     .context
                                     .getString(R.string.feed_error_title),
                             ).assertExists()
+                        found = true
                     } catch (_: AssertionError) {
-                        false
+                        found = false
                     }
                 }
             }
+            found
         }
     }
 
@@ -96,7 +101,7 @@ class ScreenSmokeTests {
                     try {
                         // Check for story cards (any card with points)
                         composeTestRule
-                            .onNodeWithContent(
+                            .onNodeWithContentDescription(
                                 InstrumentationRegistry
                                     .getInstrumentation()
                                     .context
@@ -133,7 +138,7 @@ class ScreenSmokeTests {
         // Try to open the first story card
         try {
             composeTestRule
-                .onNodeWithContent(
+                .onNodeWithContentDescription(
                     InstrumentationRegistry
                         .getInstrumentation()
                         .context
@@ -155,7 +160,7 @@ class ScreenSmokeTests {
                     try {
                         // Reader might show content directly
                         composeTestRule
-                            .onNodeWithContent(
+                            .onNodeWithContentDescription(
                                 InstrumentationRegistry
                                     .getInstrumentation()
                                     .context
@@ -211,7 +216,7 @@ class ScreenSmokeTests {
         // Try to open settings from the feed
         try {
             composeTestRule
-                .onNodeWithContent(
+                .onNodeWithContentDescription(
                     InstrumentationRegistry
                         .getInstrumentation()
                         .context

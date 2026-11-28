@@ -145,6 +145,8 @@ dependencies {
     testImplementation(libs.coil.test)
     testImplementation(libs.roborazzi)
 
+    androidTestImplementation(project(":app"))
+    androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.rules)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -152,5 +154,4 @@ dependencies {
     androidTestDebugImplementation(libs.androidx.compose.ui.test.manifest)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
-
 }
