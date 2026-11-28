@@ -1,0 +1,55 @@
+name: CI - Emulator Tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, 'feat/**' ]
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly on Monday at 6 AM UTC
+
+jobs:
+  android-emulator:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        api-level: [ 26, 30, 35 ]
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Create AVD and generate screenshot
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86_64
+          profile: pixel_6
+          target: google_apis
+          avd-name: tu_api${{ matrix.api-level }}
+          script: |
+            ./gradlew connectedDebugAndroidTest --no-daemon
+            echo "Emulator test completed for API ${{ matrix.api-level }}"
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-test-reports-api${{ matrix.api-level }}
+          path: |
+            app/build/outputs/android-test-status/*
+            app/build/reports/**/*
+          retention-days: 30
